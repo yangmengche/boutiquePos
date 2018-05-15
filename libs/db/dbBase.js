@@ -26,7 +26,7 @@ class Database{
 
       db.on('open', () => {
         this.accounts = mongoose.model('accounts', DBSchema.accountSchema);
-        this.suppliers = mongoose.model('supplierss', DBSchema.supplierSchema);
+        this.suppliers = mongoose.model('suppliers', DBSchema.supplierSchema);
         this.categories = mongoose.model('categories', DBSchema.categorySchema);
         this.items = mongoose.model('items', DBSchema.itemSchema);
         this.inStocks = mongoose.model('inStocks', DBSchema.inStockSchema);
