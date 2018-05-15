@@ -41,12 +41,12 @@ router.post('/account/logout', accountMgr.authenticate, accountMgr.logout);
  * @apiGroup Account API
  * @apiParam {String} account Account ID.
  * @apiParam {String} password Password of account.
- * @apiParam {String} email Email of account.
+ * @apiParam {String} type type of account ['adm', 'user'].
  * @apiParamExample {json} Body of Request-Example:
  *  {
  *    "account":"adm",
  *    "password":"1111",
- *    "email":"admin@gmail.com"
+ *    "type":"adm"
  *  } 
  * @apiSuccess (Success 200) {Number} nModified The number of account be modified.
  * @apiSuccessExample Success-Response
@@ -69,7 +69,7 @@ router.post('/account/update', accountMgr.authenticate, accountMgr.updateAccount
  * @apiSuccessExample Body of Response-Example:
  *  {
  *    "account": "admin",
- *    "email": "xxx@gmail.com"
+ *    "type": "adm"
  *  }
  * @apiUse ParameterError
  * @apiUse Unauthorized
@@ -77,5 +77,30 @@ router.post('/account/update', accountMgr.authenticate, accountMgr.updateAccount
  * @apiUse InternalError
  */
 router.get('/account', accountMgr.authenticate, accountMgr.getAccount);
+
+/**
+ * @api {post} /account/create Create
+ * @apiDescription create a new account.
+ * @apiGroup Account API
+ * @apiParam {String} name Account ID.
+ * @apiParam {String} password Password of account.
+ * @apiParam {String} type type of account ['adm', 'user'].
+ * @apiParamExample {json} Body of Request-Example:
+ *  {
+ *    "account":"adm",
+ *    "password":"1111",
+ *    "type":"adm"
+ *  } 
+ * @apiSuccess (Success 200) {Number} nModified The number of account be modified.
+ * @apiSuccessExample Success-Response
+ *  { 
+ *    "nModified": 1,
+ *  }
+ * @apiUse ParameterError
+ * @apiUse Unauthorized
+ * @apiUse Forbidden
+ * @apiUse InternalError
+ */
+router.post('/account/create', accountMgr.authenticate, accountMgr.createAccount);
 
 module.exports = router;

@@ -83,3 +83,19 @@ exports.getAccount = async (req, res) => {
   }
 };
 
+exports.createAccount = async(req, res) => {
+  try {
+    let body = await utils.fnGetBody(req);
+    let updateObj = {
+      'account': body.account,
+      'password': utils.crypto(body.password),
+      'type': body.type
+    };
+    updateObj = JSON.parse(JSON.stringify(updateObj));
+    let r = await db.createAccount(updateObj);
+    utils.fnResponse(null, r, res);
+  } catch (err) {
+    log.writeLog(err.message, 'error');
+    utils.fnResponse(err, null, res);
+  }  
+}

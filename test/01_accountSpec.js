@@ -29,7 +29,7 @@ describe('[Account spec]', () => {
     try {
       var res = await agent.post('/account/login')
         .set('Content-Type', 'application/json')
-        .send(testData.accounts.default)
+        .send(testData.accounts.adm)
         .expect(200);
     } catch (err) {
       assert(!err, err.message);
@@ -45,7 +45,21 @@ describe('[Account spec]', () => {
       assert(!err, err.message);
     }
     let obj = JSON.parse(res.text);
-    assert.strictEqual(obj.account, testData.accounts.default.account);
+    assert.strictEqual(obj.account, testData.accounts.adm.account);
     assert(!obj.password);
   });
+
+  it('should create a new user', async () => {
+    try{
+      var res = await agent.post('/account/create')
+      .set('Content-Type', 'application/json')
+      .send(testData.accounts.user1)
+      .expect(200);
+    }catch(err){
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert(obj.id);
+  });  
+
 });

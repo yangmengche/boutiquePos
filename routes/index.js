@@ -18,6 +18,11 @@ function redirectTo(req, res, next) {
 router.post('/account/login',  redirectTo);
 router.post('/account/add', redirectTo);
 router.get('/account', redirectTo);
-router.put('/account/changePassword', redirectTo);
+router.post('/account/create', redirectTo);
+
+// supplier
+router.post('/supplier/create', redirectTo);
+router.get('/supplier', redirectTo);
+router.put('/supplier/update', redirectTo);
 
 module.exports = router;
