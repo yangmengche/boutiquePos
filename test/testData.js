@@ -42,6 +42,7 @@ exports.categories = categories;
 
 let items = {
   's01-c01-001-S':{
+    'code': '1901-0301-001',
     'name': 's01-c01-001',
     'supplierID': '$s01',
     'category': categories.c01.name,
@@ -51,6 +52,7 @@ let items = {
     'marketPrice':590
   },
   's01-c01-001-M':{
+    'code': '1901-0301-001',
     'name': 's01-c01-001',
     'supplierID': '$s01',
     'category': categories.c01.name,
@@ -60,6 +62,7 @@ let items = {
     'marketPrice':590
   },
   's01-c01-001-L':{
+    'code': '1901-0301-001',
     'name': 's01-c01-001',
     'supplierID': '$s01',
     'category': categories.c01.name,
@@ -69,6 +72,7 @@ let items = {
     'marketPrice':590
   },
   's01-c02-001-3S':{
+    'code': '1901-0302-001',
     'name': 's01-c02-001',
     'supplierID': '$s01',
     'category': categories.c02.name,
@@ -78,6 +82,7 @@ let items = {
     'marketPrice':190
   },  
   's02-c02-001-XL':{
+    'code': '1902-0302-001',
     'name': 's02-c02-001',
     'supplierID': '$s02',
     'category': categories.c02.name,
@@ -87,6 +92,7 @@ let items = {
     'marketPrice':680
   },
   's02-c02-001-2L':{
+    'code': '1902-0302-001',
     'name': 's02-c02-001',
     'supplierID': '$s02',
     'category': categories.c02.name,
@@ -96,6 +102,7 @@ let items = {
     'marketPrice':680
   },
   's02-c02-001-3L':{
+    'code': '1902-0302-001',
     'name': 's02-c02-001',
     'supplierID': '$s02',
     'category': categories.c02.name,

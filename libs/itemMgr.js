@@ -87,14 +87,28 @@ exports.queryItems = async (req, res) => {
   }
 };
 
+exports.getItem = async (req, res) =>{
+  try{
+    let docs = await db.getItem(req.query.id, req.query.code);
+    return utils.fnResponse(null, docs, res);
+  }catch(err){
+    log.writeLog(err.message, 'error');
+    utils.fnResponse(err, null, res);    
+  }
+}
+
 exports.stockItems = async (req, res) => {
   try {
     let body = await utils.fnGetBody(req);
     // write stock log
     let logID = await db.createStockLog(body);
     // calculate stock of items
-    let item = await db.getItemByID(body.itemID);
-    let stock = item.stock + body.quantity;
+    let item = await db.getItem(body.itemID);
+    if(item.length <= 0){
+      log.writeLog('Can\'t find item='+body.itemID, 'error');
+      return utils.fnResponse(errCode.ObjectNotFound, null, res);
+    }
+    let stock = item[0].stock + body.quantity;
     let result = await db.updateItem(body.itemID, {'stock': stock });
     return utils.fnResponse(null, result, res);
   } catch (err) {

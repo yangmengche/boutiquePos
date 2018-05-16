@@ -301,7 +301,30 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj[0].marketPrice, testData.items["s01-c01-001-L"].marketPrice);
   });
 
+  it('should get item by id', async () => {
+    try {
+      var res = await agent.get('/item?id='+testData.items["s01-c01-001-S"].id)
+        .set('Content-Type', 'application/json')
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert.strictEqual(obj[0].name, testData.items["s01-c01-001-S"].name);
+  });
 
+  it('should get item by code', async () => {
+    try {
+      var res = await agent.get('/item?code='+testData.items["s01-c01-001-S"].code)
+        .set('Content-Type', 'application/json')
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert.strictEqual(obj.length, 3);
+    assert.strictEqual(obj[0].name, testData.items["s01-c01-001-S"].name);
+  });  
 });
 
 

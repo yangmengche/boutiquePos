@@ -33,7 +33,7 @@ dbBase.removeCategories = async (ids) => {
 
 dbBase.updateCategory = async (id, category) => {
   try {
-    let result = await dbBase.categories.update({ _id: id }, {$set:category});
+    let result = await dbBase.categories.update({ _id: id }, { $set: category });
     return { 'nModified': result.nModified };
   } catch (err) {
     log.writeLog(err.message, 'error');
@@ -65,7 +65,7 @@ dbBase.createItem = async (item) => {
 
 dbBase.updateItem = async (id, item) => {
   try {
-    let result = await dbBase.items.update({ '_id': id }, {$set:item});
+    let result = await dbBase.items.update({ '_id': id }, { $set: item });
     return { 'nModified': result.nModified };
   } catch (err) {
     log.writeLog(err.message, 'error');
@@ -73,13 +73,20 @@ dbBase.updateItem = async (id, item) => {
   }
 }
 
-dbBase.getItemByID = async (id) => {
-  try{
-    let doc = dbBase.items.findById(id).lean();
-    return doc;
-  }catch(err){
+dbBase.getItem = async (id, code) => {
+  try {
+    let q = {};
+    if (id) {
+      q._id = id;
+    }
+    if (code) {
+      q.code = code;
+    }
+    let docs = await dbBase.items.find(q).lean();
+    return docs;
+  } catch (err) {
     log.writeLog(err.message, 'error');
-    throw dbBase.errorMap(err);    
+    throw dbBase.errorMap(err);
   }
 }
 

@@ -17,10 +17,11 @@ class DBSchema {
     });
 
     this.categorySchema = new mongoose.Schema({
-      name: String
+      name: {type: String, required: true, unique:true}
     });
 
     this.itemSchema = new mongoose.Schema({
+      code: {type: String, required: true},
       name: String,
       pic: String,
       supplierID: { type: mongoose.Schema.Types.ObjectId, required: true },

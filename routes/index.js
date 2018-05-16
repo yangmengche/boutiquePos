@@ -35,4 +35,5 @@ router.post('/item/create', redirectTo);
 router.put('/item/update', redirectTo);
 router.post('/item/query', redirectTo);
 router.post('/item/stock', redirectTo);
+router.get('/item', redirectTo);
 module.exports = router;
