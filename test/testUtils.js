@@ -97,6 +97,30 @@ class TestUtils {
     }
     return obj;
   }
+
+  static fillSupplierID(){
+    try{
+      for(let k in testData.items){
+        let key = testData.items[k].supplierID;
+        key = key.substr(1);
+        testData.items[k].supplierID = testData.suppliers[key].id
+      }
+    }catch(err){
+      console.log(err.message);
+    }
+  }
+
+  static fillItemID(){
+    try{
+      for(let k in testData.stocks){
+        let itemID = testData.stocks[k].itemID;
+        itemID = itemID.substr(1);
+        testData.stocks[k].itemID = testData.items[itemID].id;
+      }
+    }catch(err){
+      console.log(err.message);
+    }
+  }  
 }
 
 module.exports = TestUtils;

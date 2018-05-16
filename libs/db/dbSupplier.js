@@ -9,7 +9,7 @@ dbBase.createSupplier = async (supplier) => {
   try {
     let newSupplier = new dbBase.suppliers(supplier);
     let doc = await newSupplier.save();
-    return { id: doc.id };
+    return { 'id': doc.id };
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
@@ -21,7 +21,7 @@ dbBase.updateSupplier = async (supplier) => {
     let id = supplier.id;
     delete supplier.id;
     let result = await dbBase.suppliers.update({ '_id': id }, { '$set': supplier });
-    return result.nModified;
+    return { 'nModified': result.nModified };
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);

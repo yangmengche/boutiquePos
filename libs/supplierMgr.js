@@ -35,7 +35,7 @@ exports.updateSupplier = async(req, res) => {
     let body = await utils.fnGetBody(req);
     let supplier = JSON.parse(JSON.stringify(body));
     let r = await db.updateSupplier(supplier);
-    utils.fnResponse(null, {nModified: r}, res);
+    utils.fnResponse(null, r, res);
   } catch (err) {
     log.writeLog(err.message, 'error');
     utils.fnResponse(err, null, res);

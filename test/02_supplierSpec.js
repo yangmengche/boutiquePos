@@ -24,6 +24,7 @@ describe('[Supplier spec]', () => {
     }
   });
   after(async () => {
+    testUtils.fillSupplierID();
   });
 
   it('should create the new supplier s01', async () => {

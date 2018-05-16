@@ -20,11 +20,13 @@ dbBase.createDefaultAccount = async () => {
 
 dbBase.updateAccount = async (account, accountObj, unset) => {
   try {
+    let result;
     if (!!unset) {
-      return await dbBase.accounts.update({ 'account': account }, { '$set': accountObj, '$unset': unset });
+      result =  await dbBase.accounts.update({ 'account': account }, { '$set': accountObj, '$unset': unset });
     } else {
-      return await dbBase.accounts.update({ 'account': account }, { '$set': accountObj });
+      result =  await dbBase.accounts.update({ 'account': account }, { '$set': accountObj });
     }
+    return {'nModified': result.nModified}
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);

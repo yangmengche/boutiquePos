@@ -29,7 +29,7 @@ class Database{
         this.suppliers = mongoose.model('suppliers', DBSchema.supplierSchema);
         this.categories = mongoose.model('categories', DBSchema.categorySchema);
         this.items = mongoose.model('items', DBSchema.itemSchema);
-        this.inStocks = mongoose.model('inStocks', DBSchema.inStockSchema);
+        this.stockLogs = mongoose.model('stockLogs', DBSchema.stockLogSchema);
         this.receipts = mongoose.model('receipts', DBSchema.receiptSchema);
         log.writeLog('DB connected!', 'info');
         resolve(mongoose.connection);
@@ -74,6 +74,14 @@ class Database{
   }
   static isValidObjectId(id){
     return mongoose.Types.ObjectId.isValid(id);
+  }
+
+  static idtoString(ids){
+    strIDs=[];
+    for (let i in ids) {
+      strIDs.push(ids[i].toString());
+    }
+    return strIDs;
   }
 
   static createTimeSlotQuery(query, key, from, to) {

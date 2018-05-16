@@ -14,7 +14,10 @@
         "tdd",
         "--timeout",
         "999999",
+        "--bail",
         "--colors",
+        "--use_strict",
+        "--inline-diffs",
         "${workspaceFolder}/test"
       ],
       "internalConsoleOptions": "openOnSessionStart",

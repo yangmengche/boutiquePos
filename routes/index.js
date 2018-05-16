@@ -25,4 +25,14 @@ router.post('/supplier/create', redirectTo);
 router.get('/supplier', redirectTo);
 router.put('/supplier/update', redirectTo);
 
+// category
+router.post('/category/create', redirectTo);
+router.delete('/category', redirectTo);
+router.put('/category/update', redirectTo);
+router.get('/category', redirectTo);
+// item
+router.post('/item/create', redirectTo);
+router.put('/item/update', redirectTo);
+router.post('/item/query', redirectTo);
+router.post('/item/stock', redirectTo);
 module.exports = router;

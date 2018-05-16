@@ -24,18 +24,17 @@ class DBSchema {
       name: String,
       pic: String,
       supplierID: { type: mongoose.Schema.Types.ObjectId, required: true },
-      categoryID: { type: mongoose.Schema.Types.ObjectId, required: true },
+      category: { type: String, required: true},
       size: { type: String, required: true, enum: def.size },
       cost: { type: Number, requires: true, min: 0 },
       listPrice: { type: Number, requires: true, min: 0 },
       marketPrice: { type: Number, required: true, min: 0 },
-      stocks: { type: Number, required: true, default: 0 }
+      stock: { type: Number, required: true, default: 0 }
     });
 
-    this.inStockSchema = new mongoose.Schema({
+    this.stockLogSchema = new mongoose.Schema({
       date: { type: Date, required: true },
       itemID: { type: mongoose.Schema.Types.ObjectId, required: true },
-      size: { type: String, enum: def.size },
       quantity: {type: Number, required: true}
     });
 
