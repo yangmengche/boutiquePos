@@ -116,3 +116,24 @@ exports.stockItems = async (req, res) => {
     utils.fnResponse(err, null, res);
   }
 }
+
+exports.createRecept = async (req, res) => {
+  try{
+    let body = await utils.fnGetBody(req);
+    log.writeLog(JSON.stringify(body), 'info');
+    // create recept
+    for(let i in body.items){
+      let item = (await db.getItem(body.items[i].itemID))[0];
+      body.items[i].cost = item.cost;
+      body.items[i].listPrice = item.listPrice;
+      body.items[i].marketPrice = item.marketPrice;
+      let stock = item.stock - body.items[i].quantity;
+      let result = await db.updateItem(body.items[i].itemID, {'stock': stock });
+    }
+    let id = await db.createReceipt(body);
+    return utils.fnResponse(null, id, res);
+  } catch (err) {
+    log.writeLog(err.message, 'error');
+    utils.fnResponse(err, null, res);
+  }
+}

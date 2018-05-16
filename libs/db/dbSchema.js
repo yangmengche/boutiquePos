@@ -44,12 +44,14 @@ class DBSchema {
       cost: { type: Number, requires: true, min: 0 },
       listPrice: { type: Number, requires: true, min: 0 },
       marketPrice: { type: Number, required: true, min: 0 },
-      salePrice: { type: Number, required: true, min: 0 }
+      salePrice: { type: Number, required: true, min: 0 },
+      quantity: {type: Number, required: true}
     })
     this.receiptSchema = new mongoose.Schema({
       date: {type: Date, required: true},
-      items: [this.itemSchema],
+      items: [receiptItemSchema],
       payBy: {type: String, enum: def.payBy},
+      pay: {type: Number, required: true},
       remark: String
     })
   }

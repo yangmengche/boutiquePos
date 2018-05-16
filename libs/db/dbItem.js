@@ -134,4 +134,16 @@ dbBase.createStockLog = async (stock) => {
   }
 }
 
+// receipt
+dbBase.createReceipt = async (receipt) => {
+  try{
+    receipt.date = new Date().getTime();
+    let newReceipt = new dbBase.receipts(receipt);
+    let doc = await newReceipt.save();
+    return {'id': doc.id};
+  } catch (err) {
+    log.writeLog(err.message, 'error');
+    throw dbBase.errorMap(err);
+  }
+}
 module.exports = dbBase;

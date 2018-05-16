@@ -117,6 +117,13 @@ class TestUtils {
         itemID = itemID.substr(1);
         testData.stocks[k].itemID = testData.items[itemID].id;
       }
+      for(let k in testData.receipts){
+        for(let i in testData.receipts[k].items){
+          let itemID = testData.receipts[k].items[i].itemID;
+          itemID = itemID.substr(1);
+          testData.receipts[k].items[i].itemID = testData.items[itemID].id;
+        }
+      }      
     }catch(err){
       console.log(err.message);
     }

@@ -13,4 +13,6 @@ router.put('/item/update', itemMgr.updateItem);
 router.post('/item/query', itemMgr.queryItems);
 router.post('/item/stock', itemMgr.stockItems);
 router.get('/item', itemMgr.getItem);
+
+router.post('/receipt/create', itemMgr.createRecept);
 module.exports = router;

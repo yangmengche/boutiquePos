@@ -141,3 +141,19 @@ let stocks = {
   }          
 }
 exports.stocks = stocks;
+
+let receipts ={
+  'r01':{
+    items:[
+      {
+        'itemID': '$s01-c01-001-M',
+        'salePrice': items["s01-c01-001-M"].marketPrice,
+        'quantity': 1
+      }
+    ],
+    payBy: def.payBy[0],
+    pay: items["s01-c01-001-M"].marketPrice
+  }
+}
+
+exports.receipts = receipts;

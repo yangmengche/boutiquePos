@@ -122,5 +122,19 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj[0].cost, testData.items["s02-c02-001-XL"].cost);
     assert.strictEqual(obj[0].listPrice, testData.items["s02-c02-001-XL"].listPrice);
     assert.strictEqual(obj[0].marketPrice, testData.items["s02-c02-001-XL"].marketPrice);
+  });
+
+  it('should create receipt r01', async () => {
+    try {
+      var res = await agent.post('/receipt/create')
+        .set('Content-Type', 'application/json')
+        .send(testData.receipts.r01)
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert(obj.id);
   });  
 });
+
