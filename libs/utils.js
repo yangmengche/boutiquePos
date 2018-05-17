@@ -8,6 +8,7 @@ const errCode = require('./statusCode').ErrorCode;
 const succCode = require('./statusCode').SuccessCode;
 const config = require('../config/config');
 const log = require('./logger');
+const sharp = require('sharp')
 // const request = require('request');
 
 class Utils {
@@ -99,7 +100,9 @@ class Utils {
           }
           url = '/resource/' + name + '.' + ext;
           saveName = path.join(folder, name + '.' + ext);
-          fse.moveSync(src.path, saveName);
+          await sharp(src.path).resize(600, null).toFile(saveName);
+          fse.removeSync(src.path);
+          // fse.moveSync(src.path, saveName);
           return resolve({ 'file': url, 'type': file.type });
         } catch (e) {
           log.writeLog(e.message, 'error');

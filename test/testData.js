@@ -29,10 +29,10 @@ exports.suppliers = suppliers;
 
 let categories = {
   'c01':{
-    'name': 'C01'
+    'name': 'Shirt'
   },
   'c02':{
-    'name': 'C02'
+    'name': 'Jeans'
   },
   'c03':{
     'name': 'C03'

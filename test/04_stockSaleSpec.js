@@ -114,14 +114,15 @@ describe('[Item spec]', () => {
       assert(!err, err.message);
     }
     let obj = JSON.parse(res.text);
-    assert.strictEqual(obj.length, 1);
-    assert.strictEqual(obj[0].name, testData.items["s02-c02-001-XL"].name);
-    assert.strictEqual(obj[0].supplierID, testData.items["s02-c02-001-XL"].supplierID);
-    assert.strictEqual(obj[0].category, testData.items["s02-c02-001-XL"].category);
-    assert.strictEqual(obj[0].size, testData.items["s02-c02-001-XL"].size);
-    assert.strictEqual(obj[0].cost, testData.items["s02-c02-001-XL"].cost);
-    assert.strictEqual(obj[0].listPrice, testData.items["s02-c02-001-XL"].listPrice);
-    assert.strictEqual(obj[0].marketPrice, testData.items["s02-c02-001-XL"].marketPrice);
+    assert.strictEqual(obj.total, 1);
+    assert.strictEqual(obj.docs.length, 1);
+    assert.strictEqual(obj.docs[0].name, testData.items["s02-c02-001-XL"].name);
+    assert.strictEqual(obj.docs[0].supplierID, testData.items["s02-c02-001-XL"].supplierID);
+    assert.strictEqual(obj.docs[0].category, testData.items["s02-c02-001-XL"].category);
+    assert.strictEqual(obj.docs[0].size, testData.items["s02-c02-001-XL"].size);
+    assert.strictEqual(obj.docs[0].cost, testData.items["s02-c02-001-XL"].cost);
+    assert.strictEqual(obj.docs[0].listPrice, testData.items["s02-c02-001-XL"].listPrice);
+    assert.strictEqual(obj.docs[0].marketPrice, testData.items["s02-c02-001-XL"].marketPrice);
   });
 
   it('should create receipt r01', async () => {
@@ -176,8 +177,9 @@ describe('[Item spec]', () => {
       assert(!err, err.message);
     }
     let obj = JSON.parse(res.text);
-    assert.strictEqual(obj.length, 3);
-    receipt01 = obj[1];
+    assert.strictEqual(obj.total, 3);
+    assert.strictEqual(obj.docs.length, 3);
+    receipt01 = obj.docs[1];
   });
 
   it('should create return of receipt r02', async () => {

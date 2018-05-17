@@ -90,7 +90,7 @@ dbBase.getItem = async (id, code) => {
   }
 }
 
-dbBase.queryItems = async (name, supplierID, category, size, stock) => {
+dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit) => {
   try {
     let q = {};
     if (name) {
@@ -113,8 +113,18 @@ dbBase.queryItems = async (name, supplierID, category, size, stock) => {
         q.stock = { $lte: stock.max }
       }
     }
-    let docs = await dbBase.items.find(q).sort({ 'name': 1 }).lean();
-    return docs;
+    let total = await dbBase.items.count(q);
+    let query = dbBase.items.find(q).sort({ 'name': 1 });
+    let s = parseInt(skip);
+    if (!isNaN(s)) {
+      query.skip(s);
+    }
+    let l = parseInt(limit);
+    if (!isNaN(l)) {
+      query.limit(l);
+    }
+    let docs = await query.lean().exec();
+    return {'total': total, 'docs':docs};
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
@@ -147,7 +157,7 @@ dbBase.createReceipt = async (receipt) => {
   }
 }
 
-dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID) => {
+dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit) => {
   try {
     let q = {};
     if (id) {
@@ -170,9 +180,18 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID) => {
     if (returnRefID) {
       q.returnRefID = returnRefID;
     }
-    
-    let docs = await dbBase.receipts.find(q).sort({ 'date': -1 }).lean();
-    return docs;
+    let total = await dbBase.receipts.count(q);
+    let query = dbBase.receipts.find(q).sort({ 'date': -1 });
+    let s = parseInt(skip);
+    if (!isNaN(s)) {
+      query.skip(s);
+    }
+    let l = parseInt(limit);
+    if (!isNaN(l)) {
+      query.limit(l);
+    }
+    let docs = await query.lean().exec();
+    return {'total': total, 'docs':docs};
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);

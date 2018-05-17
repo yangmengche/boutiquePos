@@ -42,6 +42,6 @@ router.post('/receipt/create', redirectTo);
 router.post('/receipt/query', redirectTo);
 // misc
 router.post('/upload/image', redirectTo);
-
+router.get('/resource/:fileID', redirectTo);
 module.exports = router;
 

@@ -3,6 +3,7 @@ process.env.NODE_ENV = 'unitTest';
 
 const request = require('supertest');
 const assert = require('assert');
+const path = require('path');
 const testUtils = require('./testUtils');
 const config = require('../config/config');
 const testData = require('./testData');
@@ -105,7 +106,14 @@ describe('[Item spec]', () => {
   });
 
   it('should create item s01-c01-001-S', async () => {
+    let file = path.resolve(__dirname, './resources/shirt.jpeg');    
     try {
+      var res = await agent.post('/upload/image')
+        .attach('file', file)
+        .expect(200);
+      let url = JSON.parse(res.text).url;
+      assert(url);
+      testData.items["s01-c01-001-S"].pic = url;
       var res = await agent.post('/item/create')
         .set('Content-Type', 'application/json')
         .send(testData.items["s01-c01-001-S"])
@@ -187,6 +195,36 @@ describe('[Item spec]', () => {
     assert(obj.id);
     testData.items['s02-c02-001-2L'].id = obj.id;
   });
+  
+  it('should update picure of the item s02-c02-001-2L', async () => {
+    try {
+      // get by code
+      var res = await agent.get('/item?code='+testData.items["s02-c02-001-2L"].code)
+        .set('Content-Type', 'application/json')
+        .expect(200);
+      let obj = JSON.parse(res.text)[0];
+      // upload image
+      let file = path.resolve(__dirname, './resources/jeans.jpeg');    
+      var res = await agent.post('/upload/image')
+        .attach('file', file)
+        .expect(200);
+      let url = JSON.parse(res.text).url;
+      assert(url);
+      // update data
+      let updateObj={
+        'id': obj._id,
+        'pic': url
+      }        
+      var res = await agent.put('/item/update')
+        .set('Content-Type', 'application/json')
+        .send(updateObj)
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert.strictEqual(obj.nModified, 1);
+  });
 
   it('should create item s02-c02-001-3L', async () => {
     try {
@@ -211,14 +249,27 @@ describe('[Item spec]', () => {
       assert(!err, err.message);
     }
     let obj = JSON.parse(res.text);
-    assert.strictEqual(obj.length, 7);
-    assert.strictEqual(obj[0].name, testData.items["s01-c01-001-S"].name);
-    assert.strictEqual(obj[0].supplierID, testData.items["s01-c01-001-S"].supplierID);
-    assert.strictEqual(obj[0].category, testData.items["s01-c01-001-S"].category);
-    assert.strictEqual(obj[0].size, testData.items["s01-c01-001-S"].size);
-    assert.strictEqual(obj[0].cost, testData.items["s01-c01-001-S"].cost);
-    assert.strictEqual(obj[0].listPrice, testData.items["s01-c01-001-S"].listPrice);
-    assert.strictEqual(obj[0].marketPrice, testData.items["s01-c01-001-S"].marketPrice);
+    assert.strictEqual(obj.total, 7);
+    assert.strictEqual(obj.docs.length, 7);
+    assert.strictEqual(obj.docs[0].name, testData.items["s01-c01-001-S"].name);
+    assert.strictEqual(obj.docs[0].supplierID, testData.items["s01-c01-001-S"].supplierID);
+    assert.strictEqual(obj.docs[0].category, testData.items["s01-c01-001-S"].category);
+    assert.strictEqual(obj.docs[0].size, testData.items["s01-c01-001-S"].size);
+    assert.strictEqual(obj.docs[0].cost, testData.items["s01-c01-001-S"].cost);
+    assert.strictEqual(obj.docs[0].listPrice, testData.items["s01-c01-001-S"].listPrice);
+    assert.strictEqual(obj.docs[0].marketPrice, testData.items["s01-c01-001-S"].marketPrice);
+  });
+
+  it('should get resource', async () => {
+    try {
+      var res = await agent.get(testData.items['s01-c01-001-S'].pic)
+        .set('Content-Type', 'application/json')
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    assert.strictEqual(res.header['content-type'], 'image/jpeg');
+    assert.strictEqual(res.header['content-length'], '106438');
   });
 
   it('should get items of supplier=s01', async () => {
@@ -231,14 +282,15 @@ describe('[Item spec]', () => {
       assert(!err, err.message);
     }
     let obj = JSON.parse(res.text);
-    assert.strictEqual(obj.length, 4);
-    assert.strictEqual(obj[0].name, testData.items["s01-c01-001-S"].name);
-    assert.strictEqual(obj[0].supplierID, testData.items["s01-c01-001-S"].supplierID);
-    assert.strictEqual(obj[0].category, testData.items["s01-c01-001-S"].category);
-    assert.strictEqual(obj[0].size, testData.items["s01-c01-001-S"].size);
-    assert.strictEqual(obj[0].cost, testData.items["s01-c01-001-S"].cost);
-    assert.strictEqual(obj[0].listPrice, testData.items["s01-c01-001-S"].listPrice);
-    assert.strictEqual(obj[0].marketPrice, testData.items["s01-c01-001-S"].marketPrice);
+    assert.strictEqual(obj.total, 4);
+    assert.strictEqual(obj.docs.length, 4);
+    assert.strictEqual(obj.docs[0].name, testData.items["s01-c01-001-S"].name);
+    assert.strictEqual(obj.docs[0].supplierID, testData.items["s01-c01-001-S"].supplierID);
+    assert.strictEqual(obj.docs[0].category, testData.items["s01-c01-001-S"].category);
+    assert.strictEqual(obj.docs[0].size, testData.items["s01-c01-001-S"].size);
+    assert.strictEqual(obj.docs[0].cost, testData.items["s01-c01-001-S"].cost);
+    assert.strictEqual(obj.docs[0].listPrice, testData.items["s01-c01-001-S"].listPrice);
+    assert.strictEqual(obj.docs[0].marketPrice, testData.items["s01-c01-001-S"].marketPrice);
   });
 
   it('should get items whose name has c02', async () => {
@@ -251,14 +303,15 @@ describe('[Item spec]', () => {
       assert(!err, err.message);
     }
     let obj = JSON.parse(res.text);
-    assert.strictEqual(obj.length, 4);
-    assert.strictEqual(obj[0].name, testData.items["s01-c02-001-3S"].name);
-    assert.strictEqual(obj[0].supplierID, testData.items["s01-c02-001-3S"].supplierID);
-    assert.strictEqual(obj[0].category, testData.items["s01-c02-001-3S"].category);
-    assert.strictEqual(obj[0].size, testData.items["s01-c02-001-3S"].size);
-    assert.strictEqual(obj[0].cost, testData.items["s01-c02-001-3S"].cost);
-    assert.strictEqual(obj[0].listPrice, testData.items["s01-c02-001-3S"].listPrice);
-    assert.strictEqual(obj[0].marketPrice, testData.items["s01-c02-001-3S"].marketPrice);
+    assert.strictEqual(obj.total, 4);
+    assert.strictEqual(obj.docs.length, 4);
+    assert.strictEqual(obj.docs[0].name, testData.items["s01-c02-001-3S"].name);
+    assert.strictEqual(obj.docs[0].supplierID, testData.items["s01-c02-001-3S"].supplierID);
+    assert.strictEqual(obj.docs[0].category, testData.items["s01-c02-001-3S"].category);
+    assert.strictEqual(obj.docs[0].size, testData.items["s01-c02-001-3S"].size);
+    assert.strictEqual(obj.docs[0].cost, testData.items["s01-c02-001-3S"].cost);
+    assert.strictEqual(obj.docs[0].listPrice, testData.items["s01-c02-001-3S"].listPrice);
+    assert.strictEqual(obj.docs[0].marketPrice, testData.items["s01-c02-001-3S"].marketPrice);
   });
 
   it('should get items of category=c01', async () => {
@@ -271,14 +324,15 @@ describe('[Item spec]', () => {
       assert(!err, err.message);
     }
     let obj = JSON.parse(res.text);
-    assert.strictEqual(obj.length, 3);
-    assert.strictEqual(obj[0].name, testData.items["s01-c01-001-S"].name);
-    assert.strictEqual(obj[0].supplierID, testData.items["s01-c01-001-S"].supplierID);
-    assert.strictEqual(obj[0].category, testData.items["s01-c01-001-S"].category);
-    assert.strictEqual(obj[0].size, testData.items["s01-c01-001-S"].size);
-    assert.strictEqual(obj[0].cost, testData.items["s01-c01-001-S"].cost);
-    assert.strictEqual(obj[0].listPrice, testData.items["s01-c01-001-S"].listPrice);
-    assert.strictEqual(obj[0].marketPrice, testData.items["s01-c01-001-S"].marketPrice);
+    assert.strictEqual(obj.total, 3);
+    assert.strictEqual(obj.docs.length, 3);
+    assert.strictEqual(obj.docs[0].name, testData.items["s01-c01-001-S"].name);
+    assert.strictEqual(obj.docs[0].supplierID, testData.items["s01-c01-001-S"].supplierID);
+    assert.strictEqual(obj.docs[0].category, testData.items["s01-c01-001-S"].category);
+    assert.strictEqual(obj.docs[0].size, testData.items["s01-c01-001-S"].size);
+    assert.strictEqual(obj.docs[0].cost, testData.items["s01-c01-001-S"].cost);
+    assert.strictEqual(obj.docs[0].listPrice, testData.items["s01-c01-001-S"].listPrice);
+    assert.strictEqual(obj.docs[0].marketPrice, testData.items["s01-c01-001-S"].marketPrice);
   });
 
   it('should get items of size=L', async () => {
@@ -291,14 +345,15 @@ describe('[Item spec]', () => {
       assert(!err, err.message);
     }
     let obj = JSON.parse(res.text);
-    assert.strictEqual(obj.length, 1);
-    assert.strictEqual(obj[0].name, testData.items["s01-c01-001-L"].name);
-    assert.strictEqual(obj[0].supplierID, testData.items["s01-c01-001-L"].supplierID);
-    assert.strictEqual(obj[0].category, testData.items["s01-c01-001-L"].category);
-    assert.strictEqual(obj[0].size, testData.items["s01-c01-001-L"].size);
-    assert.strictEqual(obj[0].cost, testData.items["s01-c01-001-L"].cost);
-    assert.strictEqual(obj[0].listPrice, testData.items["s01-c01-001-L"].listPrice);
-    assert.strictEqual(obj[0].marketPrice, testData.items["s01-c01-001-L"].marketPrice);
+    assert.strictEqual(obj.total, 1);
+    assert.strictEqual(obj.docs.length, 1);
+    assert.strictEqual(obj.docs[0].name, testData.items["s01-c01-001-L"].name);
+    assert.strictEqual(obj.docs[0].supplierID, testData.items["s01-c01-001-L"].supplierID);
+    assert.strictEqual(obj.docs[0].category, testData.items["s01-c01-001-L"].category);
+    assert.strictEqual(obj.docs[0].size, testData.items["s01-c01-001-L"].size);
+    assert.strictEqual(obj.docs[0].cost, testData.items["s01-c01-001-L"].cost);
+    assert.strictEqual(obj.docs[0].listPrice, testData.items["s01-c01-001-L"].listPrice);
+    assert.strictEqual(obj.docs[0].marketPrice, testData.items["s01-c01-001-L"].marketPrice);
   });
 
   it('should get item by id', async () => {
@@ -366,7 +421,7 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj[0].listPrice, testData.items["s01-c01-001-S"].listPrice);
     assert.strictEqual(obj[0].cost, testData.items["s01-c01-001-S"].cost);
     assert.strictEqual(obj[0].marketPrice, testData.items["s01-c01-001-S"].marketPrice);
-  });  
+  });
 });
 
 

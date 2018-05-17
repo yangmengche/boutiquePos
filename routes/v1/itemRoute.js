@@ -40,4 +40,5 @@ router.post('/receipt/query', accountMgr.authenticate, itemMgr.queryReceipt);
  * @apiUse InternalError
  */
 router.post('/upload/image', accountMgr.authenticate, itemMgr.uploadImage);
+router.get('/resource/:fileID', itemMgr.getResource);
 module.exports = router;

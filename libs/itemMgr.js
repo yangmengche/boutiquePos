@@ -6,6 +6,8 @@ const log = require('./logger');
 const db = require('./db/dbItem');
 const errCode = require('./statusCode').ErrorCode;
 const succCode = require('./statusCode').SuccessCode;
+const uuid = require('uuid');
+const path = require('path')
 
 exports.addCategories = async (req, res) => {
   try {
@@ -62,6 +64,16 @@ exports.uploadImage = async (req, res) => {
     log.writeLog(err.message, 'error');
     utils.fnResponse(err, null, res);
   }
+};
+
+exports.getResource = async (req, res) => {
+  let resFile = path.resolve(config.resourcePath, req.params.fileID);
+  res.download(resFile, (err) => {
+    if (err) {
+      log.writeLog(err.message, 'error');
+      utils.fnResponse(errCode.ObjectNotFound, null, res);
+    }
+  });
 };
 
 exports.createItem = async (req, res) => {
