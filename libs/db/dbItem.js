@@ -82,7 +82,7 @@ dbBase.getItem = async (id, code) => {
     if (code) {
       q.code = code;
     }
-    let docs = await dbBase.items.find(q).lean();
+    let docs = await dbBase.items.find(q);
     return docs;
   } catch (err) {
     log.writeLog(err.message, 'error');
@@ -113,7 +113,7 @@ dbBase.queryItems = async (name, supplierID, category, size, stock) => {
         q.stock = { $lte: stock.max }
       }
     }
-    let docs = await dbBase.items.find(q).sort({ 'name': 1 });
+    let docs = await dbBase.items.find(q).sort({ 'name': 1 }).lean();
     return docs;
   } catch (err) {
     log.writeLog(err.message, 'error');
@@ -136,11 +136,43 @@ dbBase.createStockLog = async (stock) => {
 
 // receipt
 dbBase.createReceipt = async (receipt) => {
-  try{
+  try {
     receipt.date = new Date().getTime();
     let newReceipt = new dbBase.receipts(receipt);
     let doc = await newReceipt.save();
-    return {'id': doc.id};
+    return { 'id': doc.id };
+  } catch (err) {
+    log.writeLog(err.message, 'error');
+    throw dbBase.errorMap(err);
+  }
+}
+
+dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID) => {
+  try {
+    let q = {};
+    if (id) {
+      q._id = id;
+    }
+    if (date) {
+      if (!isNaN(stock.min)) {
+        q.date = { $gte: stock.min };
+      }
+      if (!isNaN(stock.max)) {
+        q.date = { $lte: stock.max }
+      }
+    }    
+    if (payBy) {
+      q.payBy = payBy;
+    }
+    if (remark) {
+      q.remark = { $regex: new RegExp(remark, 'i') };
+    }    
+    if (returnRefID) {
+      q.returnRefID = returnRefID;
+    }
+    
+    let docs = await dbBase.receipts.find(q).sort({ 'date': -1 }).lean();
+    return docs;
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);

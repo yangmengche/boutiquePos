@@ -41,10 +41,10 @@ class DBSchema {
 
     let receiptItemSchema = new mongoose.Schema({
       itemID: {type: mongoose.Schema.Types.ObjectId, required: true},
-      cost: { type: Number, requires: true, min: 0 },
-      listPrice: { type: Number, requires: true, min: 0 },
-      marketPrice: { type: Number, required: true, min: 0 },
-      salePrice: { type: Number, required: true, min: 0 },
+      cost: { type: Number, requires: true},
+      listPrice: { type: Number, requires: true},
+      marketPrice: { type: Number, required: true},
+      salePrice: { type: Number, required: true},
       quantity: {type: Number, required: true}
     })
     this.receiptSchema = new mongoose.Schema({
@@ -52,7 +52,8 @@ class DBSchema {
       items: [receiptItemSchema],
       payBy: {type: String, enum: def.payBy},
       pay: {type: Number, required: true},
-      remark: String
+      remark: String,
+      returnRefID: mongoose.Schema.Types.ObjectId
     })
   }
 }

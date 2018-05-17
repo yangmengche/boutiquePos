@@ -39,4 +39,9 @@ router.get('/item', redirectTo);
 
 // receipt
 router.post('/receipt/create', redirectTo);
+router.post('/receipt/query', redirectTo);
+// misc
+router.post('/upload/image', redirectTo);
+
 module.exports = router;
+

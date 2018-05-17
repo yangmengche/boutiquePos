@@ -52,6 +52,18 @@ exports.getCategories = async (req, res) => {
   }
 };
 
+exports.uploadImage = async (req, res) => {
+  let fileID = uuid.v4();
+  try {
+    // save file
+    let data = await utils.fnUploadFile(req, config.resourcePath, fileID);
+    utils.fnResponse(null, { 'url': data.file }, res);
+  } catch (err) {
+    log.writeLog(err.message, 'error');
+    utils.fnResponse(err, null, res);
+  }
+};
+
 exports.createItem = async (req, res) => {
   try {
     let item = await utils.fnGetBody(req);
@@ -117,11 +129,12 @@ exports.stockItems = async (req, res) => {
   }
 }
 
-exports.createRecept = async (req, res) => {
+exports.createReceipt = async (req, res) => {
   try{
     let body = await utils.fnGetBody(req);
     log.writeLog(JSON.stringify(body), 'info');
-    // create recept
+    // create recepit
+    let total=0, quantity = 0;
     for(let i in body.items){
       let item = (await db.getItem(body.items[i].itemID))[0];
       body.items[i].cost = item.cost;
@@ -129,9 +142,38 @@ exports.createRecept = async (req, res) => {
       body.items[i].marketPrice = item.marketPrice;
       let stock = item.stock - body.items[i].quantity;
       let result = await db.updateItem(body.items[i].itemID, {'stock': stock });
+      total += body.items[i].salePrice*Math.abs(body.items[i].quantity);
+      quantity += body.items[i].quantity;
+    }
+    // calculate discount
+    if(body.pay > 0){
+      if(body.pay < total){
+        let discount = (total - body.pay)/quantity;
+        for(let i in body.items){
+          body.items[i].salePrice -= discount;
+        }
+      }
+    }else{
+      if(body.pay > total){
+        let discount = (total - body.pay)/Math.abs(quantity);
+        for(let i in body.items){
+          body.items[i].salePrice -= discount;
+        }
+      }      
     }
     let id = await db.createReceipt(body);
     return utils.fnResponse(null, id, res);
+  } catch (err) {
+    log.writeLog(err.message, 'error');
+    utils.fnResponse(err, null, res);
+  }
+}
+
+exports.queryReceipt = async (req, res) => {
+  try {
+    let query = await utils.fnGetBody(req);
+    let docs = await db.queryReceipts(query.id, query.date, query.payBy, query.remark, query.returnRefID);
+    utils.fnResponse(null, docs, res);
   } catch (err) {
     log.writeLog(err.message, 'error');
     utils.fnResponse(err, null, res);

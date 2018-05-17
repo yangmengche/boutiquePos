@@ -29,7 +29,7 @@ dbBase.updateSupplier = async (supplier) => {
 }
 dbBase.getSupplier = async (query) => {
   try {
-    let docs = await dbBase.suppliers.find(query).lean();
+    let docs = await dbBase.suppliers.find(query);
     return docs;
   } catch (err) {
     log.writeLog(err.message, 'error');

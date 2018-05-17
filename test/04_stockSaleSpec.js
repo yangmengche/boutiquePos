@@ -135,6 +135,7 @@ describe('[Item spec]', () => {
     }
     let obj = JSON.parse(res.text);
     assert(obj.id);
+    testData.receipts.r01.id = obj.id;
   });
 
   it('should create receipt r02', async () => {
@@ -148,6 +149,62 @@ describe('[Item spec]', () => {
     }
     let obj = JSON.parse(res.text);
     assert(obj.id);
-  });    
+    testData.receipts.r02.id = obj.id;
+  });
+
+  it('should create receipt r03', async () => {
+    try {
+      var res = await agent.post('/receipt/create')
+        .set('Content-Type', 'application/json')
+        .send(testData.receipts.r03)
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert(obj.id);
+    testData.receipts.r03.id = obj.id;
+  });
+
+  let receipt01;
+  it('should query all receipt', async () => {
+    try {
+      var res = await agent.post('/receipt/query')
+        .set('Content-Type', 'application/json')
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert.strictEqual(obj.length, 3);
+    receipt01 = obj[1];
+  });
+
+  it('should create return of receipt r02', async () => {
+    try {
+      let returReceipt = {
+        'items':[
+          {
+            'itemID': receipt01.items[1].itemID,
+            'salePrice': -receipt01.items[1].salePrice,
+            'quantity': -receipt01.items[1].quantity
+          }
+        ],
+        'payBy': receipt01.payBy,
+        'pay': -180,// -receipt01.items[1].salePrice,
+        'remark': 'return for broken',
+        'returnRefID': receipt01._id,
+      }      
+      var res = await agent.post('/receipt/create')
+        .set('Content-Type', 'application/json')
+        .send(returReceipt)
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert(obj.id);
+  });  
+
 });
 

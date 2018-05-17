@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const supplierMgr = require('../../libs/supplierMgr');
-
+const accountMgr = require('../../libs/accountMgr');
 // Supplier API
 
 /**
@@ -28,8 +28,8 @@ const supplierMgr = require('../../libs/supplierMgr');
  * @apiUse Forbidden
  * @apiUse InternalError
  */
-router.post('/supplier/create', supplierMgr.createSupplier);
-router.get('/supplier', supplierMgr.getSupplier);
-router.put('/supplier/update', supplierMgr.updateSupplier);
+router.post('/supplier/create', accountMgr.authenticate, supplierMgr.createSupplier);
+router.get('/supplier', accountMgr.authenticate, supplierMgr.getSupplier);
+router.put('/supplier/update', accountMgr.authenticate, supplierMgr.updateSupplier);
 
 module.exports = router;

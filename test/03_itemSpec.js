@@ -322,8 +322,50 @@ describe('[Item spec]', () => {
       assert(!err, err.message);
     }
     let obj = JSON.parse(res.text);
-    assert.strictEqual(obj.length, 3);
+    assert.strictEqual(obj.length, 1);
     assert.strictEqual(obj[0].name, testData.items["s01-c01-001-S"].name);
+  });
+
+  it('should update cost, list price and market price of the item s01-c01-001-S', async () => {
+    try {
+      // get by code
+      var res = await agent.get('/item?code='+testData.items["s01-c01-001-S"].code)
+        .set('Content-Type', 'application/json')
+        .expect(200);
+      let obj = JSON.parse(res.text)[0];
+      obj.id = obj._id;
+      delete obj._id;
+      obj.listPrice = 290;
+      obj.cost = obj.listPrice * testData.suppliers.s01.shareRate;
+      obj.marketPrice = 350
+      testData.items["s01-c01-001-S"].listPrice = obj.listPrice;
+      testData.items["s01-c01-001-S"].cost = obj.cost;
+      testData.items["s01-c01-001-S"].marketPrice = obj.marketPrice;
+
+      var res = await agent.put('/item/update')
+        .set('Content-Type', 'application/json')
+        .send(obj)
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert.strictEqual(obj.nModified, 1);
+  });
+
+  it('should get item s01-c01-001-S by code', async () => {
+    try {
+      var res = await agent.get('/item?code='+testData.items["s01-c01-001-S"].code)
+        .set('Content-Type', 'application/json')
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert.strictEqual(obj.length, 1);
+    assert.strictEqual(obj[0].listPrice, testData.items["s01-c01-001-S"].listPrice);
+    assert.strictEqual(obj[0].cost, testData.items["s01-c01-001-S"].cost);
+    assert.strictEqual(obj[0].marketPrice, testData.items["s01-c01-001-S"].marketPrice);
   });  
 });
 

@@ -42,7 +42,7 @@ exports.categories = categories;
 
 let items = {
   's01-c01-001-S':{
-    'code': '1901-0301-001',
+    'code': '1901-0301-001-03',
     'name': 's01-c01-001',
     'supplierID': '$s01',
     'category': categories.c01.name,
@@ -52,7 +52,7 @@ let items = {
     'marketPrice':590
   },
   's01-c01-001-M':{
-    'code': '1901-0301-001',
+    'code': '1901-0301-001-04',
     'name': 's01-c01-001',
     'supplierID': '$s01',
     'category': categories.c01.name,
@@ -62,7 +62,7 @@ let items = {
     'marketPrice':590
   },
   's01-c01-001-L':{
-    'code': '1901-0301-001',
+    'code': '1901-0301-001-05',
     'name': 's01-c01-001',
     'supplierID': '$s01',
     'category': categories.c01.name,
@@ -72,7 +72,7 @@ let items = {
     'marketPrice':590
   },
   's01-c02-001-3S':{
-    'code': '1901-0302-001',
+    'code': '1901-0302-001-00',
     'name': 's01-c02-001',
     'supplierID': '$s01',
     'category': categories.c02.name,
@@ -82,7 +82,7 @@ let items = {
     'marketPrice':190
   },  
   's02-c02-001-XL':{
-    'code': '1902-0302-001',
+    'code': '1902-0302-001-06',
     'name': 's02-c02-001',
     'supplierID': '$s02',
     'category': categories.c02.name,
@@ -92,7 +92,7 @@ let items = {
     'marketPrice':680
   },
   's02-c02-001-2L':{
-    'code': '1902-0302-001',
+    'code': '1902-0302-001-07',
     'name': 's02-c02-001',
     'supplierID': '$s02',
     'category': categories.c02.name,
@@ -102,7 +102,7 @@ let items = {
     'marketPrice':680
   },
   's02-c02-001-3L':{
-    'code': '1902-0302-001',
+    'code': '1902-0302-001-08',
     'name': 's02-c02-001',
     'supplierID': '$s02',
     'category': categories.c02.name,
@@ -133,11 +133,11 @@ let stocks = {
   },
   'stock05':{
     'itemID': '$s02-c02-001-2L', 
-    'quantity': 2
+    'quantity': 3
   },
   'stock06':{
     'itemID': '$s02-c02-001-3L', 
-    'quantity': 2
+    'quantity': 3
   }          
 }
 exports.stocks = stocks;
@@ -173,8 +173,24 @@ let receipts ={
       }            
     ],
     payBy: def.payBy[1],
-    pay: 590*2+190+680*2-130
-  }  
+    pay: 590*2+190+680*2
+  },
+  'r03':{
+    items:[
+      {
+        'itemID': '$s02-c02-001-2L',
+        'salePrice': items["s02-c02-001-2L"].marketPrice,
+        'quantity': 1
+      },
+      {
+        'itemID': '$s02-c02-001-3L',
+        'salePrice': items["s02-c02-001-3L"].marketPrice,
+        'quantity': 2
+      }
+    ],
+    payBy: def.payBy[1],
+    pay: 680+780*2-240
+  }    
 }
 
 exports.receipts = receipts;
