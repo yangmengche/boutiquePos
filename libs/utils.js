@@ -100,7 +100,8 @@ class Utils {
           }
           url = '/resource/' + name + '.' + ext;
           saveName = path.join(folder, name + '.' + ext);
-          await sharp(src.path).resize(600, null).toFile(saveName);
+          let buf = fse.readFileSync(src.path);
+          await sharp(buf).resize(600, null).toFile(saveName);
           fse.removeSync(src.path);
           // fse.moveSync(src.path, saveName);
           return resolve({ 'file': url, 'type': file.type });
