@@ -135,6 +135,19 @@ describe('[Item spec]', () => {
     }
     let obj = JSON.parse(res.text);
     assert(obj.id);
-  });  
+  });
+
+  it('should create receipt r02', async () => {
+    try {
+      var res = await agent.post('/receipt/create')
+        .set('Content-Type', 'application/json')
+        .send(testData.receipts.r02)
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert(obj.id);
+  });    
 });
 

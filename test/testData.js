@@ -133,7 +133,7 @@ let stocks = {
   },
   'stock05':{
     'itemID': '$s02-c02-001-2L', 
-    'quantity': 1
+    'quantity': 2
   },
   'stock06':{
     'itemID': '$s02-c02-001-3L', 
@@ -153,7 +153,28 @@ let receipts ={
     ],
     payBy: def.payBy[0],
     pay: items["s01-c01-001-M"].marketPrice
-  }
+  },
+  'r02':{
+    items:[
+      {
+        'itemID': '$s01-c01-001-M',
+        'salePrice': items["s01-c01-001-M"].marketPrice,
+        'quantity': 2
+      },
+      {
+        'itemID': '$s01-c02-001-3S',
+        'salePrice': items["s01-c02-001-3S"].marketPrice,
+        'quantity': 1
+      },
+      {
+        'itemID': '$s02-c02-001-2L',
+        'salePrice': items["s02-c02-001-2L"].marketPrice,
+        'quantity': 2
+      }            
+    ],
+    payBy: def.payBy[1],
+    pay: 590*2+190+680*2-130
+  }  
 }
 
 exports.receipts = receipts;
