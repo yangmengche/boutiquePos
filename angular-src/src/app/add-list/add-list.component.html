@@ -1,0 +1,25 @@
+<div class="container">
+
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Name</label>
+      <input type="text" [(ngModel)]="newList.name" name="name" required>
+    </div>
+
+    <div>
+      <label for="type">Select Type</label>
+      <select [(ngModel)]="newList.type" name = "type" >
+          <option value="CONSIGNMENT">寄買</option>
+          <option value="BUYOUT">賣斷</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="shareRate">Share Rate</label>
+      <input type="number" [(ngModel)]="newList.shareRate" name="shareRate" required>
+    </div>
+
+    <button type="submit">Submit</button>
+
+  </form>
+</div>
