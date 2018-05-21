@@ -2,25 +2,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { HttpModule } from '@angular/http';
-import { FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { AddListComponent } from './add-list/add-list.component';
-import { ViewListComponent } from './view-list/view-list.component';
-import { ListService } from './services/list.service';
+import { SupplierViewComponent } from './views/supplier-view/supplier-view.component';
+import { SupplierService } from './services/supplier.service';
+import { SupplierElemComponent } from './elements/add-supplier/add-supplier.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddListComponent,
-    ViewListComponent
+    SupplierViewComponent,
+    SupplierElemComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule    
+    FormsModule
   ],
-  providers: [ListService],
+  providers: [SupplierService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

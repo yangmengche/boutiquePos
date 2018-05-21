@@ -1,4 +1,4 @@
-<h2> Awesome Bucketlist App </h2>
+<h2> Supplier Page </h2>
 
 <!-- Table starts here -->
 <table id="table">
@@ -11,13 +11,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let list of lists">
-        <td>{{list.name}}</td>
-        <td>{{list.type}}</td>
-        <td>{{list.shareRate}}</td>
+      <tr *ngFor="let supplier of suppliers">
+        <td>{{supplier.name}}</td>
+        <td>{{supplier.type}}</td>
+        <td>{{supplier.shareRate}}</td>
         <!-- <td> <button type="button" (click)="deleteList(list); $event.stopPropagation();">Delete</button></td> -->
       </tr>
     </tbody>
  </table>
 
- <app-add-list (addList)='onAddList($event)'> </app-add-list>
+ <app-supplier-elem (addSupplier)='onAddSupplier($event)'> </app-supplier-elem>

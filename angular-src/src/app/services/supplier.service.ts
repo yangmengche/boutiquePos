@@ -1,31 +1,30 @@
-/*list.service.ts*/
-
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
-import { List } from '../models/list'
+import { SupplierModel } from '../models/supplierModel'
+import { environment} from '../../environments/environment'
 
-// import 'rxjs/add/operator/map';
-
-@Injectable()
-export class ListService {
+@Injectable({
+  providedIn: 'root'
+})
+export class SupplierService {
 
   constructor(private http: Http) { }
 
-  private serverApi = 'http://localhost:1688';
+  private serverApi = environment.apiUrl;
 
-  public getAllLists(): Observable<List[]> {
+  public getAllLists(): Observable<SupplierModel[]> {
 
     let URI = `${this.serverApi}/supplier/`;
     return this.http.get(URI)
       .pipe(
         map(res => res.json()),
-        map(res => <List[]>res)
+        map(res => <SupplierModel[]>res)
       )
   }
 
-  public addList(list: List) {
+  public addSupplier(list: SupplierModel) {
     let URI = `${this.serverApi}/supplier/create`;
     let headers = new Headers;
     let body = JSON.stringify({ name: list.name, type: list.type, shareRate: list.shareRate });

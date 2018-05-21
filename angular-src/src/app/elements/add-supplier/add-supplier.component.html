@@ -3,12 +3,12 @@
   <form (ngSubmit)="onSubmit()">
     <div>
       <label for="name">Name</label>
-      <input type="text" [(ngModel)]="newList.name" name="name" required>
+      <input type="text" [(ngModel)]="newSupplier.name" name="name" required>
     </div>
 
     <div>
       <label for="type">Select Type</label>
-      <select [(ngModel)]="newList.type" name = "type" >
+      <select [(ngModel)]="newSupplier.type" name = "type" >
           <option value="CONSIGNMENT">寄買</option>
           <option value="BUYOUT">賣斷</option>
       </select>
@@ -16,7 +16,7 @@
 
     <div>
       <label for="shareRate">Share Rate</label>
-      <input type="number" [(ngModel)]="newList.shareRate" name="shareRate" required>
+      <input type="number" [(ngModel)]="newSupplier.shareRate" name="shareRate" required>
     </div>
 
     <button type="submit">Submit</button>
