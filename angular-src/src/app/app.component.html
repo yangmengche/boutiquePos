@@ -8,21 +8,16 @@
 <mat-sidenav-container mode="over" class="demo-app-container" fullscreen>
   <mat-sidenav #sideNav class="demo-app-sidenav">
     <mat-nav-list>
-      <a [routerLink]="['/', 'salePage'] " mat-list-item (click)="sideNav.close()">Sale</a>
       <a [routerLink]="['/', 'itemPage'] " mat-list-item (click)="sideNav.close()">Item</a>
-      <a [routerLink]="['/', 'dashboard', 'stock'] " mat-list-item>Stock</a>
-      <a [routerLink]="['/', 'dashboard', 'report'] " mat-list-item>Report</a>
-      <a [routerLink]="['/', 'dashboard', 'chart'] " mat-list-item>Chart</a>
+      <a [routerLink]="['/', 'salePage'] " mat-list-item (click)="sideNav.close()">Sale</a>
+      <a [routerLink]="['/', 'stockPage'] " mat-list-item (click)="sideNav.close()">Stock</a>
+      <a [routerLink]="['/', 'reportPage'] " mat-list-item (click)="sideNav.close()">Report</a>
+      <a [routerLink]="['/', 'chartPage'] " mat-list-item (click)="sideNav.close()">Chart</a>
       <mat-divider></mat-divider>
       <h5 matSubHeader>管理</h5>
-      <a [routerLink]="['/', 'dashboard', 'account'] " mat-list-item>Account</a>
+      <a [routerLink]="['/', 'supplierPage'] " mat-list-item (click)="sideNav.close()">Supplier</a>
+      <a [routerLink]="['/', 'accountPage'] " mat-list-item (click)="sideNav.close()">Account</a>
     </mat-nav-list>
-    <!-- <div class="btn-group">
-      <button mat-button>Sale</button>
-      <button mat-button>Item</button>
-      <button mat-button>Stock</button>
-      <button mat-button>Account</button>    
-    </div> -->
   </mat-sidenav>
   <mat-sidenav-content>
     <div>
