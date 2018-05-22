@@ -1,26 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
-
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SupplierViewComponent } from './views/supplier-view/supplier-view.component';
-import { SupplierService } from './services/supplier.service';
-import { SupplierElemComponent } from './elements/add-supplier/add-supplier.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule } from '@angular/material';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SupplierViewComponent,
-    SupplierElemComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    HttpModule,
-    FormsModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule    
   ],
-  providers: [SupplierService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,33 @@
-<!--The whole content below can be removed with the new code.-->
-<div style="text-align:center">
-  <h1>
-     {{title}}!
-  </h1>
-
-  <app-supplier-view> </app-supplier-view>
-
-</div>
+<!--The content below is only a placeholder and can be replaced.-->
+<mat-toolbar class="demo-app-header">
+  <button mat-button color="primary" class="btn" (click)="sideNav.toggle()">
+      <mat-icon color="primary">menu</mat-icon>
+  </button>
+  <span>SHERA</span>
+</mat-toolbar>
+<mat-sidenav-container mode="over" class="demo-app-container" fullscreen>
+  <mat-sidenav #sideNav class="demo-app-sidenav">
+    <mat-nav-list>
+      <a [routerLink]="['/', 'salePage'] " mat-list-item (click)="sideNav.close()">Sale</a>
+      <a [routerLink]="['/', 'itemPage'] " mat-list-item (click)="sideNav.close()">Item</a>
+      <a [routerLink]="['/', 'dashboard', 'stock'] " mat-list-item>Stock</a>
+      <a [routerLink]="['/', 'dashboard', 'report'] " mat-list-item>Report</a>
+      <a [routerLink]="['/', 'dashboard', 'chart'] " mat-list-item>Chart</a>
+      <mat-divider></mat-divider>
+      <h5 matSubHeader>管理</h5>
+      <a [routerLink]="['/', 'dashboard', 'account'] " mat-list-item>Account</a>
+    </mat-nav-list>
+    <!-- <div class="btn-group">
+      <button mat-button>Sale</button>
+      <button mat-button>Item</button>
+      <button mat-button>Stock</button>
+      <button mat-button>Account</button>    
+    </div> -->
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div>
+        This is page contain<br>
+        <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
