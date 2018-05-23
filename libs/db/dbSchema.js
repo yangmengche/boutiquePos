@@ -13,7 +13,8 @@ class DBSchema {
       name: { type: String, required: true, index: true, unique: true },
       type: { type: String, required: true, enum: def.supplierType },
       shareRate: { type: Number },
-      logo: String
+      logo: String,
+      removed: Boolean
     });
 
     this.categorySchema = new mongoose.Schema({

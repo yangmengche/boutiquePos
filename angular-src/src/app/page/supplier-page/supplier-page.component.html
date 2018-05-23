@@ -36,3 +36,34 @@
   <mat-header-row *matHeaderRowDef="['name', 'type', 'shareRate']"></mat-header-row>
   <mat-row *matRowDef="let supplierlRow; columns: ['name', 'type', 'shareRate']"></mat-row>  
 </mat-table>
+<div *ngIf="bAdd; else inputForm">
+  <button mat-button color="primary">
+      <mat-icon color="primary"  (click)="onAddClick()">add</mat-icon>
+    </button>
+</div>
+
+<ng-template #inputForm>
+  <div class="container">
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" [(ngModel)]="newSupplier.name" name="name" required>
+      </div>
+  
+      <div>
+        <label for="type">Select Type</label>
+        <select [(ngModel)]="newSupplier.type" name = "type" >
+            <option value="CONSIGNMENT">寄買</option>
+            <option value="BUYOUT">賣斷</option>
+        </select>
+      </div>
+  
+      <div>
+        <label for="shareRate">Share Rate</label>
+        <input type="number" [(ngModel)]="newSupplier.shareRate" name="shareRate" required>
+      </div>
+  
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</ng-template>

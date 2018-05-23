@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { SupplierService } from '../../service/supplier.service';
 import { SupplierModel } from '../../model/supplierModel';
 import { MatTableDataSource } from '@angular/material';
@@ -15,26 +15,53 @@ export class SupplierPageComponent implements OnInit {
     'BUYOUT': '賣斷'
   }
   // private suppliers: SupplierModel[] = [];
-  supplierDataSource = new MatTableDataSource<any>();
+  private supplierDataSource = new MatTableDataSource<any>();
+  private bAdd = true;
+  private newSupplier: SupplierModel;
 
   constructor(private supplierSrv: SupplierService) { }
 
   ngOnInit() {
     this.LoadLists();
+    this.initNewSupplier();
+  }
+
+  private initNewSupplier(){
+    this.newSupplier = {
+      name: '',
+      type: '',
+      shareRate: null
+    }        
   }
 
   public async LoadLists() {
     this.supplierSrv.getAllLists().subscribe((response) =>{
-      console.log(response);
       response.forEach(supplier=>supplier.type = SupplierPageComponent.typeMap[supplier.type]);
-      console.log(response);
       this.supplierDataSource.data = response;
     }); 
   }
 
-  // public onAddSupplier(newSupplier) {
-  //   this.suppliers = this.suppliers.concat(newSupplier);
-  // }
+  public onAddClick(){
+    this.bAdd = false;
+  }
+
+  // @Output() addSupplier: EventEmitter<SupplierModel> = new EventEmitter<SupplierModel>();
+  public onSubmit() {
+    this.supplierSrv.addSupplier(this.newSupplier).subscribe(
+      response => {
+        if (response.id){
+          this.LoadLists();
+          this.initNewSupplier();
+          // this.addSupplier.emit(this.newSupplier);
+        }
+        this.bAdd = true;
+      },
+    );
+  }
+
+  public onAddSupplier(newSupplier) {
+    this.LoadLists();
+  }
   
   //deleteList. The deleted list is being filtered out using the .filter method
   // public deleteList(list: List) {

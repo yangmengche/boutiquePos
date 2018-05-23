@@ -24,10 +24,10 @@ export class SupplierService {
       )
   }
 
-  public addSupplier(list: SupplierModel) {
+  public addSupplier(supplier: SupplierModel) {
     let URI = `${this.serverApi}/supplier/create`;
     let headers = new Headers;
-    let body = JSON.stringify({ name: list.name, type: list.type, shareRate: list.shareRate });
+    let body = JSON.stringify({ name: supplier.name, type: supplier.type, shareRate: supplier.shareRate });
     console.log(body);
     headers.append('Content-Type', 'application/json');
     return this.http.post(URI, body, { headers: headers })
