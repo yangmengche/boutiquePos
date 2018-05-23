@@ -252,7 +252,8 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj.total, 7);
     assert.strictEqual(obj.docs.length, 7);
     assert.strictEqual(obj.docs[0].name, testData.items["s01-c01-001-S"].name);
-    assert.strictEqual(obj.docs[0].supplierID, testData.items["s01-c01-001-S"].supplierID);
+    assert.strictEqual(obj.docs[0].supplierID._id, testData.items["s01-c01-001-S"].supplierID);
+    assert(obj.docs[0].supplierID.name);
     assert.strictEqual(obj.docs[0].category, testData.items["s01-c01-001-S"].category);
     assert.strictEqual(obj.docs[0].size, testData.items["s01-c01-001-S"].size);
     assert.strictEqual(obj.docs[0].cost, testData.items["s01-c01-001-S"].cost);
@@ -285,7 +286,7 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj.total, 4);
     assert.strictEqual(obj.docs.length, 4);
     assert.strictEqual(obj.docs[0].name, testData.items["s01-c01-001-S"].name);
-    assert.strictEqual(obj.docs[0].supplierID, testData.items["s01-c01-001-S"].supplierID);
+    assert.strictEqual(obj.docs[0].supplierID._id, testData.items["s01-c01-001-S"].supplierID);
     assert.strictEqual(obj.docs[0].category, testData.items["s01-c01-001-S"].category);
     assert.strictEqual(obj.docs[0].size, testData.items["s01-c01-001-S"].size);
     assert.strictEqual(obj.docs[0].cost, testData.items["s01-c01-001-S"].cost);
@@ -306,7 +307,7 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj.total, 4);
     assert.strictEqual(obj.docs.length, 4);
     assert.strictEqual(obj.docs[0].name, testData.items["s01-c02-001-3S"].name);
-    assert.strictEqual(obj.docs[0].supplierID, testData.items["s01-c02-001-3S"].supplierID);
+    assert.strictEqual(obj.docs[0].supplierID._id, testData.items["s01-c02-001-3S"].supplierID);
     assert.strictEqual(obj.docs[0].category, testData.items["s01-c02-001-3S"].category);
     assert.strictEqual(obj.docs[0].size, testData.items["s01-c02-001-3S"].size);
     assert.strictEqual(obj.docs[0].cost, testData.items["s01-c02-001-3S"].cost);
@@ -327,7 +328,7 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj.total, 3);
     assert.strictEqual(obj.docs.length, 3);
     assert.strictEqual(obj.docs[0].name, testData.items["s01-c01-001-S"].name);
-    assert.strictEqual(obj.docs[0].supplierID, testData.items["s01-c01-001-S"].supplierID);
+    assert.strictEqual(obj.docs[0].supplierID._id, testData.items["s01-c01-001-S"].supplierID);
     assert.strictEqual(obj.docs[0].category, testData.items["s01-c01-001-S"].category);
     assert.strictEqual(obj.docs[0].size, testData.items["s01-c01-001-S"].size);
     assert.strictEqual(obj.docs[0].cost, testData.items["s01-c01-001-S"].cost);
@@ -348,7 +349,7 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj.total, 1);
     assert.strictEqual(obj.docs.length, 1);
     assert.strictEqual(obj.docs[0].name, testData.items["s01-c01-001-L"].name);
-    assert.strictEqual(obj.docs[0].supplierID, testData.items["s01-c01-001-L"].supplierID);
+    assert.strictEqual(obj.docs[0].supplierID._id, testData.items["s01-c01-001-L"].supplierID);
     assert.strictEqual(obj.docs[0].category, testData.items["s01-c01-001-L"].category);
     assert.strictEqual(obj.docs[0].size, testData.items["s01-c01-001-L"].size);
     assert.strictEqual(obj.docs[0].cost, testData.items["s01-c01-001-L"].cost);

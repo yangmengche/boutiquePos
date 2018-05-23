@@ -117,7 +117,7 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj.total, 1);
     assert.strictEqual(obj.docs.length, 1);
     assert.strictEqual(obj.docs[0].name, testData.items["s02-c02-001-XL"].name);
-    assert.strictEqual(obj.docs[0].supplierID, testData.items["s02-c02-001-XL"].supplierID);
+    assert.strictEqual(obj.docs[0].supplierID._id, testData.items["s02-c02-001-XL"].supplierID);
     assert.strictEqual(obj.docs[0].category, testData.items["s02-c02-001-XL"].category);
     assert.strictEqual(obj.docs[0].size, testData.items["s02-c02-001-XL"].size);
     assert.strictEqual(obj.docs[0].cost, testData.items["s02-c02-001-XL"].cost);

@@ -25,7 +25,7 @@ class DBSchema {
       code: {type: String, required: true},
       name: String,
       pic: String,
-      supplierID: { type: mongoose.Schema.Types.ObjectId, required: true },
+      supplierID: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'suppliers' },
       category: { type: String, required: true},
       size: { type: String, required: true, enum: def.size },
       cost: { type: Number, requires: true, min: 0 },

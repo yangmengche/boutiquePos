@@ -114,7 +114,7 @@ dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit)
       }
     }
     let total = await dbBase.items.count(q);
-    let query = dbBase.items.find(q).sort({ 'name': 1 });
+    let query = dbBase.items.find(q).sort({ 'name': 1 }).populate('supplierID', 'name');
     let s = parseInt(skip);
     if (!isNaN(s)) {
       query.skip(s);
