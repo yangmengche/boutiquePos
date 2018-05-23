@@ -3,25 +3,24 @@
   <button mat-button color="primary" class="btn" (click)="sideNav.toggle()">
       <mat-icon color="primary">menu</mat-icon>
   </button>
-  <span>SHERA</span>
+  <span><b>SHERA</b>   {{pageTitle}}</span>
 </mat-toolbar>
 <mat-sidenav-container mode="over" class="demo-app-container" fullscreen>
   <mat-sidenav #sideNav class="demo-app-sidenav">
     <mat-nav-list>
-      <a [routerLink]="['/', 'itemPage'] " mat-list-item (click)="sideNav.close()">Item</a>
-      <a [routerLink]="['/', 'salePage'] " mat-list-item (click)="sideNav.close()">Sale</a>
-      <a [routerLink]="['/', 'stockPage'] " mat-list-item (click)="sideNav.close()">Stock</a>
-      <a [routerLink]="['/', 'reportPage'] " mat-list-item (click)="sideNav.close()">Report</a>
-      <a [routerLink]="['/', 'chartPage'] " mat-list-item (click)="sideNav.close()">Chart</a>
+      <a [routerLink]="['/', 'itemPage'] " mat-list-item (click)="onPageChange('Item', sideNav)">Item</a>
+      <a [routerLink]="['/', 'salePage'] " mat-list-item (click)="onPageChange('Sale', sideNav)">Sale</a>
+      <a [routerLink]="['/', 'stockPage'] " mat-list-item (click)="onPageChange('Stock', sideNav)">Stock</a>
+      <a [routerLink]="['/', 'reportPage'] " mat-list-item (click)="onPageChange('Report', sideNav)">Report</a>
+      <a [routerLink]="['/', 'chartPage'] " mat-list-item (click)="onPageChange('Chart', sideNav)">Chart</a>
       <mat-divider></mat-divider>
       <h5 matSubHeader>管理</h5>
-      <a [routerLink]="['/', 'supplierPage'] " mat-list-item (click)="sideNav.close()">Supplier</a>
-      <a [routerLink]="['/', 'accountPage'] " mat-list-item (click)="sideNav.close()">Account</a>
+      <a [routerLink]="['/', 'supplierPage'] " mat-list-item (click)="onPageChange('Supplier', sideNav)">Supplier</a>
+      <a [routerLink]="['/', 'accountPage'] " mat-list-item (click)="onPageChange('Account', sideNav)">Account</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <div>
-        This is page contain<br>
         <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

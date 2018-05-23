@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'reportPage', component: ReportPageComponent },
   { path: 'chartPage', component: ChartPageComponent },
   { path: 'supplierPage', component: SupplierPageComponent },
-  { path: 'accountPage', component: ItemPageComponent },
+  { path: 'accountPage', component: AccountPageComponent },
   { path: '', component: ItemPageComponent }
 ];
 

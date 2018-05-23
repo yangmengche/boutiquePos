@@ -1,3 +1,38 @@
-<p>
-  supplier-page works!
-</p>
+<!-- Table starts here -->
+<!-- <table id="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Share Rate</th>
+      <th> Delete </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let supplier of suppliers">
+      <td>{{supplier.name}}</td>
+      <td>{{supplier.type}}</td>
+      <td>{{supplier.shareRate}}</td>
+      <td> <button type="button" (click)="deleteList(list); $event.stopPropagation();">Delete</button></td>
+    </tr>
+  </tbody>
+</table> -->
+
+<!-- <app-supplier-elem (addSupplier)='onAddSupplier($event)'> </app-supplier-elem> -->
+
+<mat-table [dataSource]="supplierDataSource">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.type }}</mat-cell>
+  </ng-container>  
+  <ng-container matColumnDef="shareRate">
+    <mat-header-cell *matHeaderCellDef>Share</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.shareRate }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['name', 'type', 'shareRate']"></mat-header-row>
+  <mat-row *matRowDef="let supplierlRow; columns: ['name', 'type', 'shareRate']"></mat-row>  
+</mat-table>
