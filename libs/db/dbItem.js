@@ -82,7 +82,7 @@ dbBase.getItem = async (id, code) => {
     if (code) {
       q.code = code;
     }
-    let docs = await dbBase.items.find(q);
+    let docs = await dbBase.items.find(q).populate('supplierID', 'name');;
     return docs;
   } catch (err) {
     log.writeLog(err.message, 'error');
