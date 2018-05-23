@@ -2,32 +2,43 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
-import { SupplierModel } from '../model/model'
+import { ItemModel } from '../model/model'
 import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
-export class SupplierService {
+export class ItemService {
   constructor(private http: Http) { }
 
   private serverApi = environment.apiUrl;
 
-  public getAllLists(): Observable<SupplierModel[]> {
+  public getAllLists(): Observable<ItemModel[]> {
 
-    let URI = `${this.serverApi}/supplier/`;
+    let URI = `${this.serverApi}/item/`;
     return this.http.get(URI)
       .pipe(
         map(res => res.json()),
         // map(res => {return{ 'name':res.name, 'type':SupplierService.typeMap[res.type], 'shareRate':res.shareRate}),
-        map(res => <SupplierModel[]>res)
+        map(res => <ItemModel[]>res)
       )
   }
 
-  public addSupplier(supplier: SupplierModel) {
+  public addSupplier(item: ItemModel) {
     let URI = `${this.serverApi}/supplier/create`;
     let headers = new Headers;
-    let body = JSON.stringify({ name: supplier.name, type: supplier.type, shareRate: supplier.shareRate });
+    let body = JSON.stringify({
+      code: item.code,
+      name: item.name,
+      pic: item.pic,
+      supplierID: item.supplierID,
+      category: item.category,
+      size: item.size,
+      cost: item.cost,
+      listPrice: item.listPrice,
+      marketPrice: item.marketPrice,
+      stock: item.stock
+    });
     console.log(body);
     headers.append('Content-Type', 'application/json');
     return this.http.post(URI, body, { headers: headers })

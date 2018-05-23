@@ -1,3 +1,45 @@
-<p>
-  item-page works!
-</p>
+<mat-table [dataSource]="itemDataSource">
+  <ng-container matColumnDef="code">
+    <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
+  </ng-container>  
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="supplier">
+    <mat-header-cell *matHeaderCellDef>Supplier</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.supplierID.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="category">
+    <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.category }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="size">
+    <mat-header-cell *matHeaderCellDef>Size</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.size }}</mat-cell>
+  </ng-container>    
+  <ng-container matColumnDef="cost">
+    <mat-header-cell *matHeaderCellDef>Cost</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.cost }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="listPrice">
+    <mat-header-cell *matHeaderCellDef>List price</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.listPrice }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="marketPrice">
+    <mat-header-cell *matHeaderCellDef>Market price</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.marketPrice }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="stock">
+    <mat-header-cell *matHeaderCellDef>Stock</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.stock }}</mat-cell>
+  </ng-container>    
+  <mat-header-row *matHeaderRowDef="['code', 'name', 'supplier', 'category', 'size', 'cost', 'listPrice', 'marketPrice', 'stock']"></mat-header-row>
+  <mat-row *matRowDef="let supplierlRow; columns: ['code', 'name', 'supplier', 'category', 'size', 'cost', 'listPrice', 'marketPrice', 'stock']"></mat-row>  
+</mat-table>
+<div>
+  <button mat-button color="primary">
+      <mat-icon color="primary"  (click)="onAddClick()">add</mat-icon>
+    </button>
+</div>

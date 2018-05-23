@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { SupplierService } from '../../service/supplier.service';
-import { SupplierModel } from '../../model/supplierModel';
+import { SupplierModel } from '../../model/model';
 import { MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
 

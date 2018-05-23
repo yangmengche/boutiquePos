@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatTableModule } from '@angular/material';
 import { SupplierService } from './service/supplier.service';
+import { ItemService } from './service/item.service';
+
 import { SupplierPageComponent } from './page/supplier-page/supplier-page.component';
 import { ItemPageComponent } from './page/item-page/item-page.component';
 import { AccountPageComponent } from './page/account-page/account-page.component';
@@ -42,7 +44,7 @@ import { ChartPageComponent } from './page/chart-page/chart-page.component';
     MatListModule,
     MatTableModule    
   ],
-  providers: [SupplierService],
+  providers: [SupplierService, ItemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
