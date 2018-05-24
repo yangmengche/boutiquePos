@@ -13,7 +13,7 @@ export class SupplierService {
 
   private serverApi = environment.apiUrl;
 
-  public getAllLists(): Observable<SupplierModel[]> {
+  public getSuppliers(): Observable<SupplierModel[]> {
 
     let URI = `${this.serverApi}/supplier/`;
     return this.http.get(URI)

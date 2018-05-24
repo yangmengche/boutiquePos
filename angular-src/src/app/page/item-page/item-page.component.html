@@ -39,7 +39,10 @@
   <mat-row *matRowDef="let supplierlRow; columns: ['code', 'name', 'supplier', 'category', 'size', 'cost', 'listPrice', 'marketPrice', 'stock']"></mat-row>  
 </mat-table>
 <div>
-  <button mat-button color="primary">
-      <mat-icon color="primary"  (click)="onAddClick()">add</mat-icon>
-    </button>
+  <a [routerLink]="['/', 'addItemPage']">
+    <mat-icon color="primary">add</mat-icon>
+  </a>
+  <!-- <button mat-button color="primary">
+    <mat-icon color="primary"  (click)="onAddClick()">add</mat-icon>
+  </button> -->
 </div>

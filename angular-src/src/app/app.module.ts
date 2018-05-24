@@ -7,7 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatTableModule } from '@angular/material';
+import { MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule, 
+  MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { SupplierService } from './service/supplier.service';
 import { ItemService } from './service/item.service';
 
@@ -18,6 +19,7 @@ import { StockPageComponent } from './page/stock-page/stock-page.component';
 import { SalePageComponent } from './page/sale-page/sale-page.component';
 import { ReportPageComponent } from './page/report-page/report-page.component';
 import { ChartPageComponent } from './page/chart-page/chart-page.component';
+import { AddItemPageComponent } from './page/add-item-page/add-item-page.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { ChartPageComponent } from './page/chart-page/chart-page.component';
     StockPageComponent,
     SalePageComponent,
     ReportPageComponent,
-    ChartPageComponent
+    ChartPageComponent,
+    AddItemPageComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,10 @@ import { ChartPageComponent } from './page/chart-page/chart-page.component';
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    MatTableModule    
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [SupplierService, ItemService],
   bootstrap: [AppComponent]

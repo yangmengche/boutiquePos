@@ -21,3 +21,16 @@ export interface ItemModel{
   marketPrice: number;
   stock: number
 }
+
+export interface ItemAddModel{
+  _id?: string;
+  code: string;
+  name: string;
+  pic: string;
+  supplierID: string,
+  category: string;
+  size: string;
+  cost: number;
+  listPrice: number;
+  marketPrice: number;
+}

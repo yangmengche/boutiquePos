@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
-import { ItemModel } from '../model/model'
+import { ItemModel, ItemAddModel } from '../model/model'
 import { environment } from '../../environments/environment'
 
 @Injectable({
@@ -24,8 +24,8 @@ export class ItemService {
       )
   }
 
-  public addSupplier(item: ItemModel) {
-    let URI = `${this.serverApi}/supplier/create`;
+  public addItem(item: ItemAddModel) {
+    let URI = `${this.serverApi}/item/create`;
     let headers = new Headers;
     let body = JSON.stringify({
       code: item.code,
@@ -36,8 +36,7 @@ export class ItemService {
       size: item.size,
       cost: item.cost,
       listPrice: item.listPrice,
-      marketPrice: item.marketPrice,
-      stock: item.stock
+      marketPrice: item.marketPrice
     });
     console.log(body);
     headers.append('Content-Type', 'application/json');

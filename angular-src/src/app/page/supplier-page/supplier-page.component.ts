@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { SupplierService } from '../../service/supplier.service';
 import { SupplierModel } from '../../model/model';
 import { MatTableDataSource } from '@angular/material';
@@ -35,7 +36,7 @@ export class SupplierPageComponent implements OnInit {
   }
 
   public async LoadLists() {
-    this.supplierSrv.getAllLists().subscribe((response) =>{
+    this.supplierSrv.getSuppliers().subscribe((response) =>{
       response.forEach(supplier=>supplier.type = SupplierPageComponent.typeMap[supplier.type]);
       this.supplierDataSource.data = response;
     }); 
