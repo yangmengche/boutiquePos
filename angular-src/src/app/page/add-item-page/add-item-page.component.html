@@ -3,21 +3,21 @@
     <mat-form-field>
       <input type="text" name="code" matInput placeholder="Code" [(ngModel)]="newItem.code" required/>
       <mat-hint>Enter the bar code</mat-hint>
-      <mat-error>It's a mandatory field</mat-error>    
     </mat-form-field>
+    <button mat-button color="primary" class="btn" (click)="onScan()">
+        <mat-icon color="primary">camera</mat-icon>
+    </button>
   </div>
 
   <div>
     <mat-form-field>
       <input type="text" name="name" matInput placeholder="Name" [(ngModel)]="newItem.name"/>
-      <mat-error>It's a mandatory field</mat-error>    
     </mat-form-field>
   </div>
 
   <div>
     <mat-form-field>
       <input type="text" name="pic" matInput placeholder="Picture" [(ngModel)]="newItem.pic"/>
-      <mat-error>It's a mandatory field</mat-error>    
     </mat-form-field>
   </div>
 
@@ -34,38 +34,30 @@
   <div>
     <mat-form-field>
       <input type="text" name="category" matInput placeholder="Category" [(ngModel)]="newItem.category" required/>
-      <mat-error>It's a mandatory field</mat-error>    
     </mat-form-field>
   </div>
 
   <div>
     <mat-form-field>
       <input type="text" name="size" matInput placeholder="Size" [(ngModel)]="newItem.size" required/>
-      <mat-error>It's a mandatory field</mat-error>    
     </mat-form-field>
   </div>
 
   <div>
     <mat-form-field>
       <input type="number" name="cost" matInput placeholder="Cost" [(ngModel)]="newItem.cost" required/>
-      <mat-icon matPrefix>attach_money</mat-icon>
-      <mat-error>It's a mandatory field</mat-error>    
     </mat-form-field>
   </div>
 
   <div>
     <mat-form-field>
       <input type="number" name="listPrice" matInput placeholder="List Price" [(ngModel)]="newItem.listPrice" required/>
-      <mat-icon matPrefix>attach_money</mat-icon>
-      <mat-error>It's a mandatory field</mat-error>    
     </mat-form-field>
   </div>
   
   <div>
     <mat-form-field>
       <input type="number" name="marketPrice" matInput placeholder="Market Price" [(ngModel)]="newItem.marketPrice" required/>
-      <mat-icon matPrefix>attach_money</mat-icon>
-      <mat-error>It's a mandatory field</mat-error>    
     </mat-form-field>
   </div>
   <div>

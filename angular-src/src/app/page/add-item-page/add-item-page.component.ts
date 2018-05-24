@@ -38,6 +38,7 @@ export class AddItemPageComponent implements OnInit {
     }); 
   }
   public onSubmit() {
+    console.log('on submit');
     this.itemSrv.addItem(this.newItem).subscribe(
       response => {
         if (response.id)
@@ -45,5 +46,8 @@ export class AddItemPageComponent implements OnInit {
           this.router.navigate(['/', 'itemPage']);
       },
     );
+  }
+  public onScan(){
+    console.log('go to scan page');
   }
 }

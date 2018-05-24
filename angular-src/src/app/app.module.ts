@@ -20,6 +20,7 @@ import { SalePageComponent } from './page/sale-page/sale-page.component';
 import { ReportPageComponent } from './page/report-page/report-page.component';
 import { ChartPageComponent } from './page/chart-page/chart-page.component';
 import { AddItemPageComponent } from './page/add-item-page/add-item-page.component';
+import { ScanPageComponent } from './page/scan-page/scan-page.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AddItemPageComponent } from './page/add-item-page/add-item-page.compone
     SalePageComponent,
     ReportPageComponent,
     ChartPageComponent,
-    AddItemPageComponent
+    AddItemPageComponent,
+    ScanPageComponent
   ],
   imports: [
     BrowserModule,

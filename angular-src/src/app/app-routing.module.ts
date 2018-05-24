@@ -9,6 +9,7 @@ import { ReportPageComponent } from './page/report-page/report-page.component';
 import { ChartPageComponent } from './page/chart-page/chart-page.component';
 import { SupplierPageComponent } from './page/supplier-page/supplier-page.component';
 import { AccountPageComponent } from './page/account-page/account-page.component';
+import { ScanPageComponent } from './page/scan-page/scan-page.component';
 
 const routes: Routes = [
   { path: 'itemPage', component: ItemPageComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'chartPage', component: ChartPageComponent },
   { path: 'supplierPage', component: SupplierPageComponent },
   { path: 'accountPage', component: AccountPageComponent },
+  { path: 'scanPage', component: ScanPageComponent },
   { path: '', component: ItemPageComponent }
 ];
 
