@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'chartPage', component: ChartPageComponent },
   { path: 'supplierPage', component: SupplierPageComponent },
   { path: 'accountPage', component: AccountPageComponent },
-  { path: 'scanPage', component: ScanPageComponent },
+  { path: 'scanPage/:ret', component: ScanPageComponent },
   { path: '', redirectTo: 'itemPage', pathMatch: 'full'}
 ];
 

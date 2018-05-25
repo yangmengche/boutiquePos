@@ -56,6 +56,6 @@ export class AddItemPageComponent implements OnInit {
   }
   public onScan(){
     console.log('go to scan page');
-    this.router.navigate(['/', 'scanPage']);
+    this.router.navigate(['/scanPage', '/addItemPage']);
   }
 }

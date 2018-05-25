@@ -46,6 +46,30 @@ export class ItemService {
       );
   }
 
+  public getItemByCode(code: String){
+    let URI = `${this.serverApi}/item`+`?code=`+code;
+    let headers = new Headers;
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(URI, { headers: headers })
+      .pipe(
+        map(res => res.json())
+      );
+  }
+
+  public stockItem(id: string, quantity: number){
+    let URI = `${this.serverApi}/item/stock`;
+    let headers = new Headers;
+    headers.append('Content-Type', 'application/json');
+    let body = JSON.stringify({
+      itemID: id,
+      quantity: quantity,
+    });    
+    return this.http.post(URI, body, { headers: headers })
+      .pipe(
+        map(res => res.json())
+      );    
+  }
+
   // public deleteList(listId: string) {
   //   let URI = `${this.serverApi}/bucketlist/${listId}`;
   //   let headers = new Headers;

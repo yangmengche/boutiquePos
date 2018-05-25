@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
 import * as Quagga from 'quagga';
 
@@ -11,11 +11,20 @@ import * as Quagga from 'quagga';
 export class ScanPageComponent implements OnInit {
   private lastResult: String = '';
   private count: number = 0;
-  constructor(private location: PlatformLocation, private router: Router, ) {
+  private returnPath='';
+  constructor(
+    private location: PlatformLocation,
+    private router: Router,
+    private actRoute: ActivatedRoute) {
     location.onPopState(this.onLeave);
   }
 
   ngOnInit() {
+    this.actRoute.params.subscribe(params => {
+      if('ret' in params){
+        this.returnPath = params['ret'];
+      }
+    });    
     this.InitQuagga();
   }
 
@@ -91,7 +100,7 @@ export class ScanPageComponent implements OnInit {
       // send detected event
       this.codeDetected.emit(this.lastResult);
       this.stopQuagga();
-      this.router.navigate(['/addItemPage', this.lastResult]);
+      this.router.navigate([this.returnPath, this.lastResult]);
     }
   }
   public onLeave() {
@@ -101,6 +110,6 @@ export class ScanPageComponent implements OnInit {
   public emitEvent() {
     this.lastResult = '123456789';
     // this.codeDetected.emit(this.lastResult);
-    this.router.navigate(['/addItemPage', this.lastResult]);
+    this.router.navigate([this.returnPath, this.lastResult]);
   }
 }
