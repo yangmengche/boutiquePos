@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment'
 export class SupplierService {
   constructor(private http: Http) { }
 
-  private serverApi = environment.apiUrl;
+  private serverApi = window.location.origin;
 
   public getSuppliers(): Observable<SupplierModel[]> {
 

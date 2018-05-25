@@ -14,6 +14,7 @@ import { ScanPageComponent } from './page/scan-page/scan-page.component';
 const routes: Routes = [
   { path: 'itemPage', component: ItemPageComponent },
   { path: 'addItemPage', component: AddItemPageComponent },
+  { path: 'addItemPage/:code', component: AddItemPageComponent },
   { path: 'salePage', component: SalePageComponent },
   { path: 'stockPage', component: StockPageComponent },
   { path: 'reportPage', component: ReportPageComponent },
@@ -21,7 +22,7 @@ const routes: Routes = [
   { path: 'supplierPage', component: SupplierPageComponent },
   { path: 'accountPage', component: AccountPageComponent },
   { path: 'scanPage', component: ScanPageComponent },
-  { path: '', component: ItemPageComponent }
+  { path: '', redirectTo: 'itemPage', pathMatch: 'full'}
 ];
 
 @NgModule({
