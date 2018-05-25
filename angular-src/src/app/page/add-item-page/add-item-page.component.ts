@@ -58,4 +58,15 @@ export class AddItemPageComponent implements OnInit {
     console.log('go to scan page');
     this.router.navigate(['/scanPage', '/addItemPage']);
   }
+
+  public fileChange(event){
+    console.log(event);
+  }
+  public onSelectFile(){
+
+  }
+
+  public onOpenCamera(){
+
+  }
 }

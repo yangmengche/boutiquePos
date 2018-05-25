@@ -1,65 +1,74 @@
-<form (ngSubmit)="onSubmit()" >
-  <div>
-    <mat-form-field>
-      <input type="text" name="code" matInput placeholder="Code" [(ngModel)]="newItem.code" required/>
-    </mat-form-field>
-    <button mat-button color="primary" class="btn" (click)="onScan()" type="button">
-        <mat-icon color="primary">camera</mat-icon>
-    </button>
-  </div>
+<div class="center">
+  <form (ngSubmit)="onSubmit()" >
+    <div>
+      <mat-form-field class="field">
+        <input type="text" name="code" matInput placeholder="Code" [(ngModel)]="newItem.code" required/>
+      </mat-form-field>
+      <button mat-icon-button color="primary" class="btn" (click)="onScan()" type="button">
+          <mat-icon color="primary">camera</mat-icon>
+      </button>
+    </div>
 
-  <div>
-    <mat-form-field>
-      <input type="text" name="name" matInput placeholder="Name" [(ngModel)]="newItem.name"/>
-    </mat-form-field>
-  </div>
+    <div>
+      <mat-form-field class="field">
+        <input type="text" name="name" matInput placeholder="Name" [(ngModel)]="newItem.name"/>
+      </mat-form-field>
+    </div>
 
-  <div>
-    <mat-form-field>
-      <input type="text" name="pic" matInput placeholder="Picture" [(ngModel)]="newItem.pic"/>
-    </mat-form-field>
-  </div>
+    <div>
+      <mat-form-field class="field">
+        <input type="text" name="pic" matInput placeholder="Picture" [(ngModel)]="newItem.pic"/>
+        <!-- <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg,.jpeg,.png"> -->
+      </mat-form-field>
+      <button mat-icon-button color="primary" class="btn" (change)="onSelectFile()" type="button">
+          <mat-icon color="primary">add_photo_alternate</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" class="btn" (click)="onOpenCamera()" type="button">
+          <mat-icon color="primary">add_a_photo</mat-icon>
+      </button>        
+    </div>
 
-  <div>
-    <mat-form-field>
-      <mat-select [(ngModel)]="newItem.supplierID" placeholder="Supplier" required name="supplierID">
-        <mat-option *ngFor="let supplier of suppliers" [value]="supplier._id">
-          {{ supplier.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div>
+      <mat-form-field class="field">
+        <mat-select [(ngModel)]="newItem.supplierID" placeholder="Supplier" required name="supplierID">
+          <mat-option *ngFor="let supplier of suppliers" [value]="supplier._id">
+            {{ supplier.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <div>
-    <mat-form-field>
-      <input type="text" name="category" matInput placeholder="Category" [(ngModel)]="newItem.category" required/>
-    </mat-form-field>
-  </div>
+    <div>
+      <mat-form-field class="field">
+        <input type="text" name="category" matInput placeholder="Category" [(ngModel)]="newItem.category" required/>
+      </mat-form-field>
+    </div>
 
-  <div>
-    <mat-form-field>
-      <input type="text" name="size" matInput placeholder="Size" [(ngModel)]="newItem.size" required/>
-    </mat-form-field>
-  </div>
+    <div>
+      <mat-form-field class="field">
+        <input type="text" name="size" matInput placeholder="Size" [(ngModel)]="newItem.size" required/>
+      </mat-form-field>
+    </div>
 
-  <div>
-    <mat-form-field>
-      <input type="number" name="cost" matInput placeholder="Cost" [(ngModel)]="newItem.cost" required/>
-    </mat-form-field>
-  </div>
+    <div>
+      <mat-form-field class="field">
+        <input type="number" name="cost" matInput placeholder="Cost" [(ngModel)]="newItem.cost" required/>
+      </mat-form-field>
+    </div>
 
-  <div>
-    <mat-form-field>
-      <input type="number" name="listPrice" matInput placeholder="List Price" [(ngModel)]="newItem.listPrice" required/>
-    </mat-form-field>
-  </div>
-  
-  <div>
-    <mat-form-field>
-      <input type="number" name="marketPrice" matInput placeholder="Market Price" [(ngModel)]="newItem.marketPrice" required/>
-    </mat-form-field>
-  </div>
-  <div>
-    <button mat-button type="submit">Submit</button>
-  </div>
-</form>
+    <div>
+      <mat-form-field class="field">
+        <input type="number" name="listPrice" matInput placeholder="List Price" [(ngModel)]="newItem.listPrice" required/>
+      </mat-form-field>
+    </div>
+    
+    <div>
+      <mat-form-field class="field">
+        <input type="number" name="marketPrice" matInput placeholder="Market Price" [(ngModel)]="newItem.marketPrice" required/>
+      </mat-form-field>
+    </div>
+    <div class="center-done-btn">
+        <button mat-icon-button type="submit">done</button>
+    </div>
+  </form>
+</div>

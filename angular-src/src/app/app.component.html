@@ -1,9 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar class="demo-app-header">
-  <button mat-button color="primary" class="btn" (click)="sideNav.toggle()">
+  <button mat-icon-button color="primary" (click)="sideNav.toggle()">
       <mat-icon color="primary">menu</mat-icon>
   </button>
-  <span><b>SHERA</b>   {{pageTitle}}</span>
+  <p><b>SHERA</b></p><p align="right" style="width: 100%;">{{pageTitle}}</p>
 </mat-toolbar>
 <mat-sidenav-container mode="over" class="demo-app-container" fullscreen>
   <mat-sidenav #sideNav class="demo-app-sidenav">

@@ -1,11 +1,11 @@
 <div>
 	<input type="text" name="code" matInput placeholder="Code" [(ngModel)]="item.code"/>
-	<button mat-button color="primary" class="btn" (click)="onScan()" type="button">
+	<button mat-icon-button color="primary" (click)="onScan()" type="button">
 		<mat-icon color="primary">camera</mat-icon>
 	</button>
 </div>
 <div>
-	<button mat-button color="primary" class="btn" (click)="queryItem()" type="button">
+	<button mat-icon-button color="primary" (click)="queryItem()" type="button">
 		<mat-icon color="primary">arrow_downward</mat-icon>
 	</button>
 </div>
@@ -33,7 +33,7 @@
 <div>
 	Purchase 
 	<input type="number" name="newStock" matInput placeholder="quantity" [(ngModel)]="quantity" style="width: 50px"/>
-	<button mat-button color="primary" class="btn" (click)="stockItem()" type="button">
+	<button mat-icon-button color="primary" (click)="stockItem()" type="button">
 			<mat-icon color="primary">add_shopping_cart</mat-icon>
 		</button>	
 </div>
