@@ -7,8 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule, 
-  MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import {
+  MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule,
+  MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule
+} from '@angular/material';
+import { NgUploaderModule } from 'ngx-uploader';
+
 import { SupplierService } from './service/supplier.service';
 import { ItemService } from './service/item.service';
 
@@ -38,6 +42,7 @@ import { ScanPageComponent } from './page/scan-page/scan-page.component';
   ],
   imports: [
     BrowserModule,
+    NgUploaderModule,    
     HttpModule,
     FormsModule,
     AppRoutingModule,

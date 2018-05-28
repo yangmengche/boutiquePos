@@ -20,12 +20,19 @@
         <input type="text" name="pic" matInput placeholder="Picture" [(ngModel)]="newItem.pic"/>
         <!-- <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg,.jpeg,.png"> -->
       </mat-form-field>
-      <button mat-icon-button color="primary" class="btn" (change)="onSelectFile()" type="button">
+      <!-- <label class="upload-button">
+        <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
+      </label> -->
+      <input style="display:none" id="input-file-id" type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"/>
+      <label for="input-file-id" class="mat-icon-button" color="primary">
+        <mat-icon color="primary">add_photo_alternate</mat-icon>
+      </label>
+      <!-- <button mat-icon-button color="primary" class="btn" (change)="onSelectFile()" type="button">
           <mat-icon color="primary">add_photo_alternate</mat-icon>
-      </button>
-      <button mat-icon-button color="primary" class="btn" (click)="onOpenCamera()" type="button">
+      </button> -->
+      <!-- <button mat-icon-button color="primary" (click)="onOpenCamera()" type="button">
           <mat-icon color="primary">add_a_photo</mat-icon>
-      </button>        
+      </button>         -->
     </div>
 
     <div>
