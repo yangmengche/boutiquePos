@@ -34,3 +34,8 @@ export interface ItemAddModel{
   listPrice: number;
   marketPrice: number;
 }
+
+export interface CategoryModel{
+  _id?: string;
+  name: string
+}

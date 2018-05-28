@@ -20,10 +20,10 @@ exports.addCategories = async (req, res) => {
   }
 };
 
-exports.removeCategories = async (req, res) => {
+exports.removeCategory = async (req, res) => {
   try {
-    let ids = await utils.fnGetBody(req);
-    let result = await db.removeCategories(ids)
+    let id = req.query.id;
+    let result = await db.removeCategories([id])
     utils.fnResponse(null, result, res);
   } catch (err) {
     log.writeLog(err.message, 'error');

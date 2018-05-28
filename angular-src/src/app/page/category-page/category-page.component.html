@@ -1,0 +1,22 @@
+<mat-table [dataSource]="itemDataSource">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="management">
+      <mat-header-cell *matHeaderCellDef>
+        <u>管理</u>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-button color="warn" (click)="deleteCategory(row)">刪除</button>
+      </mat-cell>
+    </ng-container>  
+  <mat-header-row *matHeaderRowDef="['name', 'management']"></mat-header-row>
+  <mat-row *matRowDef="let categoryRow; columns: ['name', 'management']"></mat-row>
+</mat-table>
+<div class="center">
+  <input type="text" name="category" matInput placeholder="Category" [(ngModel)]="newCategory"/>
+  <button mat-icon-button color="primary" (click)="onAddCategory()" type="button">
+      <mat-icon color="primary">add_photo_alternate</mat-icon>
+  </button>
+</div>

@@ -8,6 +8,7 @@ import { StockPageComponent } from './page/stock-page/stock-page.component';
 import { ReportPageComponent } from './page/report-page/report-page.component';
 import { ChartPageComponent } from './page/chart-page/chart-page.component';
 import { SupplierPageComponent } from './page/supplier-page/supplier-page.component';
+import { CategoryPageComponent } from './page/category-page/category-page.component';
 import { AccountPageComponent } from './page/account-page/account-page.component';
 import { ScanPageComponent } from './page/scan-page/scan-page.component';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'reportPage', component: ReportPageComponent },
   { path: 'chartPage', component: ChartPageComponent },
   { path: 'supplierPage', component: SupplierPageComponent },
+  { path: 'categoryPage', component: CategoryPageComponent },
   { path: 'accountPage', component: AccountPageComponent },
   { path: 'scanPage/:ret', component: ScanPageComponent },
   { path: '', redirectTo: 'itemPage', pathMatch: 'full'}

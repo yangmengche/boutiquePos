@@ -25,6 +25,7 @@ import { ReportPageComponent } from './page/report-page/report-page.component';
 import { ChartPageComponent } from './page/chart-page/chart-page.component';
 import { AddItemPageComponent } from './page/add-item-page/add-item-page.component';
 import { ScanPageComponent } from './page/scan-page/scan-page.component';
+import { CategoryPageComponent } from './page/category-page/category-page.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ScanPageComponent } from './page/scan-page/scan-page.component';
     ReportPageComponent,
     ChartPageComponent,
     AddItemPageComponent,
-    ScanPageComponent
+    ScanPageComponent,
+    CategoryPageComponent
   ],
   imports: [
     BrowserModule,

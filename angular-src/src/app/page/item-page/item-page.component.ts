@@ -20,6 +20,6 @@ export class ItemPageComponent implements OnInit {
   }
 
   public async LoadLists() {
-    this.itemSrv.getAllLists().subscribe((response) =>this.itemDataSource.data = response);
+    this.itemSrv.getAllItems().subscribe((response) =>this.itemDataSource.data = response);
   }
 }

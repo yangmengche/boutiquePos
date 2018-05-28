@@ -13,7 +13,7 @@ export class ItemService {
 
   private serverApi = window.location.origin;
 
-  public getAllLists(): Observable<ItemModel[]> {
+  public getAllItems(): Observable<ItemModel[]> {
 
     let URI = `${this.serverApi}/item/`;
     return this.http.get(URI)
@@ -78,6 +78,29 @@ export class ItemService {
       .pipe(
         map(res => res.json())
       );        
+  }
+
+  public addCategory(category){
+    let URI = `${this.serverApi}/category/create`;
+    let headers = new Headers;
+    headers.append('Content-Type', 'application/json');
+    let body = JSON.stringify([{
+      name: category
+    }]);
+    return this.http.post(URI, body, { headers: headers })
+      .pipe(
+        map(res => res.json())
+      );    
+  }
+
+  public deleteCategory(id: string){
+    let URI = `${this.serverApi}/category?id=`+id;
+    let headers = new Headers;
+    headers.append('Content-Type', 'application/json');
+    return this.http.delete(URI,{ headers: headers })
+      .pipe(
+        map(res => res.json())
+      );
   }
 
   // public deleteList(listId: string) {

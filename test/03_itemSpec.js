@@ -94,9 +94,8 @@ describe('[Item spec]', () => {
 
   it('should delete the category c03', async () => {
     try {
-      var res = await agent.delete('/category')
+      var res = await agent.delete('/category?id='+testData.categories.c03.id)
         .set('Content-Type', 'application/json')
-        .send([testData.categories.c03.id])
         .expect(200);
     } catch (err) {
       assert(!err, err.message);

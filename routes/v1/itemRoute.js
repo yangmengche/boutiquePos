@@ -7,7 +7,7 @@ const accountMgr = require('../../libs/accountMgr');
 // Item API
 
 router.post('/category/create', accountMgr.authenticate, itemMgr.addCategories);
-router.delete('/category', accountMgr.authenticate, itemMgr.removeCategories);
+router.delete('/category', accountMgr.authenticate, itemMgr.removeCategory);
 router.put('/category/update', accountMgr.authenticate, itemMgr.updateCategory);
 router.get('/category', accountMgr.authenticate, itemMgr.getCategories);
 
