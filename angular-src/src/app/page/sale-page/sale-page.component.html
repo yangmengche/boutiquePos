@@ -1,3 +1,40 @@
-<p>
-  sale-page works!
-</p>
+<div>
+  <input type="text" name="code" matInput placeholder="Code" [(ngModel)]="saleItem.code"/>
+  <button mat-icon-button color="primary" (click)="onScan()" type="button">
+    <mat-icon color="primary">camera</mat-icon>
+  </button>
+  <button mat-icon-button color="primary" (click)="onAddItem()" type="button">
+      <mat-icon color="primary">add_photo_alternate</mat-icon>
+  </button>  
+</div>
+
+<mat-table [dataSource]="itemDataSource">
+  <ng-container matColumnDef="code">
+    <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
+  </ng-container>  
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.marketPrice }}</mat-cell>
+  </ng-container>  
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <input type="number" name="quantity" matInput placeholder="Quantity" [(ngModel)]="row.quantity" style="width: 50%"/>
+    </mat-cell>
+  </ng-container>    
+  <ng-container matColumnDef="management">
+      <mat-header-cell *matHeaderCellDef>
+        <u>管理</u>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-button color="warn" (click)="deleteItem(row)">刪除</button>
+      </mat-cell>
+    </ng-container>  
+  <mat-header-row *matHeaderRowDef="['code', 'name', 'price', 'quantity', 'management']"></mat-header-row>
+  <mat-row *matRowDef="let categoryRow; columns: ['code', 'name', 'price', 'quantity', 'management']"></mat-row>
+</mat-table>

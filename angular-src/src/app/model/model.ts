@@ -39,3 +39,15 @@ export interface CategoryModel{
   _id?: string;
   name: string
 }
+
+export interface SaleModel{
+  _id?: string;
+  code: string;
+  name: string;
+  category: string;
+  size: string;
+  cost: number;
+  listPrice: number;
+  marketPrice: number;
+  quantity: number  
+}
