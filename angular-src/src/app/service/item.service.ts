@@ -70,6 +70,16 @@ export class ItemService {
       );    
   }
 
+  public getCategories(){
+    let URI = `${this.serverApi}/category`;
+    let headers = new Headers;
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(URI, { headers: headers })
+      .pipe(
+        map(res => res.json())
+      );        
+  }
+
   // public deleteList(listId: string) {
   //   let URI = `${this.serverApi}/bucketlist/${listId}`;
   //   let headers = new Headers;

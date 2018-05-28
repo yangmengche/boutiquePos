@@ -15,12 +15,14 @@ import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions }
 export class AddItemPageComponent implements OnInit {
   private newItem: ItemAddModel;
   private suppliers: SupplierModel[];
-  private options: UploaderOptions;
-  private formData: FormData;
+  // private options: UploaderOptions;
+  // private formData: FormData;
   private files: UploadFile[];
   private uploadInput: EventEmitter<UploadInput>;
-  private humanizeBytes: Function;
+  // private humanizeBytes: Function;
   
+  private categories: string[];
+  private sizes = ['3S', '2S', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L', '4L', '5L'];
   constructor(
     private itemSrv: ItemService,
     private supplierSrv: SupplierService,
@@ -29,7 +31,7 @@ export class AddItemPageComponent implements OnInit {
   ) { 
     this.files = [];
     this.uploadInput = new EventEmitter<UploadInput>(); 
-    this.humanizeBytes = humanizeBytes;
+    // this.humanizeBytes = humanizeBytes;
   }
 
   ngOnInit() {
@@ -52,7 +54,10 @@ export class AddItemPageComponent implements OnInit {
    
     this.supplierSrv.getSuppliers().subscribe((response) =>{
       this.suppliers = response;
-    }); 
+    });
+    this.itemSrv.getCategories().subscribe((response)=>{
+      this.categories = response;
+    });
   }
   public onSubmit() {
     console.log('on submit');

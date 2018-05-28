@@ -47,14 +47,22 @@
 
     <div>
       <mat-form-field class="field">
-        <input type="text" name="category" matInput placeholder="Category" [(ngModel)]="newItem.category" required/>
-      </mat-form-field>
+        <mat-select [(ngModel)]="newItem.category" placeholder="Category" required name="category">
+          <mat-option *ngFor="let category of categories" [value]="category.name">
+            {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>      
     </div>
 
     <div>
       <mat-form-field class="field">
-        <input type="text" name="size" matInput placeholder="Size" [(ngModel)]="newItem.size" required/>
-      </mat-form-field>
+        <mat-select [(ngModel)]="newItem.size" placeholder="Size" required name="size">
+          <mat-option *ngFor="let size of sizes" [value]="size">
+            {{ size }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>      
     </div>
 
     <div>
@@ -74,8 +82,8 @@
         <input type="number" name="marketPrice" matInput placeholder="Market Price" [(ngModel)]="newItem.marketPrice" required/>
       </mat-form-field>
     </div>
-    <div class="center-done-btn">
-        <button mat-icon-button type="submit">done</button>
-    </div>
+    <button mat-icon-button color="primary" class="center-done-btn" type="submit" class="center-done-btn">
+      <mat-icon color="primary">done</mat-icon>
+    </button>    
   </form>
 </div>
