@@ -5,7 +5,7 @@ import { ItemAddModel, SupplierModel } from '../../model/model';
 import { ItemService } from '../../service/item.service';
 import { SupplierService } from '../../service/supplier.service';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions } from 'ngx-uploader';
-
+import { SIZE } from '../../model/def';
 
 @Component({
   selector: 'app-add-item-page',
@@ -22,7 +22,7 @@ export class AddItemPageComponent implements OnInit {
   // private humanizeBytes: Function;
   
   private categories: string[];
-  private sizes = ['3S', '2S', 'XS', 'S', 'M', 'L', 'XL', '2L', '3L', '4L', '5L'];
+  private sizes = SIZE;
   constructor(
     private itemSrv: ItemService,
     private supplierSrv: SupplierService,

@@ -40,7 +40,7 @@ export interface CategoryModel{
   name: string
 }
 
-export interface SaleModel{
+export interface ReceiptItemModel{
   _id?: string;
   code: string;
   name: string;
@@ -49,5 +49,14 @@ export interface SaleModel{
   cost: number;
   listPrice: number;
   marketPrice: number;
+  salePrice: number;
   quantity: number  
+}
+
+export interface ReceiptModel{
+  items: ReceiptItemModel[],
+  payBy: string,
+  pay: number,
+  remark: String,
+  returnRefID?: string  
 }

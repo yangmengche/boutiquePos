@@ -196,7 +196,7 @@ describe('[Item spec]', () => {
         'pay': -180,// -receipt01.items[1].salePrice,
         'remark': 'return for broken',
         'returnRefID': receipt01._id,
-      }      
+      }
       var res = await agent.post('/receipt/create')
         .set('Content-Type', 'application/json')
         .send(returReceipt)

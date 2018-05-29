@@ -1,0 +1,21 @@
+mat-cell{
+  display:flex !important;
+  justify-content:center!important;
+  
+}
+
+mat-header-cell {
+  display:flex;
+  justify-content:center;
+}
+
+mat-footer-cell {
+  display:flex;
+  justify-content:center;
+  font-weight: bold;
+}
+
+.input-number {
+  width: 80%; 
+  text-align: right
+}

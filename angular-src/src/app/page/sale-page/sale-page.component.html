@@ -1,5 +1,5 @@
 <div>
-  <input type="text" name="code" matInput placeholder="Code" [(ngModel)]="saleItem.code"/>
+  <input type="text" name="code" matInput placeholder="Code" [(ngModel)]="saleItem.code" style="width: 200px"/>
   <button mat-icon-button color="primary" (click)="onScan()" type="button">
     <mat-icon color="primary">camera</mat-icon>
   </button>
@@ -12,29 +12,55 @@
   <ng-container matColumnDef="code">
     <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
   </ng-container>  
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
   </ng-container>
   <ng-container matColumnDef="price">
     <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.marketPrice }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.marketPrice | number:'1.0-0'}} </mat-cell>
+    <mat-footer-cell *matFooterCellDef> {{getTotalCost() | number:'1.0-0'}} </mat-footer-cell>
   </ng-container>  
   <ng-container matColumnDef="quantity">
     <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <input type="number" name="quantity" matInput placeholder="Quantity" [(ngModel)]="row.quantity" style="width: 50%"/>
+      <input type="number" name="quantity" matInput placeholder="Quantity" [(ngModel)]="row.quantity" class="input-number"/>
     </mat-cell>
+    <mat-footer-cell *matFooterCellDef> {{ getTotalQuantity() }}</mat-footer-cell>
   </ng-container>    
   <ng-container matColumnDef="management">
-      <mat-header-cell *matHeaderCellDef>
-        <u>管理</u>
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-button color="warn" (click)="deleteItem(row)">刪除</button>
+        <button mat-button color="warn" (click)="deleteItem(row)">
+          <mat-icon color="primary">delete</mat-icon>
+        </button>
       </mat-cell>
+      <mat-footer-cell *matFooterCellDef>
+        <input type="number" name="salePrice" matInput placeholder="Discount" [(ngModel)]="receipt.pay" class="input-number"/>
+      </mat-footer-cell>
     </ng-container>  
   <mat-header-row *matHeaderRowDef="['code', 'name', 'price', 'quantity', 'management']"></mat-header-row>
+  <mat-footer-row *matFooterRowDef="['code', 'name', 'price', 'quantity', 'management']"></mat-footer-row>
   <mat-row *matRowDef="let categoryRow; columns: ['code', 'name', 'price', 'quantity', 'management']"></mat-row>
 </mat-table>
+
+<div>
+  <mat-form-field class="field">
+    <mat-select [(ngModel)]="receipt.payBy" placeholder="Pay By" required name="payBy">
+      <mat-option *ngFor="let type of payBy" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>        
+</div>
+<div>
+  <input type="text" name="remark" matInput placeholder="Remark" [(ngModel)]="receipt.remark"/>  
+</div>
+<div>
+  <button *ngIf="receipt.pay > 0" mat-icon-button color="primary" (click)="onSubmit()" type="button">
+    <mat-icon color="primary">Submit</mat-icon>
+  </button>  
+</div>

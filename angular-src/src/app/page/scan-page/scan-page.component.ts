@@ -12,6 +12,7 @@ export class ScanPageComponent implements OnInit {
   private lastResult: String = '';
   private count: number = 0;
   private returnPath='';
+  private debug={};
   constructor(
     private location: PlatformLocation,
     private router: Router,
@@ -45,8 +46,16 @@ export class ScanPageComponent implements OnInit {
         halfSample: true
       },
       decoder: {
-        readers: ["code_128_reader"]
+        readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", 
+        "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader", "2of5_reader", "code_93_reader"]
       },
+      debug: {
+        drawBoundingBox: true,
+        showFrequency: false,
+        drawScanline: true,
+        showPattern: true
+      },
+      multiple: true,
       locate: true,
       frequency: 10,
     }, function (err) {
@@ -57,7 +66,7 @@ export class ScanPageComponent implements OnInit {
       console.log("Initialization finished. Ready to start");
       Quagga.start();
     });
-    Quagga.onProcessed(this.onProcessed.bind(this));
+    // Quagga.onProcessed(this.onProcessed.bind(this));
     Quagga.onDetected(this.onDetected.bind(this));
   }
 
@@ -92,15 +101,21 @@ export class ScanPageComponent implements OnInit {
 
   @Output() codeDetected: EventEmitter<String> = new EventEmitter<String>();
 
+  private parseCode(result){
+    for(let i in result){
+      this.debug[result[i].codeResult.format]=result[i].codeResult.code;
+    }
+  }
   public onDetected(result) {
+    this.parseCode(result);
     var code = result.codeResult.code;
 
     if (this.lastResult !== code) {
       this.lastResult = code;
       // send detected event
-      this.codeDetected.emit(this.lastResult);
-      this.stopQuagga();
-      this.router.navigate([this.returnPath, this.lastResult]);
+      // this.codeDetected.emit(this.lastResult);
+      // this.stopQuagga();
+      // this.router.navigate([this.returnPath, this.lastResult]);
     }
   }
   public onLeave() {
@@ -108,7 +123,7 @@ export class ScanPageComponent implements OnInit {
   }
 
   public emitEvent() {
-    this.lastResult = '123456789';
+    this.lastResult = '111';
     // this.codeDetected.emit(this.lastResult);
     this.router.navigate([this.returnPath, this.lastResult]);
   }

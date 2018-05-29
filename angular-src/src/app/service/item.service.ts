@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
-import { ItemModel, ItemAddModel } from '../model/model'
+import { ItemModel, ItemAddModel, ReceiptModel } from '../model/model'
 import { environment } from '../../environments/environment'
 
 @Injectable({
@@ -98,6 +98,32 @@ export class ItemService {
     let headers = new Headers;
     headers.append('Content-Type', 'application/json');
     return this.http.delete(URI,{ headers: headers })
+      .pipe(
+        map(res => res.json())
+      );
+  }
+
+  public addReceipt(receipt: ReceiptModel) {
+    let URI = `${this.serverApi}/category/create`;
+    let headers = new Headers;
+    // let body = {
+    //   payBy: receipt.payBy,
+    //   pay: receipt.pay,
+    //   // remark: receipt.remark,
+    //   // returnRefID: receipt.returnRefID,
+    //   items:[]
+    // };
+    // for(let i in receipt.items){
+    //   body.items.push({
+    //     'itemID': receipt.items[i]._id,
+    //     'salePrice': receipt.items[i].salePrice,
+    //     'quantity': receipt.items[i].quantity
+    //   })
+    // }
+    // let strBody = JSON.stringify(body);
+    let body={};
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(URI, body, { headers: headers })
       .pipe(
         map(res => res.json())
       );
