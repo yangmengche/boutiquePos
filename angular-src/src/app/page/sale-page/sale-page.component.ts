@@ -17,6 +17,7 @@ export class SalePageComponent implements OnInit {
   private receipt: ReceiptModel;
   private itemDataSource = new MatTableDataSource<any>();
   private payBy = PAYBY;
+  private quaCheck = 0;
   constructor(
     private router: Router,
     private itemSrv: ItemService,
@@ -50,7 +51,8 @@ export class SalePageComponent implements OnInit {
       this.receipt = {
         items: [],
         payBy: this.payBy[0], 
-        pay: 0, 
+        pay: 0,
+        quantity: 0, 
         remark:''
       }
     }
@@ -59,12 +61,16 @@ export class SalePageComponent implements OnInit {
 
   public getTotalCost() {
     // this.receipt.pay = this.receipt.items.map(t => t.marketPrice).reduce((acc, value) => acc + value, 0);
-    this.receipt.pay = this.receipt.items.reduce((acc, item) => acc + item.marketPrice*item.quantity, 0);
+    if(this.quaCheck != this.receipt.quantity){
+      this.receipt.pay = this.receipt.items.reduce((acc, item) => acc + item.marketPrice*item.quantity, 0);
+      this.quaCheck = this.receipt.quantity;
+    }
     return this.receipt.pay;
   }
 
   public getTotalQuantity() {
-    return this.receipt.items.map(t => t.quantity).reduce((acc, value) => acc + value, 0);
+    this.receipt.quantity =  this.receipt.items.map(t => t.quantity).reduce((acc, value) => acc + value, 0);
+    return this.receipt.quantity;
   }
 
   public onScan() {
@@ -105,6 +111,11 @@ export class SalePageComponent implements OnInit {
   }
 
   public onSubmit(){
-    this.itemSrv.addReceipt(this.receipt);
+    console.log(this.receipt);
+    this.itemSrv.addReceipt(this.receipt).subscribe((res)=>{
+      if(res.id){
+        this.router.navigate(['/itemPage']);
+      }
+    });
   }
 }

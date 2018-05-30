@@ -102,26 +102,25 @@ export class ItemService {
         map(res => res.json())
       );
   }
-
+  
   public addReceipt(receipt: ReceiptModel) {
-    let URI = `${this.serverApi}/category/create`;
+    let URI = `${this.serverApi}/receipt/create`;
     let headers = new Headers;
-    // let body = {
-    //   payBy: receipt.payBy,
-    //   pay: receipt.pay,
-    //   // remark: receipt.remark,
-    //   // returnRefID: receipt.returnRefID,
-    //   items:[]
-    // };
-    // for(let i in receipt.items){
-    //   body.items.push({
-    //     'itemID': receipt.items[i]._id,
-    //     'salePrice': receipt.items[i].salePrice,
-    //     'quantity': receipt.items[i].quantity
-    //   })
-    // }
-    // let strBody = JSON.stringify(body);
-    let body={};
+    let bodyObj = {
+      payBy: receipt.payBy,
+      pay: receipt.pay,
+      // remark: receipt.remark,
+      // returnRefID: receipt.returnRefID,
+      items:[]
+    };
+    for(let i in receipt.items){
+      bodyObj.items.push({
+        'itemID': receipt.items[i]._id,
+        'salePrice': receipt.items[i].salePrice,
+        'quantity': receipt.items[i].quantity
+      })
+    }
+    let body = JSON.stringify(bodyObj);
     headers.append('Content-Type', 'application/json');
     return this.http.post(URI, body, { headers: headers })
       .pipe(

@@ -57,6 +57,7 @@ export interface ReceiptModel{
   items: ReceiptItemModel[],
   payBy: string,
   pay: number,
+  quantity: number,
   remark: String,
   returnRefID?: string  
 }

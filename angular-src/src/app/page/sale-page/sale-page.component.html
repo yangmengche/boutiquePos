@@ -4,7 +4,7 @@
     <mat-icon color="primary">camera</mat-icon>
   </button>
   <button mat-icon-button color="primary" (click)="onAddItem()" type="button">
-      <mat-icon color="primary">add_photo_alternate</mat-icon>
+      <mat-icon color="primary">add_shopping_cart</mat-icon>
   </button>  
 </div>
 
@@ -39,14 +39,18 @@
         </button>
       </mat-cell>
       <mat-footer-cell *matFooterCellDef>
-        <input type="number" name="salePrice" matInput placeholder="Discount" [(ngModel)]="receipt.pay" class="input-number"/>
+        <!-- <input type="number" name="pay" matInput placeholder="Discount" [(ngModel)]="pay" class="input-number"/> -->
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
       </mat-footer-cell>
     </ng-container>  
   <mat-header-row *matHeaderRowDef="['code', 'name', 'price', 'quantity', 'management']"></mat-header-row>
   <mat-footer-row *matFooterRowDef="['code', 'name', 'price', 'quantity', 'management']"></mat-footer-row>
   <mat-row *matRowDef="let categoryRow; columns: ['code', 'name', 'price', 'quantity', 'management']"></mat-row>
 </mat-table>
-
+<div>
+  付款：
+  <input type="number" name="pay" placeholder="Discount" [(ngModel)]="receipt.pay"/>
+</div>
 <div>
   <mat-form-field class="field">
     <mat-select [(ngModel)]="receipt.payBy" placeholder="Pay By" required name="payBy">
@@ -57,10 +61,10 @@
   </mat-form-field>        
 </div>
 <div>
-  <input type="text" name="remark" matInput placeholder="Remark" [(ngModel)]="receipt.remark"/>  
+  <input type="text" name="remark" placeholder="Remark" [(ngModel)]="pay"/>  
 </div>
 <div>
   <button *ngIf="receipt.pay > 0" mat-icon-button color="primary" (click)="onSubmit()" type="button">
-    <mat-icon color="primary">Submit</mat-icon>
+    Submit
   </button>  
 </div>
