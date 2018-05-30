@@ -95,6 +95,9 @@ export class AddItemPageComponent implements OnInit {
     }
   }
 
+  public onBack(){
+    this.router.navigate(['/', 'itemPage']);
+  }
   public onSelectFile(){
 
   }

@@ -19,3 +19,8 @@ mat-footer-cell {
   width: 80%; 
   text-align: center
 }
+
+.input-name{
+  display: inline-block;
+  width: 100px
+}

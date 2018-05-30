@@ -1,4 +1,9 @@
 <div>
+  <button mat-icon-button color="primary" type="button" (click)="onBack()">
+    <mat-icon color="primary">arrow_back</mat-icon>
+  </button>
+</div>
+<div>
   <input type="text" name="code" matInput placeholder="Code" [(ngModel)]="saleItem.code" style="width: 200px"/>
   <button mat-icon-button color="primary" (click)="onScan()" type="button">
     <mat-icon color="primary">camera</mat-icon>
@@ -48,19 +53,21 @@
   <mat-row *matRowDef="let categoryRow; columns: ['code', 'name', 'price', 'quantity', 'management']"></mat-row>
 </mat-table>
 <div>
-  付款：
-  <input type="number" name="pay" placeholder="Discount" [(ngModel)]="receipt.pay"/>
+  <p class="input-name">付款：</p>
+  <input type="number" name="pay" [(ngModel)]="receipt.pay"/>
 </div>
 <div>
+  <p class="input-name">付款方試：</p>
   <mat-form-field class="field">
-    <mat-select [(ngModel)]="receipt.payBy" placeholder="Pay By" required name="payBy">
-      <mat-option *ngFor="let type of payBy" [value]="type">
-        {{ type }}
+    <mat-select [(ngModel)]="receipt.payBy" required name="payBy">
+      <mat-option *ngFor="let type of payBy" [value]="type.key">
+        {{ type.value }}
       </mat-option>
     </mat-select>
   </mat-form-field>        
 </div>
 <div>
+  <p class="input-name">備注</p>
   <input type="text" name="remark" placeholder="Remark" [(ngModel)]="pay"/>  
 </div>
 <div>

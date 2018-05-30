@@ -15,3 +15,8 @@ mat-header-cell {
   justify-content:center;
 }
 
+mat-table{
+  margin: auto;
+  padding: 10px;
+  min-width: 100px;
+}

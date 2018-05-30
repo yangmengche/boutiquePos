@@ -50,7 +50,7 @@ export class SalePageComponent implements OnInit {
     if(isNull(this.receipt)){
       this.receipt = {
         items: [],
-        payBy: this.payBy[0], 
+        payBy: this.payBy[0].key, 
         pay: 0,
         quantity: 0, 
         remark:''

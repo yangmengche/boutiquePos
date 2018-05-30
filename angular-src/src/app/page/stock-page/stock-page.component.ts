@@ -53,6 +53,7 @@ export class StockPageComponent implements OnInit {
     this.itemSrc.stockItem(this.item._id, this.quantity).subscribe(res => {
       console.log(res);
       if (res.nModified > 0) {
+        this.quantity = 0;
         this.queryItem();
       }
     })    

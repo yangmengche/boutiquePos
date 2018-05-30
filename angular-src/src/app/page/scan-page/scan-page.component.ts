@@ -127,4 +127,9 @@ export class ScanPageComponent implements OnInit {
     // this.codeDetected.emit(this.lastResult);
     this.router.navigate([this.returnPath, this.lastResult]);
   }
+
+  public onBack(){
+    this.stopQuagga();
+    this.router.navigate([this.returnPath]);
+  }
 }

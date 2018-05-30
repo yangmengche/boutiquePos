@@ -14,9 +14,10 @@
   <mat-header-row *matHeaderRowDef="['name', 'management']"></mat-header-row>
   <mat-row *matRowDef="let categoryRow; columns: ['name', 'management']"></mat-row>
 </mat-table>
-<div class="center">
-  <input type="text" name="category" matInput placeholder="Category" [(ngModel)]="newCategory"/>
+<div>
+  新增分類:
+  <input type="text" name="分類" matInput placeholder="Category" [(ngModel)]="newCategory"/>
   <button mat-icon-button color="primary" (click)="onAddCategory()" type="button">
-      <mat-icon color="primary">add_photo_alternate</mat-icon>
+      <mat-icon color="primary">add</mat-icon>
   </button>
 </div>

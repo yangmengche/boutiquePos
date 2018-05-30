@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ItemService } from '../../service/item.service';
 import { ItemModel } from '../../model/model';
 import { MatTableDataSource } from '@angular/material';
@@ -13,7 +14,10 @@ export class ItemPageComponent implements OnInit {
 
   private itemDataSource = new MatTableDataSource<any>();
 
-  constructor(private itemSrv: ItemService) { }
+  constructor(
+    private itemSrv: ItemService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     this.LoadLists();
@@ -22,4 +26,11 @@ export class ItemPageComponent implements OnInit {
   public async LoadLists() {
     this.itemSrv.getAllItems().subscribe((response) =>this.itemDataSource.data = response);
   }
+
+  public onRowClick(row){
+    this.router.navigate(['/', 'itemDetailPage', row._id]);
+  }
+   public onAddItem(){
+     this.router.navigate(['/', 'addItemPage']);
+   }
 }

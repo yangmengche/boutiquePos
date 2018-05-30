@@ -1,4 +1,9 @@
 <div class="center">
+  <div>
+    <button mat-icon-button color="primary" type="button" (click)="onBack()">
+      <mat-icon color="primary">arrow_back</mat-icon>
+    </button>
+  </div>  
   <form (ngSubmit)="onSubmit()" >
     <div>
       <mat-form-field class="field">
@@ -82,8 +87,9 @@
         <input type="number" name="marketPrice" matInput placeholder="Market Price" [(ngModel)]="newItem.marketPrice" required/>
       </mat-form-field>
     </div>
-    <button mat-icon-button color="primary" class="center-done-btn" type="submit" class="center-done-btn">
-      <mat-icon color="primary">done</mat-icon>
+    <button mat-icon-button color="primary" type="submit" class="center-done-btn">
+      <!-- <mat-icon color="primary">done</mat-icon> -->
+      新增
     </button>    
   </form>
 </div>

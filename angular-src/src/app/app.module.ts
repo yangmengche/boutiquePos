@@ -26,6 +26,8 @@ import { ChartPageComponent } from './page/chart-page/chart-page.component';
 import { AddItemPageComponent } from './page/add-item-page/add-item-page.component';
 import { ScanPageComponent } from './page/scan-page/scan-page.component';
 import { CategoryPageComponent } from './page/category-page/category-page.component';
+import { ItemDetailPageComponent } from './page/item-detail-page/item-detail-page.component';
+import { SupplierTypePipe } from './pipe/supplier-type.pipe';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { CategoryPageComponent } from './page/category-page/category-page.compon
     ChartPageComponent,
     AddItemPageComponent,
     ScanPageComponent,
-    CategoryPageComponent
+    CategoryPageComponent,
+    ItemDetailPageComponent,
+    SupplierTypePipe
   ],
   imports: [
     BrowserModule,

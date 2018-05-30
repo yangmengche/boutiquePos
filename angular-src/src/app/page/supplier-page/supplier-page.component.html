@@ -27,7 +27,7 @@
   </ng-container>
   <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.type }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.type | supplierType}}</mat-cell>
   </ng-container>  
   <ng-container matColumnDef="shareRate">
     <mat-header-cell *matHeaderCellDef>Share</mat-header-cell>
@@ -37,33 +37,45 @@
   <mat-row *matRowDef="let supplierlRow; columns: ['name', 'type', 'shareRate']"></mat-row>  
 </mat-table>
 <div *ngIf="bAdd; else inputForm">
-  <button mat-button color="primary">
-      <mat-icon color="primary"  (click)="onAddClick()">add</mat-icon>
-    </button>
+  <button mat-button color="primary" (click)="onAddClick()">
+    <!-- <mat-icon color="primary"  >add</mat-icon> -->
+    新增供應商
+  </button>
 </div>
 
 <ng-template #inputForm>
   <div class="container">
     <form (ngSubmit)="onSubmit()">
       <div>
-        <label for="name">Name</label>
+        <p for="name" class="field-name">名稱</p>
         <input type="text" [(ngModel)]="newSupplier.name" name="name" required>
       </div>
-  
+
+      
       <div>
-        <label for="type">Select Type</label>
+        <p class="field-name">供應商類別：</p>
+        <mat-form-field class="field">
+          <mat-select [(ngModel)]="newSupplier.type" required name="type">
+            <mat-option *ngFor="let type of typeMap" [value]="type.key">
+              {{ type.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>        
+      </div>      
+      <!-- <div>
+        <label for="type" class="field-name">Select Type</label>
         <select [(ngModel)]="newSupplier.type" name = "type" >
             <option value="CONSIGNMENT">寄買</option>
             <option value="BUYOUT">賣斷</option>
         </select>
-      </div>
+      </div> -->
   
-      <div>
-        <label for="shareRate">Share Rate</label>
+      <div *ngIf='newSupplier.type === "CONSIGNMENT"'>
+        <p for="shareRate" class="field-name">分潤</p>
         <input type="number" [(ngModel)]="newSupplier.shareRate" name="shareRate" required>
       </div>
   
-      <button type="submit">Submit</button>
+      <button mat-button color="primary" type="submit">新增</button>
     </form>
   </div>
 </ng-template>

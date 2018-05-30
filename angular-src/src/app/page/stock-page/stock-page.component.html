@@ -3,35 +3,35 @@
 	<button mat-icon-button color="primary" (click)="onScan()" type="button">
 		<mat-icon color="primary">camera</mat-icon>
 	</button>
-</div>
-<div>
 	<button mat-icon-button color="primary" (click)="queryItem()" type="button">
 		<mat-icon color="primary">arrow_downward</mat-icon>
 	</button>
 </div>
-<mat-list>
-	<mat-list-item>
-		<h4 class="field-name">Code:</h4>{{item.code}}
-	</mat-list-item>
-	<mat-list-item>
-		<h4 class="field-name">Name:</h4>{{item.name}}
-	</mat-list-item>
-	<mat-list-item>
-		<h4 class="field-name">Supplier:</h4>{{item.supplierID.name}}
-	</mat-list-item>
-	<mat-list-item>
-		<h4 class="field-name">Category:</h4>{{item.category}}
-	</mat-list-item>
-	<mat-list-item>
-		<h4 class="field-name">Size:</h4>{{item.size}}
-	</mat-list-item>
-	<mat-list-item>
-		<h4 class="field-name">Stock:</h4>{{item.stock}}
-	</mat-list-item>	
-</mat-list>
+<div class="list">
+	<mat-list>
+		<mat-list-item>
+			<h4 class="field-name">Code:</h4>{{item.code}}
+		</mat-list-item>
+		<mat-list-item>
+			<h4 class="field-name">Name:</h4>{{item.name}}
+		</mat-list-item>
+		<mat-list-item>
+			<h4 class="field-name">Supplier:</h4>{{item.supplierID.name}}
+		</mat-list-item>
+		<mat-list-item>
+			<h4 class="field-name">Category:</h4>{{item.category}}
+		</mat-list-item>
+		<mat-list-item>
+			<h4 class="field-name">Size:</h4>{{item.size}}
+		</mat-list-item>
+		<mat-list-item>
+			<h4 class="field-name">Stock:</h4>{{item.stock}}
+		</mat-list-item>	
+	</mat-list>
+</div>
 
 <div>
-	Purchase 
+	<p class="field-name">進貨 </p>
 	<input type="number" name="newStock" matInput placeholder="quantity" [(ngModel)]="quantity" style="width: 100px"/>
 	<button mat-icon-button color="primary" (click)="stockItem()" type="button">
 			<mat-icon color="primary">add_shopping_cart</mat-icon>

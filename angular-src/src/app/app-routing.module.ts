@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ItemPageComponent } from './page/item-page/item-page.component';
+import { ItemDetailPageComponent } from './page/item-detail-page/item-detail-page.component';
 import {AddItemPageComponent} from './page/add-item-page/add-item-page.component';
 import { SalePageComponent } from './page/sale-page/sale-page.component';
 import { StockPageComponent } from './page/stock-page/stock-page.component';
@@ -14,6 +15,7 @@ import { ScanPageComponent } from './page/scan-page/scan-page.component';
 
 const routes: Routes = [
   { path: 'itemPage', component: ItemPageComponent },
+  { path: 'itemDetailPage/:id', component: ItemDetailPageComponent },
   { path: 'addItemPage', component: AddItemPageComponent },
   { path: 'addItemPage/:code', component: AddItemPageComponent },
   { path: 'salePage', component: SalePageComponent },
@@ -30,7 +32,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
