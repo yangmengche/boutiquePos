@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule,
-  MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule
+  MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatChipsModule
 } from '@angular/material';
 import { NgUploaderModule } from 'ngx-uploader';
 
@@ -28,6 +28,7 @@ import { ScanPageComponent } from './page/scan-page/scan-page.component';
 import { CategoryPageComponent } from './page/category-page/category-page.component';
 import { ItemDetailPageComponent } from './page/item-detail-page/item-detail-page.component';
 import { SupplierTypePipe } from './pipe/supplier-type.pipe';
+import { PayByPipe } from './pipe/pay-by.pipe';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { SupplierTypePipe } from './pipe/supplier-type.pipe';
     ScanPageComponent,
     CategoryPageComponent,
     ItemDetailPageComponent,
-    SupplierTypePipe
+    SupplierTypePipe,
+    PayByPipe
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import { SupplierTypePipe } from './pipe/supplier-type.pipe';
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatChipsModule
   ],
   providers: [SupplierService, ItemService],
   bootstrap: [AppComponent]

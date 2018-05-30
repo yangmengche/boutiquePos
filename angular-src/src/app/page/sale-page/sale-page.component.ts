@@ -25,26 +25,14 @@ export class SalePageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.saleItem = {
-      _id: '',
-      code: '',
-      name: '',
-      category: '',
-      size: '',
-      cost: 0,
-      listPrice: 0,
-      marketPrice: 0,
-      salePrice: 0,
-      quantity: 0
-    };
-
+    this.initSaleItem();
     this.actRoute.params.subscribe(params => {
       if('code' in params){
         this.saleItem.code = params['code'];
       }else{
         localStorage.removeItem(this.storageKey);
       }
-    });    
+    });
 
     this.receipt = JSON.parse(localStorage.getItem(this.storageKey));
     if(isNull(this.receipt)){
@@ -58,6 +46,22 @@ export class SalePageComponent implements OnInit {
     }
     this.itemDataSource.data = this.receipt.items;
   }
+
+  private initSaleItem(){
+    this.saleItem = {
+      _id: '',
+      code: '',
+      name: '',
+      category: '',
+      size: '',
+      cost: 0,
+      listPrice: 0,
+      marketPrice: 0,
+      salePrice: 0,
+      quantity: 0
+    };      
+  }
+
 
   public getTotalCost() {
     // this.receipt.pay = this.receipt.items.map(t => t.marketPrice).reduce((acc, value) => acc + value, 0);
@@ -114,7 +118,8 @@ export class SalePageComponent implements OnInit {
     console.log(this.receipt);
     this.itemSrv.addReceipt(this.receipt).subscribe((res)=>{
       if(res.id){
-        this.router.navigate(['/itemPage']);
+        this.initSaleItem();
+        // this.router.navigate(['/itemPage']);
       }
     });
   }

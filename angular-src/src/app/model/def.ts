@@ -1,6 +1,6 @@
 export const PAYBY = [
   { 'key': 'CASH', 'value': '現金' },
-  { 'key': 'CREDICTCART', 'value': '信用卡' }
+  { 'key': 'CREDITCARD', 'value': '信用卡' }
 ];
 
 export const PAYBY_MAP={};

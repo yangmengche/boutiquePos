@@ -148,6 +148,10 @@ dbBase.createStockLog = async (stock) => {
 dbBase.createReceipt = async (receipt) => {
   try {
     receipt.date = new Date().getTime();
+    receipt.quantity = 0;
+    for(let i in receipt.items){
+      receipt.quantity += receipt.items[i].quantity;
+    }
     let newReceipt = new dbBase.receipts(receipt);
     let doc = await newReceipt.save();
     return { 'id': doc.id };
@@ -164,11 +168,11 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
       q._id = id;
     }
     if (date) {
-      if (!isNaN(stock.min)) {
-        q.date = { $gte: stock.min };
+      if (!isNaN(date.min)) {
+        q.date = { $gte: date.min };
       }
-      if (!isNaN(stock.max)) {
-        q.date = { $lte: stock.max }
+      if (!isNaN(date.max)) {
+        q.date = { $lte: date.max }
       }
     }    
     if (payBy) {

@@ -53,6 +53,7 @@ class DBSchema {
       items: [receiptItemSchema],
       payBy: {type: String, enum: def.payBy},
       pay: {type: Number, required: true},
+      quantity: {type: Number, required: true},
       remark: String,
       returnRefID: mongoose.Schema.Types.ObjectId
     })

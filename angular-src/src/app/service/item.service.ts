@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { ItemModel, ItemAddModel, ReceiptModel } from '../model/model'
 import { environment } from '../../environments/environment'
-
+import { isNull } from 'util'
 @Injectable({
   providedIn: 'root'
 })
@@ -138,6 +138,23 @@ export class ItemService {
       );
   }
 
+  public getReceipts(from?: Date, to?: Date){
+    let URI = `${this.serverApi}/receipt/query`;
+    let headers = new Headers;
+    let bodyObj={date:{}};
+    if(from){
+      bodyObj.date['min'] = from.getTime();
+    }
+    if(to){
+      bodyObj.date['max'] = to.getTime();
+    }
+    let body = JSON.stringify(bodyObj);
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(URI, body, { headers: headers })
+      .pipe(
+        map(res => res.json())
+      );
+  }
   // public deleteList(listId: string) {
   //   let URI = `${this.serverApi}/bucketlist/${listId}`;
   //   let headers = new Headers;

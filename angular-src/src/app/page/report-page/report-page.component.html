@@ -1,3 +1,41 @@
-<p>
-  report-page works!
-</p>
+<div>
+  <mat-chip-list>
+    <mat-chip>營業額:{{getRevenue()}}</mat-chip>
+    <mat-chip>數量:{{getQuantity()}}</mat-chip>
+  </mat-chip-list>  
+  <!-- <p class="field-name">營業額: </p>
+  <p class="field-name">{{getRevenue()}}</p>
+  <p class="field-name">數量: </p>
+  <p class="field-name">{{getQuantity()}}</p>   -->
+</div>
+<mat-table [dataSource]="itemDataSource">
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef>日期</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.date | date:"yyyy/MM/dd HH:mm"}}</mat-cell>
+    </ng-container>    
+    <ng-container matColumnDef="payBy">
+      <mat-header-cell *matHeaderCellDef>付款方式</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.payBy | payBy}}</mat-cell>
+    </ng-container>  
+    <ng-container matColumnDef="pay">
+      <mat-header-cell *matHeaderCellDef>總價</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.pay }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef>數量</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.quantity }}</mat-cell>
+    </ng-container>    
+    <ng-container matColumnDef="remark">
+      <mat-header-cell *matHeaderCellDef>備注</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.remark }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="returnRefID">
+      <mat-header-cell *matHeaderCellDef>退貨單號</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.returnRefID }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['date', 'payBy', 'pay', 'quantity']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['date', 'payBy', 'pay', 'quantity']"
+              (click)="onRowClick(row)"
+    ></mat-row>  
+  </mat-table>
