@@ -24,13 +24,13 @@ export class ItemPageComponent implements OnInit {
   }
 
   public async LoadLists() {
-    this.itemSrv.getAllItems().subscribe((response) =>this.itemDataSource.data = response);
+    this.itemSrv.getAllItems().subscribe((response) => this.itemDataSource.data = response);
   }
 
-  public onRowClick(row){
+  public onRowClick(row) {
     this.router.navigate(['/', 'itemDetailPage', row._id]);
   }
-   public onAddItem(){
-     this.router.navigate(['/', 'addItemPage']);
-   }
+  public onAddItem() {
+    this.router.navigate(['/', 'addItemPage']);
+  }
 }

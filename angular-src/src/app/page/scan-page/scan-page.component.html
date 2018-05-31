@@ -1,7 +1,11 @@
 <div>
-    <p>{{debug}}</p>
+  <button mat-icon-button color="primary" type="button" (click)="onBack()">
+    <mat-icon color="primary">arrow_back</mat-icon>
+  </button>
+</div>  
+<div>
     <p>{{lastResult}}</p><br>
-    <p>{{testBind}}</p>
 </div>
-<!-- <button mat-button (click)="emitEvent()">Emit</button> -->
-<div id="interactive" class="viewport" style="width: 480px; height: 640px;"></div>
+<!-- <input type="text" name="imageFile" matInput placeholder="Image File" [(ngModel)]="src" style="width: 200px"/>
+<button mat-button (click)="onBtnClick()">Emit</button> -->
+<div id="interactive" class="viewport" style="width: 640px; height: 480px;"></div>
