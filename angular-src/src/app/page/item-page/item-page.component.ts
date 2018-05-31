@@ -1,8 +1,8 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ItemService } from '../../service/item.service';
 import { ItemModel } from '../../model/model';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatPaginator} from '@angular/material';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,6 +13,9 @@ import { Observable } from 'rxjs';
 export class ItemPageComponent implements OnInit {
 
   private itemDataSource = new MatTableDataSource<any>();
+  private pageSize = 5;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private itemSrv: ItemService,
@@ -20,6 +23,7 @@ export class ItemPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.itemDataSource.paginator = this.paginator;
     this.LoadLists();
   }
 
@@ -33,4 +37,5 @@ export class ItemPageComponent implements OnInit {
   public onAddItem() {
     this.router.navigate(['/', 'addItemPage']);
   }
+
 }

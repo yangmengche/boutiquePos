@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule,
-  MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatChipsModule
+  MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatChipsModule, MatPaginatorModule
 } from '@angular/material';
 import { NgUploaderModule } from 'ngx-uploader';
 
@@ -67,7 +67,8 @@ import { ReportDetailPageComponent } from './page/report-detail-page/report-deta
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatChipsModule
+    MatChipsModule,
+    MatPaginatorModule
   ],
   providers: [SupplierService, ItemService, DataProviderService],
   bootstrap: [AppComponent]

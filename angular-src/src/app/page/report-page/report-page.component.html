@@ -1,4 +1,10 @@
 <div>
+  <button mat-raised-button color="primary" type="button" (click)="onQueryToday()">今天</button>
+  <button mat-raised-button color="primary" type="button" (click)="onQueryThisWeek()">本週</button>
+  <button mat-raised-button color="primary" type="button" (click)="onQueryThisMonth()">本月</button>
+  <button mat-raised-button color="primary" type="button" (click)="onQuerythisYear()">今年</button>
+</div>  
+<div>
   <mat-chip-list>
     <mat-chip>營業額:{{getRevenue()}}</mat-chip>
     <mat-chip>數量:{{getQuantity()}}</mat-chip>
