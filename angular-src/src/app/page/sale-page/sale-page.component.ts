@@ -63,7 +63,7 @@ export class SalePageComponent implements OnInit {
   }
 
 
-  public getTotalCost() {
+  public getTotalPrice() {
     // this.receipt.pay = this.receipt.items.map(t => t.marketPrice).reduce((acc, value) => acc + value, 0);
     if(this.quaCheck != this.receipt.quantity){
       this.receipt.pay = this.receipt.items.reduce((acc, item) => acc + item.marketPrice*item.quantity, 0);

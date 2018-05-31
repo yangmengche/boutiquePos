@@ -15,6 +15,7 @@ import { NgUploaderModule } from 'ngx-uploader';
 
 import { SupplierService } from './service/supplier.service';
 import { ItemService } from './service/item.service';
+import { DataProviderService } from './service/data-provider.service';
 
 import { SupplierPageComponent } from './page/supplier-page/supplier-page.component';
 import { ItemPageComponent } from './page/item-page/item-page.component';
@@ -29,6 +30,7 @@ import { CategoryPageComponent } from './page/category-page/category-page.compon
 import { ItemDetailPageComponent } from './page/item-detail-page/item-detail-page.component';
 import { SupplierTypePipe } from './pipe/supplier-type.pipe';
 import { PayByPipe } from './pipe/pay-by.pipe';
+import { ReportDetailPageComponent } from './page/report-detail-page/report-detail-page.component';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import { PayByPipe } from './pipe/pay-by.pipe';
     CategoryPageComponent,
     ItemDetailPageComponent,
     SupplierTypePipe,
-    PayByPipe
+    PayByPipe,
+    ReportDetailPageComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,7 @@ import { PayByPipe } from './pipe/pay-by.pipe';
     MatSelectModule,
     MatChipsModule
   ],
-  providers: [SupplierService, ItemService],
+  providers: [SupplierService, ItemService, DataProviderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

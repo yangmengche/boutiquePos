@@ -1,7 +1,6 @@
-.center {
-  margin: auto;
-  padding: 10px;
-  width: 15%
+.field-name {
+  display: inline-block;
+  width: 100px
 }
 
 mat-cell{

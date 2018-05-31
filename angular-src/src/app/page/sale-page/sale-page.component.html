@@ -22,7 +22,7 @@
   <ng-container matColumnDef="price">
     <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.marketPrice | number:'1.0-0'}} </mat-cell>
-    <mat-footer-cell *matFooterCellDef> {{getTotalCost() | number:'1.0-0'}} </mat-footer-cell>
+    <mat-footer-cell *matFooterCellDef> {{getTotalPrice() | number:'1.0-0'}} </mat-footer-cell>
   </ng-container>  
   <ng-container matColumnDef="quantity">
     <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
@@ -63,7 +63,7 @@
 </div>
 <div>
   <p class="input-name">備注</p>
-  <input type="text" name="remark" placeholder="Remark" [(ngModel)]="pay"/>  
+  <input type="text" name="remark" placeholder="Remark" [(ngModel)]="receipt.remark"/>  
 </div>
 <div>
   <button *ngIf="receipt.pay > 0" mat-icon-button color="primary" (click)="onSubmit()" type="button">

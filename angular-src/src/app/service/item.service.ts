@@ -119,8 +119,8 @@ export class ItemService {
     let bodyObj = {
       payBy: receipt.payBy,
       pay: receipt.pay,
-      // remark: receipt.remark,
-      // returnRefID: receipt.returnRefID,
+      remark: receipt.remark,
+      returnRefID: receipt.returnRefID,
       items:[]
     };
     for(let i in receipt.items){
@@ -155,6 +155,7 @@ export class ItemService {
         map(res => res.json())
       );
   }
+  
   // public deleteList(listId: string) {
   //   let URI = `${this.serverApi}/bucketlist/${listId}`;
   //   let headers = new Headers;

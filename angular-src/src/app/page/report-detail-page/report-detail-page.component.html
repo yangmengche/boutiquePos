@@ -1,0 +1,53 @@
+<div>
+  <button mat-icon-button color="primary" type="button" (click)="onBack()">
+    <mat-icon color="primary">arrow_back</mat-icon>
+  </button>
+</div>
+<mat-table [dataSource]="receipt.items">
+  <ng-container matColumnDef="code">
+    <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
+  </ng-container>  
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.marketPrice | number:'1.0-0'}} </mat-cell>
+    <mat-footer-cell *matFooterCellDef> {{getTotalPrice() | number:'1.0-0'}} </mat-footer-cell>
+  </ng-container>  
+  <ng-container matColumnDef="sale">
+    <mat-header-cell *matHeaderCellDef>Sale</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.salePrice | number:'1.0-0'}} </mat-cell>
+    <mat-footer-cell *matFooterCellDef> {{getTotalSalePrice() | number:'1.0-0'}} </mat-footer-cell>
+  </ng-container>    
+  <ng-container matColumnDef="cost">
+    <mat-header-cell *matHeaderCellDef>Cost</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.cost | number:'1.0-0'}} </mat-cell>
+    <mat-footer-cell *matFooterCellDef> {{getTotalCost() | number:'1.0-0'}} </mat-footer-cell>
+  </ng-container>    
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.quantity | number:'1.0-0'}} </mat-cell>
+    <mat-footer-cell *matFooterCellDef> {{ getTotalQuantity() }}</mat-footer-cell>
+  </ng-container>    
+  <mat-header-row *matHeaderRowDef="['code', 'name', 'price', 'sale', 'cost', 'quantity']"></mat-header-row>
+  <mat-footer-row *matFooterRowDef="['code', 'name', 'price', 'sale', 'cost', 'quantity']"></mat-footer-row>
+  <mat-row *matRowDef="let categoryRow; columns: ['code', 'name', 'price', 'sale', 'cost', 'quantity']"></mat-row>
+</mat-table>
+<div class="list">
+  <mat-list>
+    <mat-list-item>
+      <h4 class="field-name">付款：</h4>{{receipt.pay}}
+    </mat-list-item>
+    <mat-list-item>
+      <h4 class="field-name">付款方試：</h4>{{receipt.payBy | payBy}}
+    </mat-list-item>
+    <mat-list-item>
+      <h4 class="field-name">備注:</h4>{{receipt.remark}}
+    </mat-list-item>
+  </mat-list>
+</div>

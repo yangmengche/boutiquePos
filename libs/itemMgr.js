@@ -150,6 +150,7 @@ exports.createReceipt = async (req, res) => {
     for(let i in body.items){
       let item = (await db.getItem(body.items[i].itemID))[0];
       body.items[i].cost = item.cost;
+      body.items[i].code = item.code;
       body.items[i].listPrice = item.listPrice;
       body.items[i].marketPrice = item.marketPrice;
       let stock = item.stock - body.items[i].quantity;
@@ -166,12 +167,13 @@ exports.createReceipt = async (req, res) => {
         }
       }
     }else{
+      // return goods
       if(body.pay > total){
         let discount = (total - body.pay)/Math.abs(quantity);
         for(let i in body.items){
           body.items[i].salePrice -= discount;
         }
-      }      
+      }
     }
     let id = await db.createReceipt(body);
     return utils.fnResponse(null, id, res);
