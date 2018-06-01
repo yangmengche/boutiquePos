@@ -168,11 +168,12 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
       q._id = id;
     }
     if (date) {
+      q.date={};
       if (!isNaN(date.min)) {
-        q.date = { $gte: date.min };
+        q.date['$gte'] = date.min;
       }
       if (!isNaN(date.max)) {
-        q.date = { $lte: date.max }
+        q.date['$lte'] = date.max;
       }
     }    
     if (payBy) {
