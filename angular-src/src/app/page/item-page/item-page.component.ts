@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/cor
 import { Router } from '@angular/router';
 import { ItemService } from '../../service/item.service';
 import { ItemModel } from '../../model/model';
-import { MatTableDataSource, MatPaginator} from '@angular/material';
+import { MatTableDataSource, MatPaginator, PageEvent} from '@angular/material';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -14,6 +14,7 @@ export class ItemPageComponent implements OnInit {
 
   private itemDataSource = new MatTableDataSource<any>();
   private pageSize = 5;
+  pageEvent: PageEvent;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -24,11 +25,17 @@ export class ItemPageComponent implements OnInit {
 
   ngOnInit() {
     this.itemDataSource.paginator = this.paginator;
+    // this.LoadLists(0, this.pageSize);
     this.LoadLists();
   }
 
-  public async LoadLists() {
-    this.itemSrv.getAllItems().subscribe((response) => this.itemDataSource.data = response);
+  public async LoadLists(skip?, limit?) {
+    this.itemSrv.getItems(skip, limit).subscribe((response) =>{
+      this.itemDataSource.data = response.docs;
+      // for(let i=response.docs.length; i < response.total; i++){
+      //   this.itemDataSource.data.push({});
+      // }
+    })
   }
 
   public onRowClick(row) {
@@ -36,6 +43,11 @@ export class ItemPageComponent implements OnInit {
   }
   public onAddItem() {
     this.router.navigate(['/', 'addItemPage']);
+  }
+
+  public onPageChance($event){
+    // console.log('change page');
+    // this.LoadLists($event.pageIndex*$event.pageSize, $event.pageSize);
   }
 
 }

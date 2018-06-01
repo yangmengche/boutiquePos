@@ -103,7 +103,7 @@ exports.updateItem = async (req, res) => {
 exports.queryItems = async (req, res) => {
   try {
     let query = await utils.fnGetBody(req);
-    let docs = await db.queryItems(query.name, query.supplierID, query.category, query.size, query.stock);
+    let docs = await db.queryItems(query.name, query.supplierID, query.category, query.size, query.stock, query.skip, query.limit);
     utils.fnResponse(null, docs, res);
   } catch (err) {
     log.writeLog(err.message, 'error');
