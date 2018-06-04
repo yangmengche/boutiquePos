@@ -17,7 +17,8 @@ export class ScanPageComponent implements OnInit {
   constructor(
     private location: PlatformLocation,
     private router: Router,
-    private actRoute: ActivatedRoute) {
+    private actRoute: ActivatedRoute
+  ) {
     location.onPopState(this.onLeave);
   }
 

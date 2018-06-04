@@ -16,7 +16,9 @@ import { ScanPageComponent } from './page/scan-page/scan-page.component';
 
 const routes: Routes = [
   { path: 'itemPage', component: ItemPageComponent },
+  { path: 'itemPage/:ret', component: ItemPageComponent },
   { path: 'itemDetailPage/:id', component: ItemDetailPageComponent },
+  { path: 'itemDetailPage/:ret/:id', component: ItemDetailPageComponent },
   { path: 'addItemPage', component: AddItemPageComponent },
   { path: 'addItemPage/:code', component: AddItemPageComponent },
   { path: 'salePage', component: SalePageComponent },

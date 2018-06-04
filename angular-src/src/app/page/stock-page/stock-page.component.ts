@@ -14,7 +14,8 @@ export class StockPageComponent implements OnInit {
   private quantity: number = 0;
   constructor(
     private router: Router,
-    private itemSrc: ItemService
+    private itemSrc: ItemService,
+    private actRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -34,6 +35,15 @@ export class StockPageComponent implements OnInit {
       marketPrice: 0,
       stock: 0
     }
+    this.actRoute.params.subscribe(params => {
+      if('code' in params){
+        this.item.code = params['code'];
+      }
+    });    
+  }
+
+  public onSelectItem(){
+    this.router.navigate(['/itemPage', '/stockPage']);
   }
 
   public onScan() {

@@ -84,6 +84,10 @@ export class SalePageComponent implements OnInit {
     this.router.navigate(['/scanPage', '/salePage']);
   }
 
+  public onSelectItem(){
+    this.router.navigate(['/itemPage', '/salePage']);
+  }
+
   public onAddItem(){
     this.itemSrv.getItemByCode(this.saleItem.code).subscribe((res)=>{
       if(!isNull(res) && res.length > 0){

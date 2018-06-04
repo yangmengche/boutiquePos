@@ -10,6 +10,7 @@ import { ItemModel } from '../../model/model';
 })
 export class ItemDetailPageComponent implements OnInit {
   private item: ItemModel;
+  private returnPath: string;
   constructor(
     private itemSrv: ItemService,
     private router: Router,
@@ -37,12 +38,21 @@ export class ItemDetailPageComponent implements OnInit {
         this.item._id = params['id'];
         this.itemSrv.getItemById(this.item._id).subscribe((res)=>{
           this.item = res[0];
-        })
+        });
+      }
+      if('ret' in params){
+        this.returnPath = params['ret'];
+      }else{
+        this.returnPath = null;
       }
     });    
   }
 
   public onBack(){
-    this.router.navigate(['/', 'itemPage']);
+    if(this.returnPath){
+      this.router.navigate(['/', 'itemPage', this.returnPath]);
+    }else{
+      this.router.navigate(['/', 'itemPage']);
+    }
   }
 }

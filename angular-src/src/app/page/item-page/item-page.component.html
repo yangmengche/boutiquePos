@@ -39,8 +39,16 @@
     <mat-header-cell *matHeaderCellDef>Stock</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.stock }}</mat-cell>
   </ng-container>    
-  <mat-header-row *matHeaderRowDef="['pic', 'code', 'name', 'supplier', 'size', 'marketPrice', 'stock']"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: ['pic', 'code', 'name', 'supplier', 'size', 'marketPrice', 'stock']"
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef>Stock</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-button color="primary" (click)="selectItem(row)">
+        選擇
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef=matHeader></mat-header-row>
+  <mat-row *matRowDef="let row; columns: matHeader"
             (click)="onRowClick(row)"
   ></mat-row>  
   

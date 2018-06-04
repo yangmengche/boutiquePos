@@ -3,9 +3,12 @@
   <button mat-icon-button color="primary" (click)="onScan()" type="button">
     <mat-icon color="primary">camera</mat-icon>
   </button>
-  <button mat-icon-button color="primary" (click)="onAddItem()" type="button">
-      <mat-icon color="primary">add_shopping_cart</mat-icon>
+  <button mat-icon-button color="primary" (click)="onSelectItem()" type="button">
+      <mat-icon color="primary">list</mat-icon>
   </button>  
+  <button mat-icon-button color="primary" (click)="onAddItem()" type="button">
+    <mat-icon color="primary">add_shopping_cart</mat-icon>
+</button>    
 </div>
 
 <mat-table [dataSource]="itemDataSource">
