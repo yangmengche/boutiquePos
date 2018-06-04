@@ -25,7 +25,7 @@ export class ReportDetailPageComponent implements OnInit {
       if('id' in params){        
       }
     });
-    this.receipt = this.dataProvider.data;
+    this.receipt = this.dataProvider.reportItem;
   }
 
   public getReceipt(id: string){

@@ -186,7 +186,7 @@ exports.createReceipt = async (req, res) => {
 exports.queryReceipt = async (req, res) => {
   try {
     let query = await utils.fnGetBody(req);
-    let docs = await db.queryReceipts(query.id, query.date, query.payBy, query.remark, query.returnRefID);
+    let docs = await db.queryReceipts(query.id, query.date, query.payBy, query.remark, query.returnRefID, query.skip, query.limit);
     utils.fnResponse(null, docs, res);
   } catch (err) {
     log.writeLog(err.message, 'error');

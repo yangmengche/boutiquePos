@@ -1,7 +1,7 @@
 <mat-table [dataSource]="itemDataSource">
   <ng-container matColumnDef="pic">
     <mat-header-cell *matHeaderCellDef>Pic</mat-header-cell>
-    <mat-cell *matCellDef="let row"><img src={{row.pic}} height="40"/></mat-cell>
+    <mat-cell *matCellDef="let row" height="40"><img src={{row.pic}} height="40"/></mat-cell>
   </ng-container>    
   <ng-container matColumnDef="code">
     <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>

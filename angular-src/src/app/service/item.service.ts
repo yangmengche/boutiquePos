@@ -143,10 +143,14 @@ export class ItemService {
       );
   }
 
-  public getReceipts(from?: Date, to?: Date) {
+  public getReceipts(from?: Date, to?: Date, skip?: number, limit?: number) {
     let URI = `${this.serverApi}/receipt/query`;
     let headers = new Headers;
-    let bodyObj = { date: {} };
+    let bodyObj = { 
+      skip: skip,
+      limit: limit,
+      date: {}
+    };
     if (from) {
       bodyObj.date['min'] = from.getTime();
     }

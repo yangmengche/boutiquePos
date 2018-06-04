@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material';
 import { ItemService } from '../../service/item.service';
 import { isNull } from 'util';
 import { PAYBY } from '../../model/def';
+import { DataProviderService } from '../../service/data-provider.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-sale-page',
@@ -21,7 +23,8 @@ export class SalePageComponent implements OnInit {
   constructor(
     private router: Router,
     private itemSrv: ItemService,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private dataProvider: DataProviderService
   ) { }
 
   ngOnInit() {
@@ -30,12 +33,17 @@ export class SalePageComponent implements OnInit {
       if('code' in params){
         this.saleItem.code = params['code'];
       }else{
-        localStorage.removeItem(this.storageKey);
+        delete this.dataProvider.saleItem;
+        // localStorage.removeItem(this.storageKey);
       }
     });
+    this.initReceipt();
+  }
 
-    this.receipt = JSON.parse(localStorage.getItem(this.storageKey));
-    if(isNull(this.receipt)){
+  private initReceipt(){
+    // this.receipt = JSON.parse(localStorage.getItem(this.storageKey));
+    this.receipt = this.dataProvider.saleItem;
+    if(!this.receipt){
       this.receipt = {
         items: [],
         payBy: this.payBy[0].key, 
@@ -64,12 +72,7 @@ export class SalePageComponent implements OnInit {
 
 
   public getTotalPrice() {
-    // this.receipt.pay = this.receipt.items.map(t => t.marketPrice).reduce((acc, value) => acc + value, 0);
-    if(this.quaCheck != this.receipt.quantity){
-      this.receipt.pay = this.receipt.items.reduce((acc, item) => acc + item.marketPrice*item.quantity, 0);
-      this.quaCheck = this.receipt.quantity;
-    }
-    return this.receipt.pay;
+    return this.receipt.items.reduce((acc, item) => acc + item.marketPrice*item.quantity, 0);
   }
 
   public getTotalQuantity() {
@@ -98,9 +101,15 @@ export class SalePageComponent implements OnInit {
           quantity: 1
         });
         this.itemDataSource.data=  this.receipt.items;
-        localStorage.setItem(this.storageKey, JSON.stringify(this.receipt));
+        // localStorage.setItem(this.storageKey, JSON.stringify(this.receipt));
+        this.dataProvider.saleItem = this.receipt;
+        this.receipt.pay = this.receipt.items.reduce((acc, item) => acc + item.marketPrice*item.quantity, 0);
       }
     });
+  }
+
+  public onQunatitychanged(value: number){
+    this.receipt.pay = this.receipt.items.reduce((acc, item) => acc + item.marketPrice*item.quantity, 0);
   }
 
   public deleteItem(item){
@@ -111,7 +120,8 @@ export class SalePageComponent implements OnInit {
       }
     }
     this.itemDataSource.data = this.receipt.items;
-    localStorage.setItem(this.storageKey, JSON.stringify(this.receipt));
+    this.dataProvider.saleItem = this.receipt;
+    // localStorage.setItem(this.storageKey, JSON.stringify(this.receipt));
   }
 
   public onSubmit(){
@@ -119,7 +129,9 @@ export class SalePageComponent implements OnInit {
     this.itemSrv.addReceipt(this.receipt).subscribe((res)=>{
       if(res.id){
         this.initSaleItem();
-        // this.router.navigate(['/itemPage']);
+        delete this.dataProvider.saleItem;
+        // localStorage.removeItem(this.storageKey);
+        this.initReceipt();
       }
     });
   }

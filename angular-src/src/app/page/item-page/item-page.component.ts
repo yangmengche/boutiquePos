@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
 export class ItemPageComponent implements OnInit {
 
   private itemDataSource = new MatTableDataSource<any>();
-  private pageSize = 5;
-  pageEvent: PageEvent;
+  private pageSize = 10;
+  private pageEvent: PageEvent;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -24,17 +24,14 @@ export class ItemPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.itemDataSource.paginator = this.paginator;
-    // this.LoadLists(0, this.pageSize);
-    this.LoadLists();
+    // this.itemDataSource.paginator = this.paginator;  // don't bind pagination and data source if we want to do it in backend.
+    this.LoadLists(0, this.pageSize);
   }
 
   public async LoadLists(skip?, limit?) {
     this.itemSrv.getItems(skip, limit).subscribe((response) =>{
       this.itemDataSource.data = response.docs;
-      // for(let i=response.docs.length; i < response.total; i++){
-      //   this.itemDataSource.data.push({});
-      // }
+      this.paginator.length = response.total;
     })
   }
 
@@ -46,8 +43,8 @@ export class ItemPageComponent implements OnInit {
   }
 
   public onPageChance($event){
-    // console.log('change page');
-    // this.LoadLists($event.pageIndex*$event.pageSize, $event.pageSize);
+    console.log('change page');
+    this.LoadLists($event.pageIndex*$event.pageSize, $event.pageSize);
   }
 
 }

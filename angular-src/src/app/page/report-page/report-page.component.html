@@ -1,8 +1,8 @@
 <div>
-  <button mat-raised-button color="primary" type="button" (click)="onQueryToday()">今天</button>
-  <button mat-raised-button color="primary" type="button" (click)="onQueryThisWeek()">本週</button>
-  <button mat-raised-button color="primary" type="button" (click)="onQueryThisMonth()">本月</button>
-  <button mat-raised-button color="primary" type="button" (click)="onQuerythisYear()">今年</button>
+  <button mat-raised-button color="primary" type="button" (click)="onQuery('DAY')">今天</button>
+  <button mat-raised-button color="primary" type="button" (click)="onQuery('WEEK')">本週</button>
+  <button mat-raised-button color="primary" type="button" (click)="onQuery('MONTH')">本月</button>
+  <button mat-raised-button color="primary" type="button" (click)="onQuery('YEAR')">今年</button>
 </div>  
 <div>
   <mat-chip-list>
@@ -46,3 +46,4 @@
             (click)="onRowClick(row)"
   ></mat-row>  
 </mat-table>
+<mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons (page)='onPageChance($event)'></mat-paginator>

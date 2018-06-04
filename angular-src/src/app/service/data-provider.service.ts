@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DataProviderService {
-  public data:any;
+  public reportItem:any;
+  public saleItem: any;
   constructor() { }
 }
