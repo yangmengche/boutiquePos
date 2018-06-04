@@ -1,3 +1,12 @@
+<div>
+  <p class="input-name">供應商：</p>
+  <!-- <input type="text" name="remark" placeholder="Remark"/> -->
+  <mat-select [(ngModel)]="supplierID" name="supplierID" class="input-name" (selectionChange)="onSelectChanged($event)">
+    <mat-option *ngFor="let supplier of suppliers" [value]="supplier._id">
+      {{ supplier.name }}
+    </mat-option>
+  </mat-select>
+</div>
 <mat-table [dataSource]="itemDataSource">
   <ng-container matColumnDef="pic">
     <mat-header-cell *matHeaderCellDef>Pic</mat-header-cell>

@@ -19,3 +19,8 @@ mat-table{
   padding: 10px;
   min-width: 100px;
 }
+
+.input-name{
+  display: inline-block;
+  width: 100px
+}

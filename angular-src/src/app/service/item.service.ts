@@ -13,10 +13,11 @@ export class ItemService {
 
   private serverApi = window.location.origin;
 
-  public getItems(skip?: number, limit?: number): Observable<any> {
+  public getItems(supplierID?:string, skip?: number, limit?: number): Observable<any> {
     let URI = `${this.serverApi}/item/query`;
     let headers = new Headers;
     let body = JSON.stringify({
+      "supplierID": supplierID,
       "skip": skip,
       "limit": limit
     });

@@ -1,7 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../../service/item.service';
-import { ItemModel } from '../../model/model';
+import { SupplierService } from '../../service/supplier.service';
+import { ItemModel, SupplierModel } from '../../model/model';
 import { MatTableDataSource, MatPaginator, PageEvent} from '@angular/material';
 // import { Observable } from 'rxjs';
 import { DataProviderService } from '../../service/data-provider.service';
@@ -18,12 +19,14 @@ export class ItemPageComponent implements OnInit {
   private pageSize = 10;
   private pageEvent: PageEvent;
   private matHeader = ItemPageComponent.headerList;
-  private returnPath: string
-
+  private returnPath: string;
+  private suppliers: SupplierModel[];
+  private supplierID: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private itemSrv: ItemService,
+    private supplierSrv: SupplierService,
     private router: Router,
     private actRoute: ActivatedRoute,
     private dataProvider: DataProviderService
@@ -37,12 +40,17 @@ export class ItemPageComponent implements OnInit {
         // select mode
         this.matHeader = ItemPageComponent.heaserSelect;
       }
-    });        
+    });
+    this.supplierSrv.getSuppliers().subscribe((response) =>{
+      this.suppliers = response;
+      this.suppliers.splice(0, 0, {'_id':'', 'name': '不限','type':'', 'shareRate':0});
+    });    
     this.LoadLists(0, this.pageSize);
   }
 
   public async LoadLists(skip?, limit?) {
-    this.itemSrv.getItems(skip, limit).subscribe((response) =>{
+    console.log(this.supplierID);
+    this.itemSrv.getItems(this.supplierID, skip, limit).subscribe((response) =>{
       this.itemDataSource.data = response.docs;
       this.paginator.length = response.total;
     })
@@ -67,6 +75,10 @@ export class ItemPageComponent implements OnInit {
 
   public selectItem(row){
     this.router.navigate([this.returnPath, row.code]);
+  }
+
+  public onSelectChanged(event){
+    this.LoadLists(0, this.pageSize);    
   }
 
 }
