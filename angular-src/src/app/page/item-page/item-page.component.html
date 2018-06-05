@@ -1,4 +1,4 @@
-<div>
+<div class="filter-block">
   <p class="input-name">供應商：</p>
   <mat-select [(ngModel)]="pageSetting.supplierID" name="supplierID" class="input-name" (selectionChange)="onSelectChanged($event)">
     <mat-option *ngFor="let supplier of suppliers" [value]="supplier._id">
@@ -6,7 +6,7 @@
     </mat-option>
   </mat-select>
 </div>
-<div>
+<div class="filter-block">
   <p class="input-name">分類：</p>
   <mat-select [(ngModel)]="pageSetting.category" name="category" class="input-name" (selectionChange)="onSelectChanged($event)">
     <mat-option *ngFor="let category of categorys" [value]="category">

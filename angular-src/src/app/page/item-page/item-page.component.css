@@ -24,3 +24,7 @@ mat-table{
   display: inline-block;
   width: 100px
 }
+
+.filter-block{
+  display: inline-block
+}
