@@ -61,6 +61,10 @@ export class ItemPageComponent implements OnInit {
     this.paginator.pageSize = this.pageSetting.pageSize;
   }
 
+  ngOnDestroy(){
+    this.dataProvider.itemPageSetting = this.pageSetting;
+  }
+
   private initPageSetting(){
     this.pageSetting = this.dataProvider.itemPageSetting;
     this.pageSetting.index= this.pageSetting.index || 0;
@@ -79,7 +83,6 @@ export class ItemPageComponent implements OnInit {
 
   public onRowClick(row) {
     this.dataProvider.item = row;
-    this.dataProvider.itemPageSetting = this.pageSetting;
     if(this.returnPath){
       this.router.navigate(['/', 'itemDetailPage', this.returnPath, row._id]);
     }else{
@@ -87,7 +90,6 @@ export class ItemPageComponent implements OnInit {
     }
   }
   public onAddItem() {
-    this.dataProvider.itemPageSetting = this.pageSetting;
     this.router.navigate(['/', 'addItemPage']);
   }
 
@@ -99,12 +101,11 @@ export class ItemPageComponent implements OnInit {
   }
 
   public selectItem(row){
-    this.dataProvider.itemPageSetting = this.pageSetting;
     this.router.navigate([this.returnPath, row.code]);
   }
 
   public onSelectChanged(event){
-    this.LoadLists(0, this.pageSetting.pageSize);    
+    this.pageSetting.index=0;
+    this.LoadLists(0, this.pageSetting.pageSize);
   }
-
 }

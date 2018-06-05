@@ -17,3 +17,7 @@ mat-footer-cell {
   justify-content:center;
   font-weight: bold;
 }
+
+.date-picker{
+  width: 130px
+}

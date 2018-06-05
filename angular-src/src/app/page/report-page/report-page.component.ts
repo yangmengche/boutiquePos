@@ -11,16 +11,21 @@ import * as moment from 'moment';
   styleUrls: ['./report-page.component.css']
 })
 export class ReportPageComponent implements OnInit {
-  private static queryType = ['DAY', 'WEEK', 'MONTH', 'YEAR'];
+  private static queryType = ['DAY', 'WEEK', 'MONTH', 'YEAR', 'CUSTOM'];
   private itemDataSource = new MatTableDataSource<any>();
+  private pageSetting = {
+    index: 0,
+    pageSize: 10,
+    currentQuery: 'DAY',
+    from: null,
+    to: null
+  }
   private revenue = 0;
   private quantity = 0;
   private profit = 0;
 
-  private pageSize = 10;
   private pageEvent: PageEvent;
-  private currentQuery='DAY';
-  private queryMap={};
+  private queryMap = {};
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -35,78 +40,86 @@ export class ReportPageComponent implements OnInit {
       'DAY': this.queryToday.bind(this),
       'WEEK': this.queryThisWeek.bind(this),
       'MONTH': this.queryThisMonth.bind(this),
-      'YEAR': this.querythisYear.bind(this)
+      'YEAR': this.querythisYear.bind(this),
+      'CUSTOM': this.queryByTimeSlot.bind(this)
     }
-    this.queryToday(0, this.pageSize);
+    this.initPageSetting();
+    this.queryMap[this.pageSetting.currentQuery](this.pageSetting.index, this.pageSetting.pageSize);
   }
 
-  // public getRevenue() {
-  //   this.revenue = this.itemDataSource.data.reduce((acc, item) => acc + item.pay, 0);
-  //   return this.revenue;
-  // }
+  ngOnDestroy() {
+    this.dataProvider.ReportPageSetting = this.pageSetting;
+  }
 
-  // public getQuantity() {
-  //   return this.itemDataSource.data.reduce((acc, item) => acc + item.quantity, 0);
-  // }
-
-  // public getProfit() {
-  //   let cost = this.itemDataSource.data.reduce((acc, receipt) => {
-  //     let receiptCost = receipt.items.reduce((acc2, item) => acc2 + item.cost, 0);
-  //     return acc + receiptCost;
-  //   }, 0);
-  //   return this.revenue - cost;
-  // }
+  private initPageSetting() {
+    this.pageSetting = this.dataProvider.ReportPageSetting;
+    this.pageSetting.index = this.pageSetting.index || 0;
+    this.pageSetting.pageSize = this.pageSetting.pageSize || 10;
+    this.pageSetting.currentQuery = this.pageSetting.currentQuery || 'DAY';
+  }
 
   public onRowClick(row) {
     this.dataProvider.reportItem = row;
     this.router.navigate(['/', 'reportDetailPage', row._id]);
   }
 
-  public onQuery(type: string){
-    this.queryMap[type](0, this.pageSize);
+  public onQuery(type: string) {
+    this.queryMap[type](0, this.pageSetting.pageSize);
   }
 
-  public queryToday(skip?: number, limit?:number) {
+  public onQueryByTimeSlot(){
+    this.pageSetting.currentQuery = 'CUSTOM';
+    this.queryByTimeSlot(this.pageSetting.index, this.pageSetting.pageSize);
+  }
+
+  public queryByTimeSlot(index?, limit?) {
+    this.query(this.pageSetting.from.toDate(), this.pageSetting.to.toDate(), index, limit);
+  }
+
+  public queryToday(index?: number, limit?: number) {
     let from = moment().startOf('day').toDate();
     let to = moment().endOf('day').toDate();
-    this.currentQuery= 'DAY';
-    this.query(from, to, skip, limit);
+    this.pageSetting.currentQuery = 'DAY';
+    this.query(from, to, index, limit);
   }
 
-  public queryThisWeek(skip?: number, limit?:number) {
+  public queryThisWeek(index?: number, limit?: number) {
     let from = moment().startOf('week').toDate();
     let to = moment().endOf('week').toDate();
-    this.currentQuery= 'WEEK';
-    this.query(from, to, skip, limit);
-  }
-  
-  public queryThisMonth(skip?: number, limit?:number) {
-    let from = moment().startOf('month').toDate();
-    let to = moment().endOf('month').toDate();
-    this.currentQuery= 'MONTH';
-    this.query(from, to, skip, limit);
-  }
-  
-  public querythisYear(skip?: number, limit?:number) {
-    let from = moment().startOf('year').toDate();
-    let to = moment().endOf('year').toDate();
-    this.currentQuery= 'YEAR';
-    this.query(from, to, skip, limit);
+    this.pageSetting.currentQuery = 'WEEK';
+    this.query(from, to, index, limit);
   }
 
-  public query(from, to, skip, limit){
+  public queryThisMonth(index?: number, limit?: number) {
+    let from = moment().startOf('month').toDate();
+    let to = moment().endOf('month').toDate();
+    this.pageSetting.currentQuery = 'MONTH';
+    this.query(from, to, index, limit);
+  }
+
+  public querythisYear(index?: number, limit?: number) {
+    let from = moment().startOf('year').toDate();
+    let to = moment().endOf('year').toDate();
+    this.pageSetting.currentQuery = 'YEAR';
+    this.query(from, to, index, limit);
+  }
+
+  public query(from, to, index, limit) {
+    let skip = index*limit;
     this.itemSrv.getReceipts(from, to, skip, limit).subscribe((response) => {
       this.itemDataSource.data = response.docs;
       this.paginator.length = response.total;
+      this.paginator.pageIndex = index; 
       this.revenue = response.revenue;
       this.quantity = response.quantity;
       this.profit = response.revenue - response.cost;
     });
   }
-  
-  public onPageChance($event){
+
+  public onPageChance($event) {
     console.log('change page');
-    this.pageSize = $event.pageSize;
-    this.queryMap[this.currentQuery]($event.pageIndex*$event.pageSize, $event.pageSize);
+    this.pageSetting.pageSize = $event.pageSize;
+    this.pageSetting.index = $event.pageIndex;
+    this.queryMap[this.pageSetting.currentQuery]($event.pageIndex, $event.pageSize);
   }
 }

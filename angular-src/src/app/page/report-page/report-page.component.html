@@ -5,6 +5,21 @@
   <button mat-raised-button color="primary" type="button" (click)="onQuery('YEAR')">今年</button>
 </div>  
 <div>
+<div>
+  <mat-form-field class='date-picker'>
+    <input matInput [matDatepicker]="fromPicker" placeholder="From" [(ngModel)]="pageSetting.from">
+    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+    <mat-datepicker #fromPicker></mat-datepicker>
+  </mat-form-field>  
+  <mat-form-field class='date-picker'>
+    <input matInput [matDatepicker]="toPicker" placeholder="To" [(ngModel)]="pageSetting.to">
+    <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+    <mat-datepicker #toPicker></mat-datepicker>
+  </mat-form-field>
+  <button mat-icon-button *ngIf="pageSetting.from && pageSetting.to" color="primary" type="button" (click)="onQueryByTimeSlot()">
+    <mat-icon color="primary">search</mat-icon>
+  </button>
+</div>
   <mat-chip-list>
     <mat-chip>營業額:{{revenue}}</mat-chip>
     <mat-chip>數量:{{quantity}}</mat-chip>
@@ -46,4 +61,4 @@
             (click)="onRowClick(row)"
   ></mat-row>  
 </mat-table>
-<mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons (page)='onPageChance($event)'></mat-paginator>
+<mat-paginator [pageSize]="pageSetting.pageSize" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons (page)='onPageChance($event)'></mat-paginator>

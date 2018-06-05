@@ -8,7 +8,9 @@ export class DataProviderService {
   public saleItem: ReceiptModel;
   public item: ItemModel;
   public itemPageSetting: any;
+  public ReportPageSetting: any;
   constructor() {
     this.itemPageSetting={};
+    this.ReportPageSetting={};
   }
 }

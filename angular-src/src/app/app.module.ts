@@ -9,8 +9,11 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule,
-  MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatChipsModule, MatPaginatorModule
+  MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, 
+  MatChipsModule, MatPaginatorModule, MatDatepickerModule
 } from '@angular/material';
+import { MatMomentDateModule} from '@angular/material-moment-adapter'
+
 import { NgUploaderModule } from 'ngx-uploader';
 
 import { SupplierService } from './service/supplier.service';
@@ -68,7 +71,9 @@ import { ReportDetailPageComponent } from './page/report-detail-page/report-deta
     MatInputModule,
     MatSelectModule,
     MatChipsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   providers: [SupplierService, ItemService, DataProviderService],
   bootstrap: [AppComponent]
