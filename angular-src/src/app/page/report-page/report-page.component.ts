@@ -14,6 +14,9 @@ export class ReportPageComponent implements OnInit {
   private static queryType = ['DAY', 'WEEK', 'MONTH', 'YEAR'];
   private itemDataSource = new MatTableDataSource<any>();
   private revenue = 0;
+  private quantity = 0;
+  private profit = 0;
+
   private pageSize = 10;
   private pageEvent: PageEvent;
   private currentQuery='DAY';
@@ -37,22 +40,22 @@ export class ReportPageComponent implements OnInit {
     this.queryToday(0, this.pageSize);
   }
 
-  public getRevenue() {
-    this.revenue = this.itemDataSource.data.reduce((acc, item) => acc + item.pay, 0);
-    return this.revenue;
-  }
+  // public getRevenue() {
+  //   this.revenue = this.itemDataSource.data.reduce((acc, item) => acc + item.pay, 0);
+  //   return this.revenue;
+  // }
 
-  public getQuantity() {
-    return this.itemDataSource.data.reduce((acc, item) => acc + item.quantity, 0);
-  }
+  // public getQuantity() {
+  //   return this.itemDataSource.data.reduce((acc, item) => acc + item.quantity, 0);
+  // }
 
-  public getProfit() {
-    let cost = this.itemDataSource.data.reduce((acc, receipt) => {
-      let receiptCost = receipt.items.reduce((acc2, item) => acc2 + item.cost, 0);
-      return acc + receiptCost;
-    }, 0);
-    return this.revenue - cost;
-  }
+  // public getProfit() {
+  //   let cost = this.itemDataSource.data.reduce((acc, receipt) => {
+  //     let receiptCost = receipt.items.reduce((acc2, item) => acc2 + item.cost, 0);
+  //     return acc + receiptCost;
+  //   }, 0);
+  //   return this.revenue - cost;
+  // }
 
   public onRowClick(row) {
     this.dataProvider.reportItem = row;
@@ -67,40 +70,38 @@ export class ReportPageComponent implements OnInit {
     let from = moment().startOf('day').toDate();
     let to = moment().endOf('day').toDate();
     this.currentQuery= 'DAY';
-    this.itemSrv.getReceipts(from, to, skip, limit).subscribe((response) => {
-      this.itemDataSource.data = response.docs;
-      this.paginator.length = response.total;
-    });
+    this.query(from, to, skip, limit);
   }
 
   public queryThisWeek(skip?: number, limit?:number) {
     let from = moment().startOf('week').toDate();
     let to = moment().endOf('week').toDate();
     this.currentQuery= 'WEEK';
-    this.itemSrv.getReceipts(from, to, skip, limit).subscribe((response) => {
-      this.itemDataSource.data = response.docs;
-      this.paginator.length = response.total;
-    });    
+    this.query(from, to, skip, limit);
   }
   
   public queryThisMonth(skip?: number, limit?:number) {
     let from = moment().startOf('month').toDate();
     let to = moment().endOf('month').toDate();
     this.currentQuery= 'MONTH';
-    this.itemSrv.getReceipts(from, to, skip, limit).subscribe((response) => {
-      this.itemDataSource.data = response.docs;
-      this.paginator.length = response.total;
-    });    
+    this.query(from, to, skip, limit);
   }
   
   public querythisYear(skip?: number, limit?:number) {
     let from = moment().startOf('year').toDate();
     let to = moment().endOf('year').toDate();
     this.currentQuery= 'YEAR';
+    this.query(from, to, skip, limit);
+  }
+
+  public query(from, to, skip, limit){
     this.itemSrv.getReceipts(from, to, skip, limit).subscribe((response) => {
       this.itemDataSource.data = response.docs;
       this.paginator.length = response.total;
-    });    
+      this.revenue = response.revenue;
+      this.quantity = response.quantity;
+      this.profit = response.revenue - response.cost;
+    });
   }
   
   public onPageChance($event){
