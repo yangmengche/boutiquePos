@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/cor
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../../service/item.service';
 import { SupplierService } from '../../service/supplier.service';
-import { ItemModel, SupplierModel } from '../../model/model';
+import { ItemModel, SupplierModel, CategoryModel } from '../../model/model';
 import { MatTableDataSource, MatPaginator, PageEvent} from '@angular/material';
 // import { Observable } from 'rxjs';
 import { DataProviderService } from '../../service/data-provider.service';
@@ -16,12 +16,17 @@ export class ItemPageComponent implements OnInit {
   private static headerList = ['pic', 'code', 'name', 'supplier', 'size', 'marketPrice', 'stock'];
   private static heaserSelect = ['pic', 'code', 'name', 'supplier', 'size', 'marketPrice', 'stock', 'select'];
   private itemDataSource = new MatTableDataSource<any>();
-  private pageSize = 10;
+  private pageSetting={
+    index:0,
+    pageSize: 10,
+    category:null,
+    supplierID: null, 
+  }
   private pageEvent: PageEvent;
   private matHeader = ItemPageComponent.headerList;
   private returnPath: string;
   private suppliers: SupplierModel[];
-  private supplierID: string;
+  private categorys: CategoryModel[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
@@ -41,16 +46,32 @@ export class ItemPageComponent implements OnInit {
         this.matHeader = ItemPageComponent.heaserSelect;
       }
     });
+    
     this.supplierSrv.getSuppliers().subscribe((response) =>{
       this.suppliers = response;
       this.suppliers.splice(0, 0, {'_id':'', 'name': '不限','type':'', 'shareRate':0});
-    });    
-    this.LoadLists(0, this.pageSize);
+    });
+    this.itemSrv.getCategories().subscribe((response)=>{
+      this.categorys = response;
+      this.categorys.splice(0, 0, {'_id':'', 'name': '不限'});
+    });
+    this.initPageSetting();
+    this.LoadLists(this.pageSetting.index*this.pageSetting.pageSize, this.pageSetting.pageSize);
+    this.paginator.pageIndex = this.pageSetting.index;
+    this.paginator.pageSize = this.pageSetting.pageSize;
+  }
+
+  private initPageSetting(){
+    this.pageSetting = this.dataProvider.itemPageSetting;
+    this.pageSetting.index= this.pageSetting.index || 0;
+    this.pageSetting.pageSize= this.pageSetting.pageSize || 10;
+    this.pageSetting.category={};
   }
 
   public async LoadLists(skip?, limit?) {
-    console.log(this.supplierID);
-    this.itemSrv.getItems(this.supplierID, skip, limit).subscribe((response) =>{
+    console.log();
+    let category = this.pageSetting.category._id?this.pageSetting.category.name:null;
+    this.itemSrv.getItems(this.pageSetting.supplierID, category, skip, limit).subscribe((response) =>{
       this.itemDataSource.data = response.docs;
       this.paginator.length = response.total;
     })
@@ -58,6 +79,7 @@ export class ItemPageComponent implements OnInit {
 
   public onRowClick(row) {
     this.dataProvider.item = row;
+    this.dataProvider.itemPageSetting = this.pageSetting;
     if(this.returnPath){
       this.router.navigate(['/', 'itemDetailPage', this.returnPath, row._id]);
     }else{
@@ -65,20 +87,24 @@ export class ItemPageComponent implements OnInit {
     }
   }
   public onAddItem() {
+    this.dataProvider.itemPageSetting = this.pageSetting;
     this.router.navigate(['/', 'addItemPage']);
   }
 
   public onPageChance($event){
-    console.log('change page');
+    // two-way binding not work
+    this.pageSetting.pageSize = $event.pageSize;
+    this.pageSetting.index = $event.pageIndex;
     this.LoadLists($event.pageIndex*$event.pageSize, $event.pageSize);
   }
 
   public selectItem(row){
+    this.dataProvider.itemPageSetting = this.pageSetting;
     this.router.navigate([this.returnPath, row.code]);
   }
 
   public onSelectChanged(event){
-    this.LoadLists(0, this.pageSize);    
+    this.LoadLists(0, this.pageSetting.pageSize);    
   }
 
 }

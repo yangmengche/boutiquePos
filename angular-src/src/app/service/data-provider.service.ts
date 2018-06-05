@@ -7,5 +7,8 @@ export class DataProviderService {
   public reportItem: ReceiptModel;
   public saleItem: ReceiptModel;
   public item: ItemModel;
-  constructor() { }
+  public itemPageSetting: any;
+  constructor() {
+    this.itemPageSetting={};
+  }
 }

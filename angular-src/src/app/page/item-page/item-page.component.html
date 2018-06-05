@@ -1,9 +1,16 @@
 <div>
   <p class="input-name">供應商：</p>
-  <!-- <input type="text" name="remark" placeholder="Remark"/> -->
-  <mat-select [(ngModel)]="supplierID" name="supplierID" class="input-name" (selectionChange)="onSelectChanged($event)">
+  <mat-select [(ngModel)]="pageSetting.supplierID" name="supplierID" class="input-name" (selectionChange)="onSelectChanged($event)">
     <mat-option *ngFor="let supplier of suppliers" [value]="supplier._id">
       {{ supplier.name }}
+    </mat-option>
+  </mat-select>
+</div>
+<div>
+  <p class="input-name">分類：</p>
+  <mat-select [(ngModel)]="pageSetting.category" name="category" class="input-name" (selectionChange)="onSelectChanged($event)">
+    <mat-option *ngFor="let category of categorys" [value]="category">
+      {{ category.name }}
     </mat-option>
   </mat-select>
 </div>
@@ -64,7 +71,7 @@
   <!-- <mat-header-row *matHeaderRowDef="['pic', 'code', 'name', 'supplier', 'category', 'size', 'cost', 'listPrice', 'marketPrice', 'stock']"></mat-header-row>
   <mat-row *matRowDef="let supplierlRow; columns: ['pic', 'code', 'name', 'supplier', 'category', 'size', 'cost', 'listPrice', 'marketPrice', 'stock']"></mat-row>   -->
 </mat-table>
-<mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons (page)='onPageChance($event)'></mat-paginator>
+<mat-paginator [pageSize]="pageSetting.pageSize" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons (page)='onPageChance($event)'></mat-paginator>
 <div class="center">
   <!-- <a [routerLink]="['/', 'addItemPage']">
     <mat-icon color="primary">add</mat-icon>
