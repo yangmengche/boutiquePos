@@ -178,6 +178,9 @@ describe('[Item spec]', () => {
     }
     let obj = JSON.parse(res.text);
     assert.strictEqual(obj.total, 3);
+    assert.strictEqual(obj.quantity, 9);
+    assert.strictEqual(obj.revenue, 5320);
+    assert.strictEqual(obj.cost, 1600.5);
     assert.strictEqual(obj.docs.length, 3);
     receipt01 = obj.docs[1];
   });

@@ -124,7 +124,7 @@ dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit)
       query.limit(l);
     }
     let docs = await query.lean().exec();
-    return {'total': total, 'docs':docs};
+    return { 'total': total, 'docs': docs };
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
@@ -149,7 +149,7 @@ dbBase.createReceipt = async (receipt) => {
   try {
     receipt.date = new Date().getTime();
     receipt.quantity = 0;
-    for(let i in receipt.items){
+    for (let i in receipt.items) {
       receipt.quantity += receipt.items[i].quantity;
     }
     let newReceipt = new dbBase.receipts(receipt);
@@ -168,24 +168,47 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
       q._id = id;
     }
     if (date) {
-      q.date={};
+      q.date = {};
       if (!isNaN(date.min)) {
         q.date['$gte'] = date.min;
       }
       if (!isNaN(date.max)) {
         q.date['$lte'] = date.max;
       }
-    }    
+    }
     if (payBy) {
       q.payBy = payBy;
     }
     if (remark) {
       q.remark = { $regex: new RegExp(remark, 'i') };
-    }    
+    }
     if (returnRefID) {
       q.returnRefID = returnRefID;
     }
     let total = await dbBase.receipts.count(q);
+    let pipe = [
+      {
+        '$match': q
+      }, {
+        '$unwind': '$items'
+      }, {
+        '$group': {
+          '_id': '$_id',
+          'quantity': { '$first': '$quantity' },
+          'pay': { '$first': '$pay' },
+          'cost': { '$sum': '$items.cost' }
+        }
+      }, {
+        '$group':{
+          '_id': null, 
+          'total': {'$sum':1},
+          'quantity': {'$sum':'$quantity'},
+          'revenue': {'$sum': '$pay'},
+          'cost': {'$sum': '$cost'}
+        }
+      }
+    ]
+    let result = await dbBase.receipts.aggregate(pipe);
     let query = dbBase.receipts.find(q).sort({ 'date': -1 });
     let s = parseInt(skip);
     if (!isNaN(s)) {
@@ -196,7 +219,7 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
       query.limit(l);
     }
     let docs = await query.lean().exec();
-    return {'total': total, 'docs':docs};
+    return { 'total': result[0].total, 'quantity': result[0].quantity, 'revenue':result[0].revenue, 'cost':result[0].cost, 'docs': docs };
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
