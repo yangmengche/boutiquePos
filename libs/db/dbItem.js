@@ -170,10 +170,10 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
     if (date) {
       q.date = {};
       if (!isNaN(date.min)) {
-        q.date['$gte'] = date.min;
+        q.date['$gte'] = new Date(date.min);
       }
       if (!isNaN(date.max)) {
-        q.date['$lte'] = date.max;
+        q.date['$lte'] = new Date(date.max);
       }
     }
     if (payBy) {
@@ -219,7 +219,11 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
       query.limit(l);
     }
     let docs = await query.lean().exec();
-    return { 'total': result[0].total, 'quantity': result[0].quantity, 'revenue':result[0].revenue, 'cost':result[0].cost, 'docs': docs };
+    if(result.length > 0){
+      return { 'total': result[0].total, 'quantity': result[0].quantity, 'revenue':result[0].revenue, 'cost':result[0].cost, 'docs': docs };
+    }else{
+      return { 'total': 0, 'quantity': 0, 'revenue':0, 'cost':0, 'docs': docs };
+    }
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
