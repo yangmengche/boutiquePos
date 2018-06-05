@@ -1,5 +1,5 @@
 <div>
-  <input type="text" name="code" matInput placeholder="Code" [(ngModel)]="saleItem.code" style="width: 200px"/>
+  <input type="text" name="code" matInput placeholder="條碼" [(ngModel)]="saleItem.code" style="width: 200px"/>
   <button mat-icon-button color="primary" (click)="onScan()" type="button">
     <mat-icon color="primary">camera</mat-icon>
   </button>
@@ -13,22 +13,22 @@
 
 <mat-table [dataSource]="itemDataSource">
   <ng-container matColumnDef="code">
-    <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>條碼</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
-    <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
+    <mat-footer-cell *matFooterCellDef> 總計 </mat-footer-cell>
   </ng-container>  
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>名稱</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
     <mat-footer-cell *matFooterCellDef></mat-footer-cell>
   </ng-container>
   <ng-container matColumnDef="price">
-    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>售價</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.marketPrice | number:'1.0-0'}} </mat-cell>
     <mat-footer-cell *matFooterCellDef> {{getTotalPrice() | number:'1.0-0'}} </mat-footer-cell>
   </ng-container>  
   <ng-container matColumnDef="quantity">
-    <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>數量</mat-header-cell>
     <mat-cell *matCellDef="let row">
       <input type="number" name="quantity" matInput placeholder="Quantity" [(ngModel)]="row.quantity" class="input-number" (input)='onQunatitychanged($event.target.value)'/>
     </mat-cell>
@@ -65,11 +65,11 @@
   </mat-form-field>        
 </div>
 <div>
-  <p class="input-name">備注</p>
-  <input type="text" name="remark" placeholder="Remark" [(ngModel)]="receipt.remark"/>
+  <p class="input-name">備注:</p>
+  <input type="text" name="remark" matInput [(ngModel)]="receipt.remark"/>
 </div>
 <div>
   <button *ngIf="receipt.pay > 0" mat-icon-button color="primary" (click)="onSubmit()" type="button">
-    Submit
+    新增
   </button>
 </div>

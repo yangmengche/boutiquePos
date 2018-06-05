@@ -15,10 +15,10 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class SalePageComponent implements OnInit {
   private storageKey = 'sale-itemlist';
-  private saleItem: ReceiptItemModel;
-  private receipt: ReceiptModel;
-  private itemDataSource = new MatTableDataSource<any>();
-  private payBy = PAYBY;
+  public saleItem: ReceiptItemModel;
+  public receipt: ReceiptModel;
+  public itemDataSource = new MatTableDataSource<any>();
+  public payBy = PAYBY;
   private quaCheck = 0;
   constructor(
     private router: Router,

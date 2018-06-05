@@ -14,8 +14,8 @@ import { SUPPLIER_TYPE} from '../../model/def';
 export class SupplierPageComponent implements OnInit {
   private typeMap = SUPPLIER_TYPE;
   // private suppliers: SupplierModel[] = [];
-  private supplierDataSource = new MatTableDataSource<any>();
-  private bAdd = true;
+  public supplierDataSource = new MatTableDataSource<any>();
+  public bAdd = true;
   private newSupplier: SupplierModel;
 
   constructor(private supplierSrv: SupplierService) { }

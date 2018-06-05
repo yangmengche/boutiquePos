@@ -7,7 +7,7 @@
   <form (ngSubmit)="onSubmit()" >
     <div>
       <mat-form-field class="field">
-        <input type="text" name="code" matInput placeholder="Code" [(ngModel)]="newItem.code" required/>
+        <input type="text" name="code" matInput placeholder="條碼" [(ngModel)]="newItem.code" required/>
       </mat-form-field>
       <button mat-icon-button color="primary" class="btn" (click)="onScan()" type="button">
           <mat-icon color="primary">camera</mat-icon>
@@ -16,13 +16,13 @@
 
     <div>
       <mat-form-field class="field">
-        <input type="text" name="name" matInput placeholder="Name" [(ngModel)]="newItem.name"/>
+        <input type="text" name="name" matInput placeholder="名稱" [(ngModel)]="newItem.name"/>
       </mat-form-field>
     </div>
 
     <div>
       <mat-form-field class="field">
-        <input type="text" name="pic" matInput placeholder="Picture" [(ngModel)]="newItem.pic"/>
+        <input type="text" name="pic" matInput placeholder="圖片" [(ngModel)]="newItem.pic"/>
         <!-- <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg,.jpeg,.png"> -->
       </mat-form-field>
       <!-- <label class="upload-button">
@@ -42,7 +42,7 @@
 
     <div>
       <mat-form-field class="field">
-        <mat-select [(ngModel)]="newItem.supplierID" placeholder="Supplier" required name="supplierID">
+        <mat-select [(ngModel)]="newItem.supplierID" placeholder="供應商" required name="supplierID">
           <mat-option *ngFor="let supplier of suppliers" [value]="supplier._id">
             {{ supplier.name }}
           </mat-option>
@@ -52,7 +52,7 @@
 
     <div>
       <mat-form-field class="field">
-        <mat-select [(ngModel)]="newItem.category" placeholder="Category" required name="category">
+        <mat-select [(ngModel)]="newItem.category" placeholder="分類" required name="category">
           <mat-option *ngFor="let category of categories" [value]="category.name">
             {{ category.name }}
           </mat-option>
@@ -62,7 +62,7 @@
 
     <div>
       <mat-form-field class="field">
-        <mat-select [(ngModel)]="newItem.size" placeholder="Size" required name="size">
+        <mat-select [(ngModel)]="newItem.size" placeholder="尺吋" required name="size">
           <mat-option *ngFor="let size of sizes" [value]="size">
             {{ size }}
           </mat-option>
@@ -72,19 +72,19 @@
 
     <div>
       <mat-form-field class="field">
-        <input type="number" name="cost" matInput placeholder="Cost" [(ngModel)]="newItem.cost" required/>
+        <input type="number" name="cost" matInput placeholder="成本" [(ngModel)]="newItem.cost" required/>
       </mat-form-field>
     </div>
 
     <div>
       <mat-form-field class="field">
-        <input type="number" name="listPrice" matInput placeholder="List Price" [(ngModel)]="newItem.listPrice" required/>
+        <input type="number" name="listPrice" matInput placeholder="牌價" [(ngModel)]="newItem.listPrice" required/>
       </mat-form-field>
     </div>
     
     <div>
       <mat-form-field class="field">
-        <input type="number" name="marketPrice" matInput placeholder="Market Price" [(ngModel)]="newItem.marketPrice" required/>
+        <input type="number" name="marketPrice" matInput placeholder="售價" [(ngModel)]="newItem.marketPrice" required/>
       </mat-form-field>
     </div>
     <button mat-icon-button color="primary" type="submit" class="center-done-btn">

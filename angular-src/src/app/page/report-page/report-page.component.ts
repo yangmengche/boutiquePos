@@ -12,17 +12,17 @@ import * as moment from 'moment';
 })
 export class ReportPageComponent implements OnInit {
   private static queryType = ['DAY', 'WEEK', 'MONTH', 'YEAR', 'CUSTOM'];
-  private itemDataSource = new MatTableDataSource<any>();
-  private pageSetting = {
+  public itemDataSource = new MatTableDataSource<any>();
+  public pageSetting = {
     index: 0,
     pageSize: 10,
     currentQuery: 'DAY',
     from: null,
     to: null
   }
-  private revenue = 0;
-  private quantity = 0;
-  private profit = 0;
+  public revenue = 0;
+  public quantity = 0;
+  public profit = 0;
 
   private pageEvent: PageEvent;
   private queryMap = {};

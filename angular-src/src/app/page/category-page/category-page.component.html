@@ -1,6 +1,6 @@
 <mat-table [dataSource]="itemDataSource">
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>名稱</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="management">
@@ -15,9 +15,9 @@
   <mat-row *matRowDef="let categoryRow; columns: ['name', 'management']"></mat-row>
 </mat-table>
 <div>
-  新增分類:
-  <input type="text" name="分類" matInput placeholder="Category" [(ngModel)]="newCategory"/>
+  <p class="input-name">新增分類:</p>
+  <input type="text" name="分類" [(ngModel)]="newCategory"/>
   <button mat-icon-button color="primary" (click)="onAddCategory()" type="button">
-      <mat-icon color="primary">add</mat-icon>
+    <mat-icon color="primary">add</mat-icon>
   </button>
 </div>

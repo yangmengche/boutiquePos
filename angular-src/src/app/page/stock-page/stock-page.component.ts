@@ -10,8 +10,8 @@ import { ItemService } from '../../service/item.service';
   styleUrls: ['./stock-page.component.css']
 })
 export class StockPageComponent implements OnInit {
-  private item: ItemModel;
-  private quantity: number = 0;
+  public item: ItemModel;
+  public quantity: number = 0;
   constructor(
     private router: Router,
     private itemSrc: ItemService,

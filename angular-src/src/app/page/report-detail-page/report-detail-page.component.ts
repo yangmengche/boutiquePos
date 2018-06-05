@@ -11,7 +11,7 @@ import { DataProviderService } from '../../service/data-provider.service';
   styleUrls: ['./report-detail-page.component.css']
 })
 export class ReportDetailPageComponent implements OnInit {
-  private receipt: ReceiptModel;
+  public receipt: ReceiptModel;
 
   constructor(
     private router: Router,

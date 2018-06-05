@@ -15,18 +15,18 @@ import { DataProviderService } from '../../service/data-provider.service';
 export class ItemPageComponent implements OnInit {
   private static headerList = ['pic', 'code', 'name', 'supplier', 'size', 'marketPrice', 'stock'];
   private static heaserSelect = ['pic', 'code', 'name', 'supplier', 'size', 'marketPrice', 'stock', 'select'];
-  private itemDataSource = new MatTableDataSource<any>();
-  private pageSetting={
+  public itemDataSource = new MatTableDataSource<any>();
+  public pageSetting={
     index:0,
     pageSize: 10,
     category:null,
     supplierID: null, 
   }
   private pageEvent: PageEvent;
-  private matHeader = ItemPageComponent.headerList;
+  public matHeader = ItemPageComponent.headerList;
   private returnPath: string;
-  private suppliers: SupplierModel[];
-  private categorys: CategoryModel[];
+  public suppliers: SupplierModel[];
+  public categorys: CategoryModel[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(

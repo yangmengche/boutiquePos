@@ -10,8 +10,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./category-page.component.css']
 })
 export class CategoryPageComponent implements OnInit {
-  private itemDataSource = new MatTableDataSource<any>();
-  private newCategory:string;
+  public itemDataSource = new MatTableDataSource<any>();
+  public newCategory:string;
 
   constructor(private itemSrv: ItemService) { }
 

@@ -1,5 +1,5 @@
 <div>
-	<input type="text" name="code" matInput placeholder="Code" [(ngModel)]="item.code" style="width: 200px"/>
+	<input type="text" name="code" matInput placeholder="條碼	" [(ngModel)]="item.code" style="width: 200px"/>
 	<button mat-icon-button color="primary" (click)="onScan()" type="button">
 		<mat-icon color="primary">camera</mat-icon>
 	</button>
@@ -13,22 +13,22 @@
 <div class="list">
 	<mat-list>
 		<mat-list-item>
-			<h4 class="field-name">Code:</h4>{{item.code}}
+			<h4 class="field-name">條碼:</h4>{{item.code}}
 		</mat-list-item>
 		<mat-list-item>
-			<h4 class="field-name">Name:</h4>{{item.name}}
+			<h4 class="field-name">名稱:</h4>{{item.name}}
 		</mat-list-item>
 		<mat-list-item>
-			<h4 class="field-name">Supplier:</h4>{{item.supplierID.name}}
+			<h4 class="field-name">供應商:</h4>{{item.supplierID.name}}
 		</mat-list-item>
 		<mat-list-item>
-			<h4 class="field-name">Category:</h4>{{item.category}}
+			<h4 class="field-name">分類:</h4>{{item.category}}
 		</mat-list-item>
 		<mat-list-item>
-			<h4 class="field-name">Size:</h4>{{item.size}}
+			<h4 class="field-name">尺吋:</h4>{{item.size}}
 		</mat-list-item>
 		<mat-list-item>
-			<h4 class="field-name">Stock:</h4>{{item.stock}}
+			<h4 class="field-name">庫存:</h4>{{item.stock}}
 		</mat-list-item>	
 	</mat-list>
 </div>

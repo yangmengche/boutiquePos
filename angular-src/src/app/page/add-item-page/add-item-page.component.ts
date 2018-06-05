@@ -13,16 +13,16 @@ import { SIZE } from '../../model/def';
   styleUrls: ['./add-item-page.component.css'],
 })
 export class AddItemPageComponent implements OnInit {
-  private newItem: ItemAddModel;
-  private suppliers: SupplierModel[];
-  // private options: UploaderOptions;
+  public newItem: ItemAddModel;
+  public suppliers: SupplierModel[];
+  public options: UploaderOptions;
   // private formData: FormData;
   private files: UploadFile[];
-  private uploadInput: EventEmitter<UploadInput>;
+  public uploadInput: EventEmitter<UploadInput>;
   // private humanizeBytes: Function;
   
-  private categories: string[];
-  private sizes = SIZE;
+  public categories: string[];
+  public sizes = SIZE;
   constructor(
     private itemSrv: ItemService,
     private supplierSrv: SupplierService,

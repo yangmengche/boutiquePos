@@ -16,43 +16,43 @@
 </div>
 <mat-table [dataSource]="itemDataSource">
   <ng-container matColumnDef="pic">
-    <mat-header-cell *matHeaderCellDef>Pic</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let row" height="40"><img src={{row.pic}} height="40"/></mat-cell>
   </ng-container>    
   <ng-container matColumnDef="code">
-    <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>條碼</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
   </ng-container>  
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>名稱</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="supplier">
-    <mat-header-cell *matHeaderCellDef>Supplier</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>供應商</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.supplierID.name }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="category">
-    <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>分類</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.category }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="size">
-    <mat-header-cell *matHeaderCellDef>Size</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>尺吋</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.size }}</mat-cell>
   </ng-container>    
   <ng-container matColumnDef="cost">
-    <mat-header-cell *matHeaderCellDef>Cost</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>成本</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.cost }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="listPrice">
-    <mat-header-cell *matHeaderCellDef>List price</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>牌價</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.listPrice }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="marketPrice">
-    <mat-header-cell *matHeaderCellDef>Market price</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>售價</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.marketPrice }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="stock">
-    <mat-header-cell *matHeaderCellDef>Stock</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>庫存</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.stock }}</mat-cell>
   </ng-container>    
   <ng-container matColumnDef="select">

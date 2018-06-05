@@ -9,7 +9,7 @@ import { ItemModel } from '../../model/model';
   styleUrls: ['./item-detail-page.component.css']
 })
 export class ItemDetailPageComponent implements OnInit {
-  private item: ItemModel;
+  public item: ItemModel;
   private returnPath: string;
   constructor(
     private itemSrv: ItemService,

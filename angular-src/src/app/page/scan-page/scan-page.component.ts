@@ -9,7 +9,7 @@ import * as Quagga from 'quagga';
   styleUrls: ['./scan-page.component.css']
 })
 export class ScanPageComponent implements OnInit {
-  private lastResult: String = '';
+  public lastResult: String = '';
   private count: number = 0;
   private returnPath='';
   private debug={};
