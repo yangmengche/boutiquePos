@@ -69,7 +69,7 @@ function createWindow() {
 
 const cwd = process.cwd();
 function launchServer() {
-  let serverPath = path.resolve(cwd, './bin/www');
+  let serverPath = path.resolve(cwd, config.serverPath);
   if (!fse.existsSync(serverPath)) {
     log.writeLog('Server (' + serverPath + ') Not found', 'error');
   } else {

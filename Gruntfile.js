@@ -88,7 +88,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           dot: true,
-          dest: '<%= appConfig.output %>/',
+          dest: '<%= appConfig.output %>/resources/app',
           src: ['<%= appConfig.src %>/node_modules/**/*', '!<%= appConfig.src %>/node_modules/.bin/**']
         }]
       },
@@ -103,7 +103,7 @@ module.exports = function(grunt) {
     auto_install: {
       dist: {
         options: {
-          cwd: 'dist/',
+          cwd: '<%= appConfig.output %>/resources/app',
           stdout: true,
           stderr: true,
           failOnError: true,
@@ -112,7 +112,14 @@ module.exports = function(grunt) {
       }
     }, 
     exec:{
-      ngBuild: 'cd angular-src; ng build --prod'
+      ngBuild: {
+        cwd: 'angular-src',
+        cmd: 'ng build --prod'
+      },
+      electronRebuild:{
+        cwd: 'node_modules/.bin',
+        cmd: 'electron-rebuild.cmd --module-dir ../..'
+      }
     }   
   });
 
@@ -128,9 +135,10 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'clean:build',
     'exec:ngBuild',
+    'exec:electronRebuild',
     'copy:electron',
     'copy:services',
-//    'copy:nodeModules',
+    'copy:nodeModules',
     // 'auto_install',
     // 'apidoc:server'
   ]);
