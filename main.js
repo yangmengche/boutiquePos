@@ -10,32 +10,44 @@ log.setLogFileName('main', config.logPath, true);
 log.scheduleClean(24 * 60 * 60 * 1000);
 log.writeLog('******** Launcher, pid:' + process.id + ' ********', 'info');
 
-app.on('ready', createWindow)
+let pidServer;
+let bTerminate=false;
+app.on('ready', ()=>{
+  setTimeout(()=>{
+    createWindow();
+  }, 1000);
+});
 
 app.on('window-all-closed', () => {
   // darwin = MacOS
   if (process.platform !== 'darwin') {
-    app.quit()
+    bTerminate = true;
+    app.quit();
+    pidServer.kill('SIGINT', );
   }
 })
 
 app.on('activate', () => {
   if (win === null) {
-    createWindow()
+    setTimeout(()=>{
+      createWindow();
+    }, 3000);
   }
 })
 
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 400,
-    height: 400,
-    maximizable: true
+    width: 800,
+    height: 600,
+    maximizable: true,
+    autoHideMenuBar: true,
+    resizable: true
   })
 
   
   try{
-    win.loadURL('https://localhost:1689');
+    win.loadURL('http://localhost:1688');
     // win.loadURL(url.format({
     //     pathname: path.join(__dirname, 'public/index.html'),
     //     protocol: 'file:',
@@ -46,7 +58,7 @@ function createWindow() {
   }
 
   // Open DevTools.
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   // When Window Close.
   win.on('closed', () => {
@@ -61,7 +73,6 @@ function launchServer() {
   if (!fse.existsSync(serverPath)) {
     log.writeLog('Server (' + serverPath + ') Not found', 'error');
   } else {
-    let pidServer;
     try {
       // let pidServer = spawn(process.execPath, [serverPath], {cwd: cwd});
       pidServer = fork(serverPath, {cwd: cwd});
@@ -70,8 +81,10 @@ function launchServer() {
     }
     log.writeLog('Server launched', 'info');
     pidServer.on('exit', (code, signal) => {
-      log.writeLog('Server exit and try to restart', 'warn');
-      launchServer();
+      if(!bTerminate){
+        log.writeLog('Server exit and try to restart', 'warn');
+        launchServer();
+      }
     });
   }
 }
