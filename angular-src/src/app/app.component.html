@@ -3,21 +3,21 @@
   <button mat-icon-button color="primary" (click)="sideNav.toggle()">
       <mat-icon color="primary">menu</mat-icon>
   </button>
-  <p><b>SHERA</b></p><p align="right" style="width: 100%;">{{pageTitle}}</p>
+  <p><b>SHERA</b></p><!--<p align="right" style="width: 100%;">{{pageTitle}}</p>-->
 </mat-toolbar>
 <mat-sidenav-container mode="over" class="demo-app-container" fullscreen>
   <mat-sidenav #sideNav class="demo-app-sidenav">
     <mat-nav-list>
-      <a [routerLink]="['/itemPage'] " mat-list-item (click)="onPageChange('Item', sideNav)">Item</a>
-      <a [routerLink]="['/salePage'] " mat-list-item (click)="onPageChange('Sale', sideNav)">Sale</a>
-      <a [routerLink]="['/stockPage'] " mat-list-item (click)="onPageChange('Stock', sideNav)">Stock</a>
-      <a [routerLink]="['/reportPage'] " mat-list-item (click)="onPageChange('Report', sideNav)">Report</a>
-      <a [routerLink]="['/chartPage'] " mat-list-item (click)="onPageChange('Chart', sideNav)">Chart</a>
+      <a [routerLink]="['/itemPage'] " mat-list-item (click)="onPageChange('品項', sideNav)">品項</a>
+      <a [routerLink]="['/salePage'] " mat-list-item (click)="onPageChange('銷售', sideNav)">銷售</a>
+      <a [routerLink]="['/stockPage'] " mat-list-item (click)="onPageChange('進貨', sideNav)">進貨</a>
+      <a [routerLink]="['/reportPage'] " mat-list-item (click)="onPageChange('報表', sideNav)">報表</a>
+      <a [routerLink]="['/chartPage'] " mat-list-item (click)="onPageChange('圖表', sideNav)">圖表</a>
       <mat-divider></mat-divider>
       <h5 matSubHeader>管理</h5>
-      <a [routerLink]="['/supplierPage'] " mat-list-item (click)="onPageChange('Supplier', sideNav)">Supplier</a>
-      <a [routerLink]="['/categoryPage'] " mat-list-item (click)="onPageChange('Category', sideNav)">Category</a>
-      <a [routerLink]="['/accountPage'] " mat-list-item (click)="onPageChange('Account', sideNav)">Account</a>
+      <a [routerLink]="['/supplierPage'] " mat-list-item (click)="onPageChange('供應商', sideNav)">供應商</a>
+      <a [routerLink]="['/categoryPage'] " mat-list-item (click)="onPageChange('分類', sideNav)">分類</a>
+      <a [routerLink]="['/accountPage'] " mat-list-item (click)="onPageChange('帳戶', sideNav)">帳戶</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
