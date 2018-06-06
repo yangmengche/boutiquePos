@@ -44,7 +44,7 @@ describe('[Item spec]', () => {
 
   it('should create the new category c02, c03', async () => {
     try {
-      let categories = [testData.categories.c02, testData.categories.c03]
+      let categories = [testData.categories.c02, testData.categories.c03];
       var res = await agent.post('/category/create')
         .set('Content-Type', 'application/json')
         .send(categories)
@@ -61,8 +61,8 @@ describe('[Item spec]', () => {
 
   it('should update the category c03', async () => {
     try {
-      let c03 = JSON.parse(JSON.stringify(testData.categories.c03))
-      c03.name = 'newc03'
+      let c03 = JSON.parse(JSON.stringify(testData.categories.c03));
+      c03.name = 'newc03';
       var res = await agent.put('/category/update')
         .set('Content-Type', 'application/json')
         .send(c03)
@@ -213,7 +213,7 @@ describe('[Item spec]', () => {
       let updateObj={
         'id': obj._id,
         'pic': url
-      }        
+      };
       var res = await agent.put('/item/update')
         .set('Content-Type', 'application/json')
         .send(updateObj)
@@ -392,7 +392,7 @@ describe('[Item spec]', () => {
       delete obj._id;
       obj.listPrice = 290;
       obj.cost = obj.listPrice * testData.suppliers.s01.shareRate;
-      obj.marketPrice = 350
+      obj.marketPrice = 350;
       testData.items["s01-c01-001-S"].listPrice = obj.listPrice;
       testData.items["s01-c01-001-S"].cost = obj.cost;
       testData.items["s01-c01-001-S"].marketPrice = obj.marketPrice;

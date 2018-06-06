@@ -24,7 +24,7 @@ let suppliers = {
     'name':'S02',
     'type': 'BUYOUT',
   }
-}
+};
 exports.suppliers = suppliers;
 
 let categories = {
@@ -37,7 +37,7 @@ let categories = {
   'c03':{
     'name': 'C03'
   }
-}
+};
 exports.categories = categories;
 
 let items = {
@@ -46,7 +46,7 @@ let items = {
     'name': 's01-c01-001',
     'supplierID': '$s01',
     'category': categories.c01.name,
-    'size': def.size[3],
+    'size': def.size[4],
     'cost': suppliers.s01.shareRate * 390,
     'listPrice': 390,
     'marketPrice':590
@@ -56,7 +56,7 @@ let items = {
     'name': 's01-c01-001',
     'supplierID': '$s01',
     'category': categories.c01.name,
-    'size': def.size[4],
+    'size': def.size[5],
     'cost': suppliers.s01.shareRate * 390,
     'listPrice': 390,
     'marketPrice':590
@@ -66,7 +66,7 @@ let items = {
     'name': 's01-c01-001',
     'supplierID': '$s01',
     'category': categories.c01.name,
-    'size': def.size[5],
+    'size': def.size[6],
     'cost': suppliers.s01.shareRate * 390,
     'listPrice': 390,
     'marketPrice':590
@@ -76,7 +76,7 @@ let items = {
     'name': 's01-c02-001',
     'supplierID': '$s01',
     'category': categories.c02.name,
-    'size': def.size[0],
+    'size': def.size[1],
     'cost': suppliers.s01.shareRate * 190,
     'listPrice': 190,
     'marketPrice':190
@@ -86,7 +86,7 @@ let items = {
     'name': 's02-c02-001',
     'supplierID': '$s02',
     'category': categories.c02.name,
-    'size': def.size[6],
+    'size': def.size[7],
     'cost': 290,
     'listPrice': 490,
     'marketPrice':680
@@ -96,7 +96,7 @@ let items = {
     'name': 's02-c02-001',
     'supplierID': '$s02',
     'category': categories.c02.name,
-    'size': def.size[7],
+    'size': def.size[8],
     'cost': 290,
     'listPrice': 490,
     'marketPrice':680
@@ -106,12 +106,12 @@ let items = {
     'name': 's02-c02-001',
     'supplierID': '$s02',
     'category': categories.c02.name,
-    'size': def.size[8],
+    'size': def.size[9],
     'cost': 390,
     'listPrice': 590,
     'marketPrice':780
   },      
-}
+};
 exports.items = items;
 
 let stocks = {
@@ -139,7 +139,7 @@ let stocks = {
     'itemID': '$s02-c02-001-3L', 
     'quantity': 3
   }          
-}
+};
 exports.stocks = stocks;
 
 let receipts ={
@@ -191,6 +191,6 @@ let receipts ={
     payBy: def.payBy[1],
     pay: 680+780*2-240
   }    
-}
+};
 
 exports.receipts = receipts;
