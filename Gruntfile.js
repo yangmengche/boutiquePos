@@ -51,28 +51,35 @@ module.exports = function(grunt) {
           '<%= appConfig.src %>/jshint-report.xml'
         ],
       }
-    },    
+    },
     copy: {
       options:{
         mode:true
+      },
+      electron:{
+        files: [{
+          expand: true,
+          cwd: '<%= appConfig.src %>/node_modules/electron/dist',
+          dest: '<%= appConfig.output %>/',
+          src: [
+            '**',
+          ],
+        }]
       },
       // Copy back-end files except test and node_modules
       services: {
         files: [{
           expand: true,
-          dest: '<%= appConfig.output %>/',
+          dest: '<%= appConfig.output %>/resources/app',
           src: [
             '<%= appConfig.src %>/*.{js,json}',
             '<%= appConfig.src %>/bin/**/*',
-            '<%= appConfig.src %>/routes/**/*',
+            '<%= appConfig.src %>/certification/**/*',
             '<%= appConfig.src %>/config/**/*',
-            '<%= appConfig.src %>/components/**/*',
+            '<%= appConfig.src %>/libs/**/*',
+            '<%= appConfig.src %>/routes/**/*',
             '<%= appConfig.src %>/views/**/*',
-            '<%= appConfig.src %>/public/**/*',
-            '<%= appConfig.src %>/resource/**/*',
-            '<%= appConfig.src %>/template/**/*',
-            '<%= appConfig.src %>/i18n/**/*',
-            '<%= appConfig.src %>/resources/**/*'
+            '<%= appConfig.src %>/public/**/*'
           ],
         }]
       },
@@ -93,7 +100,25 @@ module.exports = function(grunt) {
         dest: "<%= appConfig.src %>/apidoc/"
       }
     },
+    auto_install: {
+      dist: {
+        options: {
+          cwd: 'dist/',
+          stdout: true,
+          stderr: true,
+          failOnError: true,
+          npm: '--only=production'
+        }
+      }
+    }, 
+    exec:{
+      ngBuild: 'cd angular-src; ng build --prod'
+    }   
   });
+
+  grunt.registerTask('ngBuild', [
+    'exec:ngBuild'
+  ]);
 
   grunt.registerTask('test', [
     'eslint',
@@ -102,12 +127,12 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'clean:build',
+    'exec:ngBuild',
+    'copy:electron',
     'copy:services',
 //    'copy:nodeModules',
-    'auto_install',
-    'apidoc:server',
-    'execute:logLine',
-    'obfuscator:release'
+    // 'auto_install',
+    // 'apidoc:server'
   ]);
 
   grunt.registerTask('default', [
