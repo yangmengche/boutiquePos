@@ -123,6 +123,7 @@ dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit)
     if (!isNaN(l)) {
       query.limit(l);
     }
+    query.sort = { 'code': 1};
     let docs = await query.lean().exec();
     return { 'total': total, 'docs': docs };
   } catch (err) {

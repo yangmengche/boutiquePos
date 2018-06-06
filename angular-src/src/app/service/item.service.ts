@@ -53,6 +53,29 @@ export class ItemService {
       );
   }
 
+  public updateItem(item: ItemModel){
+    let URI = `${this.serverApi}/item/update`;
+    let headers = new Headers;
+    let body = JSON.stringify({
+      id: item._id,
+      code: item.code,
+      name: item.name,
+      pic: item.pic,
+      supplierID: item.supplierID,
+      category: item.category,
+      size: item.size,
+      cost: item.cost,
+      listPrice: item.listPrice,
+      marketPrice: item.marketPrice
+    });
+    console.log(body);
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(URI, body, { headers: headers })
+      .pipe(
+        map(res => res.json())
+      );    
+  }
+
   public getItemByCode(code: String) {
     let URI = `${this.serverApi}/item` + `?code=` + code;
     let headers = new Headers;

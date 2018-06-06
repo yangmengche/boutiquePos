@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../../service/item.service';
-import { ItemModel } from '../../model/model';
+import { SupplierService } from '../../service/supplier.service';
+import { ItemModel, SupplierModel } from '../../model/model';
+import { SIZE } from '../../model/def';
 
 @Component({
   selector: 'app-item-detail-page',
@@ -9,10 +11,15 @@ import { ItemModel } from '../../model/model';
   styleUrls: ['./item-detail-page.component.css']
 })
 export class ItemDetailPageComponent implements OnInit {
+  public suppliers: SupplierModel[];
+  public categories: string[];
+  public sizes = SIZE;
+
   public item: ItemModel;
   private returnPath: string;
   constructor(
     private itemSrv: ItemService,
+    private supplierSrv: SupplierService,
     private router: Router,
     private actRoute: ActivatedRoute    
   ) { }
@@ -45,6 +52,12 @@ export class ItemDetailPageComponent implements OnInit {
       }else{
         this.returnPath = null;
       }
+    });
+    this.supplierSrv.getSuppliers().subscribe((response) =>{
+      this.suppliers = response;
+    });
+    this.itemSrv.getCategories().subscribe((response)=>{
+      this.categories = response;
     });    
   }
 
@@ -54,5 +67,10 @@ export class ItemDetailPageComponent implements OnInit {
     }else{
       this.router.navigate(['/', 'itemPage']);
     }
+  }
+
+  public onChange(){
+    this.itemSrv.updateItem(this.item).subscribe((response)=>{
+    });    
   }
 }

@@ -78,7 +78,7 @@
 
     <div>
       <mat-form-field class="field">
-        <input type="number" name="listPrice" matInput placeholder="牌價" [(ngModel)]="newItem.listPrice" required/>
+        <input type="number" name="listPrice" matInput placeholder="牌價" [(ngModel)]="newItem.listPrice" required (input)='onListPriceChanged($event.target.value)'/>
       </mat-form-field>
     </div>
     

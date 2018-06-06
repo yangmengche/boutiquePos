@@ -16,10 +16,9 @@ export class AddItemPageComponent implements OnInit {
   public newItem: ItemAddModel;
   public suppliers: SupplierModel[];
   public options: UploaderOptions;
-  // private formData: FormData;
   private files: UploadFile[];
   public uploadInput: EventEmitter<UploadInput>;
-  // private humanizeBytes: Function;
+  private shareRate={};
   
   public categories: string[];
   public sizes = SIZE;
@@ -54,6 +53,11 @@ export class AddItemPageComponent implements OnInit {
    
     this.supplierSrv.getSuppliers().subscribe((response) =>{
       this.suppliers = response;
+      for(let i in this.suppliers){
+        if(this.suppliers[i].shareRate){
+          this.shareRate[this.suppliers[i]._id] = this.suppliers[i].shareRate;
+        }
+      }
     });
     this.itemSrv.getCategories().subscribe((response)=>{
       this.categories = response;
@@ -99,6 +103,13 @@ export class AddItemPageComponent implements OnInit {
     this.router.navigate(['/', 'itemPage']);
   }
   
+  public onListPriceChanged(value: number){
+    if(this.shareRate[this.newItem.supplierID]){
+      this.newItem.cost = value* this.shareRate[this.newItem.supplierID];
+    }
+    this.newItem.marketPrice = this.newItem.listPrice;
+  }
+
   public onSelectFile(){
 
   }

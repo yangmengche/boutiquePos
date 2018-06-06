@@ -22,7 +22,7 @@ class DBSchema {
     });
 
     this.itemSchema = new mongoose.Schema({
-      code: {type: String, required: true},
+      code: {type: String, required: true, unique: true},
       name: String,
       pic: String,
       supplierID: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'suppliers' },
