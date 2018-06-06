@@ -35,12 +35,12 @@ function createWindow() {
 
   
   try{
-    // win.loadURL('https://localhost:1689');
-    win.loadURL(url.format({
-        pathname: path.join(__dirname, 'public/index.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
+    win.loadURL('https://localhost:1689');
+    // win.loadURL(url.format({
+    //     pathname: path.join(__dirname, 'public/index.html'),
+    //     protocol: 'file:',
+    //     slashes: true
+    // }));
   }catch(err){
     console.log(err.message);
   }
@@ -75,4 +75,4 @@ function launchServer() {
     });
   }
 }
-// launchServer();
+launchServer();
