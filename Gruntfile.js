@@ -1,5 +1,10 @@
 'use strict';
 
+let ext='';
+if(process.platform === 'win32'){
+  ext='.cmd';
+}
+
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
@@ -118,7 +123,7 @@ module.exports = function(grunt) {
       },
       electronRebuild:{
         cwd: 'node_modules/.bin',
-        cmd: 'electron-rebuild.cmd --module-dir ../..'
+        cmd: 'electron-rebuild'+ext+' --module-dir ../..'
       }
     }   
   });
@@ -135,7 +140,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'clean:build',
     'exec:ngBuild',
-    'exec:electronRebuild',
+    // 'exec:electronRebuild',
     'copy:electron',
     'copy:services',
     'copy:nodeModules',
