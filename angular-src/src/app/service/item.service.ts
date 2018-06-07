@@ -43,7 +43,8 @@ export class ItemService {
       size: item.size,
       cost: item.cost,
       listPrice: item.listPrice,
-      marketPrice: item.marketPrice
+      marketPrice: item.marketPrice,
+      stock: item.stock
     });
     console.log(body);
     headers.append('Content-Type', 'application/json');
@@ -66,7 +67,8 @@ export class ItemService {
       size: item.size,
       cost: item.cost,
       listPrice: item.listPrice,
-      marketPrice: item.marketPrice
+      marketPrice: item.marketPrice,
+      stock: item.stock
     });
     console.log(body);
     headers.append('Content-Type', 'application/json');

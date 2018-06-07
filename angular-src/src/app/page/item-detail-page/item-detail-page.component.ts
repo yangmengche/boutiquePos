@@ -71,6 +71,11 @@ export class ItemDetailPageComponent implements OnInit {
 
   public onChange(){
     this.itemSrv.updateItem(this.item).subscribe((response)=>{
+      if(this.returnPath){
+        this.router.navigate(['/', 'itemPage', this.returnPath]);
+      }else{
+        this.router.navigate(['/', 'itemPage']);
+      }      
     });    
   }
 }

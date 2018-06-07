@@ -87,6 +87,12 @@
         <input type="number" name="marketPrice" matInput placeholder="售價" [(ngModel)]="newItem.marketPrice" required/>
       </mat-form-field>
     </div>
+
+    <div>
+      <mat-form-field class="field">
+        <input type="number" name="stock" matInput placeholder="庫存" [(ngModel)]="newItem.stock" required/>
+      </mat-form-field>
+    </div>    
     <button mat-raised-button color="primary" type="submit">
       <!-- <mat-icon color="primary">done</mat-icon> -->
       新增

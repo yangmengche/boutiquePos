@@ -19,9 +19,24 @@ export class StockPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.initItem();
+    this.actRoute.params.subscribe(params => {
+      if('code' in params){
+        this.item.code = params['code'];
+        this.queryItem();
+      }
+    });    
+  }
+
+  private initItem(bKeepCode=false){
+    console.log('reset item');
+    let code ='';
+    if(bKeepCode){
+      code = this.item.code;
+    }    
     this.item = {
-      _id: '',
-      code: '',
+      _id: null,
+      code: code,
       name: '',
       pic: '',
       supplierID: {
@@ -35,11 +50,6 @@ export class StockPageComponent implements OnInit {
       marketPrice: 0,
       stock: 0
     }
-    this.actRoute.params.subscribe(params => {
-      if('code' in params){
-        this.item.code = params['code'];
-      }
-    });    
   }
 
   public onSelectItem(){
@@ -67,6 +77,13 @@ export class StockPageComponent implements OnInit {
         this.queryItem();
       }
     })    
+  }
+
+  public onSearchChange(value){
+    console.log(value);
+    if(this.item._id){
+      this.initItem(true);
+    }    
   }
 
 }

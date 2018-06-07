@@ -1,6 +1,6 @@
 <div class="center">
 	<div>
-		<input type="text" name="code" matInput placeholder="條碼	" [(ngModel)]="item.code" style="width: 200px"/>
+		<input type="text" name="code" matInput placeholder="條碼	" [(ngModel)]="item.code" style="width: 200px" (input)="onSearchChange($event.target.value)"/>
 		<button mat-icon-button color="primary" (click)="onScan()" type="button">
 			<mat-icon color="primary">camera</mat-icon>
 		</button>

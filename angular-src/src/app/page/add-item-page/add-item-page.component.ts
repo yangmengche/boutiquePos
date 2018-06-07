@@ -43,7 +43,8 @@ export class AddItemPageComponent implements OnInit {
       size: '', 
       cost: 0,
       listPrice: 0,
-      marketPrice: 0
+      marketPrice: 0,
+      stock: 0
     };
     this.actRoute.params.subscribe(params => {
       if('code' in params){

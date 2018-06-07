@@ -33,6 +33,7 @@ export interface ItemAddModel{
   cost: number;
   listPrice: number;
   marketPrice: number;
+  stock: number;
 }
 
 export interface CategoryModel{
