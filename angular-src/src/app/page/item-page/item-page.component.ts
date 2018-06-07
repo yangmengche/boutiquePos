@@ -13,8 +13,7 @@ import { DataProviderService } from '../../service/data-provider.service';
   styleUrls: ['./item-page.component.css']
 })
 export class ItemPageComponent implements OnInit {
-  private static headerList = ['pic', 'code', 'name', 'supplier', 'size', 'marketPrice', 'stock'];
-  private static heaserSelect = ['pic', 'code', 'name', 'supplier', 'size', 'marketPrice', 'stock', 'select'];
+  private static headerList = ['pic', 'code', 'name', 'supplier', 'size', 'marketPrice', 'stock', 'select'];
   public itemDataSource = new MatTableDataSource<any>();
   public pageSetting={
     index:0,
@@ -25,6 +24,7 @@ export class ItemPageComponent implements OnInit {
   private pageEvent: PageEvent;
   public matHeader = ItemPageComponent.headerList;
   private returnPath: string;
+  private bSelectMode = false;
   public suppliers: SupplierModel[];
   public categorys: CategoryModel[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -43,7 +43,7 @@ export class ItemPageComponent implements OnInit {
       if('ret' in params){
         this.returnPath = params['ret'];
         // select mode
-        this.matHeader = ItemPageComponent.heaserSelect;
+        this.bSelectMode = true;
       }
     });
     
@@ -82,11 +82,8 @@ export class ItemPageComponent implements OnInit {
   }
 
   public onRowClick(row) {
-    this.dataProvider.item = row;
-    if(this.returnPath){
-      this.router.navigate(['/', 'itemDetailPage', this.returnPath, row._id]);
-    }else{
-      this.router.navigate(['/', 'itemDetailPage', row._id])
+    if(this.bSelectMode){
+      this.router.navigate([this.returnPath, row.code]);
     }
   }
   public onAddItem() {
@@ -101,7 +98,12 @@ export class ItemPageComponent implements OnInit {
   }
 
   public selectItem(row){
-    this.router.navigate([this.returnPath, row.code]);
+    this.dataProvider.item = row;
+    if(this.returnPath){
+      this.router.navigate(['/', 'itemDetailPage', this.returnPath, row._id]);
+    }else{
+      this.router.navigate(['/', 'itemDetailPage', row._id])
+    }    
   }
 
   public onSelectChanged(event){

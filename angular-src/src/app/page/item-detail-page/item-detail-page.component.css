@@ -1,9 +1,18 @@
 .center {
   margin: auto;
-  width: 100%;
+  width: fit-content;
   padding: 10px;
 }
 
 .field-name {
   width: 100px
+}
+
+.field-value {
+  width: 200px
+}
+
+.center-pic {
+  height: 300px;
+  margin:auto
 }

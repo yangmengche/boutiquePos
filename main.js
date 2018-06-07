@@ -1,10 +1,10 @@
 const log = require('./libs/logger');
 const config = require('./config/config');
 const { fork, execFile, execFileSync, spawn } = require('child_process');
-const path = require('path')
+const path = require('path');
 const fse = require('fs-extra');
 const url = require('url');
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
 
 
 log.setLogFileName('main', config.logPath, true);
@@ -12,12 +12,12 @@ log.scheduleClean(24 * 60 * 60 * 1000);
 log.writeLog('******** Launcher, pid:' + process.id + ' ********', 'info');
 
 
-if (environment.production) {
-  enableProdMode();
-  if(window){
-    window.console.log=function(){};
-  }
-}
+// if (environment.production) {
+//   enableProdMode();
+//   if(window){
+//     window.console.log=function(){};
+//   }
+// }
 
 let pidServer;
 let bTerminate=false;
@@ -34,7 +34,7 @@ app.on('window-all-closed', () => {
     app.quit();
     pidServer.kill('SIGINT', );
   }
-})
+});
 
 app.on('activate', () => {
   if (win === null) {
@@ -42,18 +42,17 @@ app.on('activate', () => {
       createWindow();
     }, 3000);
   }
-})
+});
 
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1024,
+    height: 800,
     maximizable: true,
     autoHideMenuBar: true,
     resizable: true,
-    fullscreen: true
-  })
+  });
 
   
   try{
@@ -72,8 +71,8 @@ function createWindow() {
 
   // When Window Close.
   win.on('closed', () => {
-    win = null
-  })
+    win = null;
+  });
 
 }
 

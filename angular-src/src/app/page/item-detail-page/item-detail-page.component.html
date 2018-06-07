@@ -5,7 +5,7 @@
     </button>
   </div>
   
-  <img src={{item.pic}} height="300px"/>
+  <img src={{item.pic}} height="300px" class='center-pic'/>
   <mat-list>
     <mat-list-item>
       <h4 class="field-name">Code:</h4>{{item.code}}
@@ -16,7 +16,7 @@
     </mat-list-item>
     <mat-list-item>
       <h4 class="field-name">Supplier:</h4>
-      <mat-select [(ngModel)]="item.supplierID._id" placeholder="供應商" required name="supplierID" class="field-name">
+      <mat-select [(ngModel)]="item.supplierID._id" placeholder="供應商" required name="supplierID" class="field-value">
         <mat-option *ngFor="let supplier of suppliers" [value]="supplier._id">
           {{ supplier.name }}
         </mat-option>
@@ -24,7 +24,7 @@
     </mat-list-item>
     <mat-list-item>
       <h4 class="field-name">Category:</h4>
-      <mat-select [(ngModel)]="item.category" placeholder="分類" required name="category" class="field-name">
+      <mat-select [(ngModel)]="item.category" placeholder="分類" required name="category" class="field-value">
         <mat-option *ngFor="let category of categories" [value]="category.name">
           {{ category.name }}
         </mat-option>
@@ -32,7 +32,7 @@
     </mat-list-item>
     <mat-list-item>
       <h4 class="field-name">Size:</h4>
-      <mat-select [(ngModel)]="item.size" placeholder="尺吋" required name="size" class="field-name">
+      <mat-select [(ngModel)]="item.size" placeholder="尺吋" required name="size" class="field-value">
         <mat-option *ngFor="let size of sizes" [value]="size">
           {{ size }}
         </mat-option>
@@ -40,22 +40,22 @@
     </mat-list-item>
     <mat-list-item>
       <h4 class="field-name">Cost:</h4>
-      <input type="number" name="cost" matInput placeholder="成本" [(ngModel)]="item.cost" required/>
+      <input type="number" name="cost" matInput placeholder="成本" [(ngModel)]="item.cost" required class="field-value"/>
     </mat-list-item>
     <mat-list-item>
       <h4 class="field-name">List Price:</h4>
-      <input type="number" name="listPrice" matInput placeholder="牌價" [(ngModel)]="item.listPrice" required/>
+      <input type="number" name="listPrice" matInput placeholder="牌價" [(ngModel)]="item.listPrice" required class="field-value"/>
     </mat-list-item>
     <mat-list-item>
       <h4 class="field-name">Market Price:</h4>
-      <input type="number" name="marketPrice" matInput placeholder="售價" [(ngModel)]="item.marketPrice" required/>
+      <input type="number" name="marketPrice" matInput placeholder="售價" [(ngModel)]="item.marketPrice" required class="field-value"/>
     </mat-list-item>  
     <mat-list-item>
       <h4 class="field-name">Stock:</h4>
-      <input type="number" name="stock" matInput placeholder="庫存" [(ngModel)]="item.stock" required/>
+      <input type="number" name="stock" matInput placeholder="庫存" [(ngModel)]="item.stock" required class="field-value"/>
     </mat-list-item>	
   </mat-list>
-  <button mat-icon-button color="primary" type="botton" class="center-done-btn" (click)="onChange()">
+  <button mat-raised-button color="primary" type="botton" (click)="onChange()">
     修改
   </button>          
 </div>

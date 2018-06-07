@@ -1,11 +1,11 @@
 .center {
   margin: auto;
-  width: 100%;
+  width: fit-content;
   padding: 10px;
 }
 
 .field {
-  width: 230px
+  width: 300px
 }
 
 .center-done-btn {

@@ -66,10 +66,10 @@
 </div>
 <div>
   <p class="input-name">備注:</p>
-  <input type="text" name="remark" matInput [(ngModel)]="receipt.remark"/>
+  <input type="text" name="remark" [(ngModel)]="receipt.remark"/>
 </div>
 <div>
-  <button *ngIf="receipt.pay > 0" mat-icon-button color="primary" (click)="onSubmit()" type="button">
+  <button *ngIf="receipt.pay > 0" mat-raised-button color="primary" (click)="onSubmit()" type="button">
     新增
   </button>
 </div>
