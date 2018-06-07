@@ -94,7 +94,13 @@ module.exports = function(grunt) {
           expand: true,
           dot: true,
           dest: '<%= appConfig.output %>/resources/app',
-          src: ['<%= appConfig.src %>/node_modules/**/*', '!<%= appConfig.src %>/node_modules/.bin/**']
+          src: ['<%= appConfig.src %>/node_modules/**/*', 
+                '!<%= appConfig.src %>/node_modules/.bin/**',
+                '!<%= appConfig.src %>/node_modules/electron*/**',
+                '!<%= appConfig.src %>/node_modules/*grunt*/**',
+                '!<%= appConfig.src %>/node_modules/mocha*/**',
+                '!<%= appConfig.src %>/node_modules/supertest*/**'
+              ]
         }]
       },
     },
