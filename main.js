@@ -1,14 +1,23 @@
-const { app, BrowserWindow } = require('electron')
 const log = require('./libs/logger');
 const config = require('./config/config');
 const { fork, execFile, execFileSync, spawn } = require('child_process');
 const path = require('path')
 const fse = require('fs-extra');
 const url = require('url');
+const { app, BrowserWindow } = require('electron')
+
 
 log.setLogFileName('main', config.logPath, true);
 log.scheduleClean(24 * 60 * 60 * 1000);
 log.writeLog('******** Launcher, pid:' + process.id + ' ********', 'info');
+
+
+if (environment.production) {
+  enableProdMode();
+  if(window){
+    window.console.log=function(){};
+  }
+}
 
 let pidServer;
 let bTerminate=false;
@@ -42,7 +51,8 @@ function createWindow() {
     height: 600,
     maximizable: true,
     autoHideMenuBar: true,
-    resizable: true
+    resizable: true,
+    fullscreen: true
   })
 
   
