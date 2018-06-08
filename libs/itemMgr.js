@@ -146,7 +146,7 @@ exports.createReceipt = async (req, res) => {
     let body = await utils.fnGetBody(req);
     log.writeLog(JSON.stringify(body), 'info');
     // create recepit
-    let total=0, quantity = 0;
+    let total=0, quantity = 0, cost=0;
     for(let i in body.items){
       let item = (await db.getItem(body.items[i].itemID))[0];
       body.items[i].cost = item.cost;
@@ -155,9 +155,11 @@ exports.createReceipt = async (req, res) => {
       body.items[i].marketPrice = item.marketPrice;
       let stock = item.stock - body.items[i].quantity;
       let result = await db.updateItem(body.items[i].itemID, {'stock': stock });
-      total += body.items[i].salePrice*Math.abs(body.items[i].quantity);
+      total += body.items[i].salePrice*body.items[i].quantity;
       quantity += body.items[i].quantity;
+      cost += body.items[i].cost*body.items[i].quantity;
     }
+    body.cost = cost;
     // calculate discount
     if(body.pay > 0){
       if(body.pay < total){
@@ -169,7 +171,7 @@ exports.createReceipt = async (req, res) => {
     }else{
       // return goods
       if(body.pay > total){
-        let discount = (total - body.pay)/Math.abs(quantity);
+        let discount = (total - body.pay)/quantity;
         for(let i in body.items){
           body.items[i].salePrice -= discount;
         }

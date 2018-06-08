@@ -14,6 +14,7 @@ const index = require('./routes/index');
 const accountRoute = require('./routes/v1/accountRoute');
 const supplierRoute = require('./routes/v1/supplierRoute');
 const itemRoute = require('./routes/v1/itemRoute');
+const statisticsRoute = require('./routes/v1/statisticsRoute');
 
 const config = require('./config/config');
 const dbBase = require('./libs/db/dbBase');
@@ -48,6 +49,7 @@ app.use('/', index);
 app.use('/v1', accountRoute);
 app.use('/v1', supplierRoute);
 app.use('/v1', itemRoute);
+app.use('/v1', statisticsRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

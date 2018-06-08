@@ -40,6 +40,10 @@ router.get('/item', redirectTo);
 // receipt
 router.post('/receipt/create', redirectTo);
 router.post('/receipt/query', redirectTo);
+
+// statistic
+router.post('/receipt/histogram', redirectTo);
+
 // misc
 router.post('/upload/image', redirectTo);
 router.get('/resource/:fileID', redirectTo);

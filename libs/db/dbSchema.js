@@ -1,6 +1,6 @@
 'use strict';
 const mongoose = require('mongoose');
-const def = require('./def.js')
+const def = require('./def.js');
 class DBSchema {
   constructor() {
     this.accountSchema = new mongoose.Schema({
@@ -47,17 +47,19 @@ class DBSchema {
       listPrice: { type: Number, requires: true},
       marketPrice: { type: Number, required: true},
       salePrice: { type: Number, required: true},
-      quantity: {type: Number, required: true}
-    })
+      quantity: {type: Number, required: true} // quantity is minus if return goods
+    });
+
     this.receiptSchema = new mongoose.Schema({
       date: {type: Date, required: true},
       items: [receiptItemSchema],
       payBy: {type: String, enum: def.payBy},
-      pay: {type: Number, required: true},
+      pay: {type: Number, required: true}, // pay is minus if return goods
       quantity: {type: Number, required: true},
+      cost: {type: Number, required: true},
       remark: String,
       returnRefID: mongoose.Schema.Types.ObjectId
-    })
+    });
   }
 }
 

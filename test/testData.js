@@ -1,5 +1,6 @@
 const config = require('../config/config');
 const def = require('../libs/db/def');
+const moment = require('moment');
 
 let accounts = {
   'adm': {
@@ -144,6 +145,7 @@ exports.stocks = stocks;
 
 let receipts ={
   'r01':{
+    date: moment().subtract(2, 'days').toDate().getTime(),
     items:[
       {
         'itemID': '$s01-c01-001-M',
@@ -155,6 +157,7 @@ let receipts ={
     pay: items["s01-c01-001-M"].marketPrice
   },
   'r02':{
+    date: moment().subtract(1, 'days').toDate().getTime(),
     items:[
       {
         'itemID': '$s01-c01-001-M',
@@ -176,6 +179,7 @@ let receipts ={
     pay: 590*2+190+680*2
   },
   'r03':{
+    date: moment().toDate().getTime(),
     items:[
       {
         'itemID': '$s02-c02-001-2L',

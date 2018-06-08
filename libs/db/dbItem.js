@@ -155,7 +155,9 @@ dbBase.createStockLog = async (stock) => {
 // receipt
 dbBase.createReceipt = async (receipt) => {
   try {
-    receipt.date = new Date().getTime();
+    if(!receipt.date){
+      receipt.date = new Date().getTime();
+    }
     receipt.quantity = 0;
     for (let i in receipt.items) {
       receipt.quantity += receipt.items[i].quantity;
@@ -194,18 +196,33 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
       q.returnRefID = returnRefID;
     }
     let total = await dbBase.receipts.count(q);
+    // let pipe2 = [
+    //   {
+    //     '$match': q
+    //   }, {
+    //     '$unwind': '$items'
+    //   }, {
+    //     '$group': {
+    //       '_id': '$_id',
+    //       'quantity': { '$first': '$quantity' },
+    //       'pay': { '$first': '$pay' },
+    //       'cost': { '$sum': {'$multiply':['$items.cost', '$items.quantity']}}
+    //     }
+    //   }, {
+    //     '$group':{
+    //       '_id': null, 
+    //       'total': {'$sum':1},
+    //       'quantity': {'$sum':'$quantity'},
+    //       'revenue': {'$sum': '$pay'},
+    //       'cost': {'$sum': '$cost'}
+    //     }
+    //   }
+    // ];
+    // let result2 = await dbBase.receipts.aggregate(pipe2);    
+
     let pipe = [
       {
         '$match': q
-      }, {
-        '$unwind': '$items'
-      }, {
-        '$group': {
-          '_id': '$_id',
-          'quantity': { '$first': '$quantity' },
-          'pay': { '$first': '$pay' },
-          'cost': { '$sum': '$items.cost' }
-        }
       }, {
         '$group':{
           '_id': null, 
@@ -216,7 +233,7 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
         }
       }
     ];
-    let result = await dbBase.receipts.aggregate(pipe);
+    let result = await dbBase.receipts.aggregate(pipe);    
     let query = dbBase.receipts.find(q).sort({ 'date': -1 });
     let s = parseInt(skip);
     if (!isNaN(s)) {
@@ -227,6 +244,15 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
       query.limit(l);
     }
     let docs = await query.lean().exec();
+
+    // migrate
+    // for(let i in docs){
+    //   let cost = 0;
+    //   for(let j in docs[i].items){
+    //     cost += docs[i].items[j].cost*docs[i].items[j].quantity;
+    //   }
+    //   await dbBase.receipts.update({'_id': docs[i]._id}, {$set:{'cost': cost}});
+    // }
     if(result.length > 0){
       return { 'total': result[0].total, 'quantity': result[0].quantity, 'revenue':result[0].revenue, 'cost':result[0].cost, 'docs': docs };
     }else{

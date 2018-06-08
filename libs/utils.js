@@ -8,7 +8,7 @@ const errCode = require('./statusCode').ErrorCode;
 const succCode = require('./statusCode').SuccessCode;
 const config = require('../config/config');
 const log = require('./logger');
-const sharp = require('sharp')
+const sharp = require('sharp');
 // const request = require('request');
 
 class Utils {
