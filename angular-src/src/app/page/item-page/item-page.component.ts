@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../../service/item.service';
 import { SupplierService } from '../../service/supplier.service';
 import { ItemModel, SupplierModel, CategoryModel } from '../../model/model';
-import { MatTableDataSource, MatPaginator, PageEvent} from '@angular/material';
+import { MatTableDataSource, MatPaginator, PageEvent, MatSort} from '@angular/material';
 // import { Observable } from 'rxjs';
 import { DataProviderService } from '../../service/data-provider.service';
 
@@ -19,7 +19,9 @@ export class ItemPageComponent implements OnInit {
     index:0,
     pageSize: 10,
     category:null,
-    supplierID: null, 
+    supplierID: null,
+    sort: 'code',
+    dir: 'acs'
   }
   private pageEvent: PageEvent;
   public matHeader = ItemPageComponent.headerList;
@@ -28,7 +30,7 @@ export class ItemPageComponent implements OnInit {
   public suppliers: SupplierModel[];
   public categorys: CategoryModel[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  // @ViewChild(MatSort) sort: MatSort;
   constructor(
     private itemSrv: ItemService,
     private supplierSrv: SupplierService,
@@ -59,6 +61,7 @@ export class ItemPageComponent implements OnInit {
     this.LoadLists(this.pageSetting.index*this.pageSetting.pageSize, this.pageSetting.pageSize);
     this.paginator.pageIndex = this.pageSetting.index;
     this.paginator.pageSize = this.pageSetting.pageSize;
+    // this.itemDataSource.sort = this.sort;
   }
 
   ngOnDestroy(){
@@ -70,12 +73,14 @@ export class ItemPageComponent implements OnInit {
     this.pageSetting.index= this.pageSetting.index || 0;
     this.pageSetting.pageSize= this.pageSetting.pageSize || 10;
     this.pageSetting.category={};
+    this.pageSetting.sort = this.pageSetting.sort || 'code';
+    this.pageSetting.dir = this.pageSetting.dir || 'asc';
   }
 
   public async LoadLists(skip?, limit?) {
     console.log();
     let category = this.pageSetting.category._id?this.pageSetting.category.name:null;
-    this.itemSrv.getItems(this.pageSetting.supplierID, category, skip, limit).subscribe((response) =>{
+    this.itemSrv.getItems(this.pageSetting.supplierID, category, skip, limit, this.pageSetting.sort, this.pageSetting.dir).subscribe((response) =>{
       this.itemDataSource.data = response.docs;
       this.paginator.length = response.total;
     })
@@ -108,6 +113,13 @@ export class ItemPageComponent implements OnInit {
 
   public onSelectChanged(event){
     this.pageSetting.index=0;
+    this.LoadLists(0, this.pageSetting.pageSize);
+  }
+
+  public sortData($event){
+    console.log($event);
+    this.pageSetting.sort = $event.active;
+    this.pageSetting.dir = $event.direction;
     this.LoadLists(0, this.pageSetting.pageSize);
   }
 }

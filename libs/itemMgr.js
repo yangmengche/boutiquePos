@@ -7,12 +7,12 @@ const db = require('./db/dbItem');
 const errCode = require('./statusCode').ErrorCode;
 const succCode = require('./statusCode').SuccessCode;
 const uuid = require('uuid');
-const path = require('path')
+const path = require('path');
 
 exports.addCategories = async (req, res) => {
   try {
     let categories = await utils.fnGetBody(req);
-    let result = await db.addCategories(categories)
+    let result = await db.addCategories(categories);
     utils.fnResponse(null, result, res);
   } catch (err) {
     log.writeLog(err.message, 'error');
@@ -23,7 +23,7 @@ exports.addCategories = async (req, res) => {
 exports.removeCategory = async (req, res) => {
   try {
     let id = req.query.id;
-    let result = await db.removeCategories([id])
+    let result = await db.removeCategories([id]);
     utils.fnResponse(null, result, res);
   } catch (err) {
     log.writeLog(err.message, 'error');
@@ -103,7 +103,7 @@ exports.updateItem = async (req, res) => {
 exports.queryItems = async (req, res) => {
   try {
     let query = await utils.fnGetBody(req);
-    let docs = await db.queryItems(query.name, query.supplierID, query.category, query.size, query.stock, query.skip, query.limit);
+    let docs = await db.queryItems(query.name, query.supplierID, query.category, query.size, query.stock, query.skip, query.limit, query.sort, query.dir);
     utils.fnResponse(null, docs, res);
   } catch (err) {
     log.writeLog(err.message, 'error');
@@ -119,7 +119,7 @@ exports.getItem = async (req, res) =>{
     log.writeLog(err.message, 'error');
     utils.fnResponse(err, null, res);    
   }
-}
+};
 
 exports.stockItems = async (req, res) => {
   try {
@@ -139,7 +139,7 @@ exports.stockItems = async (req, res) => {
     log.writeLog(err.message, 'error');
     utils.fnResponse(err, null, res);
   }
-}
+};
 
 exports.createReceipt = async (req, res) => {
   try{
@@ -181,7 +181,7 @@ exports.createReceipt = async (req, res) => {
     log.writeLog(err.message, 'error');
     utils.fnResponse(err, null, res);
   }
-}
+};
 
 exports.queryReceipt = async (req, res) => {
   try {
@@ -192,4 +192,4 @@ exports.queryReceipt = async (req, res) => {
     log.writeLog(err.message, 'error');
     utils.fnResponse(err, null, res);
   }
-}
+};

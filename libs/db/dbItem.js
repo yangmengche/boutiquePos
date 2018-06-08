@@ -19,7 +19,7 @@ dbBase.addCategories = async (categories) => {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 
 dbBase.removeCategories = async (ids) => {
   try {
@@ -29,7 +29,7 @@ dbBase.removeCategories = async (ids) => {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 
 dbBase.updateCategory = async (id, category) => {
   try {
@@ -39,7 +39,7 @@ dbBase.updateCategory = async (id, category) => {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 
 dbBase.getCategories = async () => {
   try {
@@ -49,7 +49,7 @@ dbBase.getCategories = async () => {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 
 // Item
 dbBase.createItem = async (item) => {
@@ -61,7 +61,7 @@ dbBase.createItem = async (item) => {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 
 dbBase.updateItem = async (id, item) => {
   try {
@@ -71,7 +71,7 @@ dbBase.updateItem = async (id, item) => {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 
 dbBase.getItem = async (id, code) => {
   try {
@@ -88,9 +88,9 @@ dbBase.getItem = async (id, code) => {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 
-dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit) => {
+dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit, sort, dir) => {
   try {
     let q = {};
     if (name) {
@@ -110,11 +110,18 @@ dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit)
         q.stock = { $gte: stock.min };
       }
       if (!isNaN(stock.max)) {
-        q.stock = { $lte: stock.max }
+        q.stock = { $lte: stock.max };
       }
     }
     let total = await dbBase.items.count(q);
-    let query = dbBase.items.find(q).sort({ 'name': 1 }).populate('supplierID', 'name');
+    let query = dbBase.items.find(q);
+    if(sort){
+      let s = {};
+      s[sort]=dir;
+      query.sort(s);
+    }
+    query.populate('supplierID', 'name');
+
     let s = parseInt(skip);
     if (!isNaN(s)) {
       query.skip(s);
@@ -123,14 +130,14 @@ dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit)
     if (!isNaN(l)) {
       query.limit(l);
     }
-    query.sort = { 'code': 1};
+
     let docs = await query.lean().exec();
     return { 'total': total, 'docs': docs };
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 
 // stock log
 dbBase.createStockLog = async (stock) => {
@@ -143,7 +150,7 @@ dbBase.createStockLog = async (stock) => {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 
 // receipt
 dbBase.createReceipt = async (receipt) => {
@@ -160,7 +167,7 @@ dbBase.createReceipt = async (receipt) => {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 
 dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit) => {
   try {
@@ -208,7 +215,7 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
           'cost': {'$sum': '$cost'}
         }
       }
-    ]
+    ];
     let result = await dbBase.receipts.aggregate(pipe);
     let query = dbBase.receipts.find(q).sort({ 'date': -1 });
     let s = parseInt(skip);
@@ -229,5 +236,5 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);
   }
-}
+};
 module.exports = dbBase;

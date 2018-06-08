@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule,
   MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, 
-  MatChipsModule, MatPaginatorModule, MatDatepickerModule
+  MatChipsModule, MatPaginatorModule, MatDatepickerModule, MatSortModule
 } from '@angular/material';
 import { MatMomentDateModule} from '@angular/material-moment-adapter'
 
@@ -73,7 +73,8 @@ import { ReportDetailPageComponent } from './page/report-detail-page/report-deta
     MatChipsModule,
     MatPaginatorModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatSortModule
   ],
   providers: [SupplierService, ItemService, DataProviderService],
   bootstrap: [AppComponent]

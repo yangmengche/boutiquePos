@@ -17,61 +17,59 @@
 <button mat-raised-button color="primary" (click)="onAddItem()" type="button">
   新增品項
 </button>
-<mat-table [dataSource]="itemDataSource">
+<table mat-table [dataSource]="itemDataSource"  (matSortChange)="sortData($event)" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="pic">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let row" height="40"><img src={{row.pic}} height="40"/></mat-cell>
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let row" height="40"><img src={{row.pic}} height="40"/></td>
   </ng-container>    
   <ng-container matColumnDef="code">
-    <mat-header-cell *matHeaderCellDef>條碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="code">條碼</th>
+    <td mat-cell *matCellDef="let row">{{ row.code }}</td>
   </ng-container>  
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>名稱</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="name">名稱</th>
+    <td mat-cell *matCellDef="let row">{{ row.name }}</td>
   </ng-container>
   <ng-container matColumnDef="supplier">
-    <mat-header-cell *matHeaderCellDef>供應商</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.supplierID.name }}</mat-cell>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="supplier">供應商</th>
+    <td mat-cell *matCellDef="let row">{{ row.supplierID.name }}</td>
   </ng-container>
   <ng-container matColumnDef="category">
-    <mat-header-cell *matHeaderCellDef>分類</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.category }}</mat-cell>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="category">分類</th>
+    <td mat-cell *matCellDef="let row">{{ row.category }}</td>
   </ng-container>
   <ng-container matColumnDef="size">
-    <mat-header-cell *matHeaderCellDef>尺吋</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.size }}</mat-cell>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="size">尺吋</th>
+    <td mat-cell *matCellDef="let row">{{ row.size }}</td>
   </ng-container>    
   <ng-container matColumnDef="cost">
-    <mat-header-cell *matHeaderCellDef>成本</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.cost }}</mat-cell>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="cost">成本</th>
+    <td mat-cell *matCellDef="let row">{{ row.cost }}</td>
   </ng-container>
   <ng-container matColumnDef="listPrice">
-    <mat-header-cell *matHeaderCellDef>牌價</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.listPrice }}</mat-cell>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="listPrice">牌價</th>
+    <td mat-cell *matCellDef="let row">{{ row.listPrice }}</td>
   </ng-container>
   <ng-container matColumnDef="marketPrice">
-    <mat-header-cell *matHeaderCellDef>售價</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.marketPrice }}</mat-cell>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="marketPrice">售價</th>
+    <td mat-cell *matCellDef="let row">{{ row.marketPrice }}</td>
   </ng-container>
   <ng-container matColumnDef="stock">
-    <mat-header-cell *matHeaderCellDef>庫存</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.stock }}</mat-cell>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="stock">庫存</th>
+    <td mat-cell *matCellDef="let row">{{ row.stock }}</td>
   </ng-container>    
   <ng-container matColumnDef="select">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let row">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let row">
       <button mat-button color="primary" (click)="selectItem(row)">
         詳細
       </button>
-    </mat-cell>
+    </td>
   </ng-container>
-  <mat-header-row *matHeaderRowDef=matHeader></mat-header-row>
-  <mat-row *matRowDef="let row; columns: matHeader"
-            (click)="onRowClick(row)"
-  ></mat-row>  
+  <tr mat-header-row *matHeaderRowDef=matHeader></tr>
+  <tr mat-row *matRowDef="let row; columns: matHeader" (click)="onRowClick(row)"></tr>  
   
   <!-- <mat-header-row *matHeaderRowDef="['pic', 'code', 'name', 'supplier', 'category', 'size', 'cost', 'listPrice', 'marketPrice', 'stock']"></mat-header-row>
   <mat-row *matRowDef="let supplierlRow; columns: ['pic', 'code', 'name', 'supplier', 'category', 'size', 'cost', 'listPrice', 'marketPrice', 'stock']"></mat-row>   -->
-</mat-table>
+</table>
 <mat-paginator [pageSize]="pageSetting.pageSize" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons (page)='onPageChance($event)'></mat-paginator>

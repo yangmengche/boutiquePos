@@ -13,14 +13,16 @@ export class ItemService {
 
   private serverApi = window.location.origin;
 
-  public getItems(supplierID?:string, category?:string, skip?: number, limit?: number): Observable<any> {
+  public getItems(supplierID?:string, category?:string, skip?: number, limit?: number, sort?:string, dir?:string): Observable<any> {
     let URI = `${this.serverApi}/item/query`;
     let headers = new Headers;
     let body = JSON.stringify({
       "supplierID": supplierID,
       "category": category,
       "skip": skip,
-      "limit": limit
+      "limit": limit,
+      "sort": sort,
+      "dir": dir=="asc"?1:-1
     });
     headers.append('Content-Type', 'application/json');
     return this.http.post(URI, body, { headers: headers })
