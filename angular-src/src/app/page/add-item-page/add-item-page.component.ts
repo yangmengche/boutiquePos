@@ -16,12 +16,14 @@ export class AddItemPageComponent implements OnInit {
   public newItem: ItemAddModel;
   public suppliers: SupplierModel[];
   public options: UploaderOptions;
-  private files: UploadFile[];
-  public uploadInput: EventEmitter<UploadInput>;
-  private shareRate={};
-  
   public categories: string[];
-  public sizes = SIZE;
+  public sizes = SIZE;  
+  public uploadInput: EventEmitter<UploadInput>;
+
+  private files: UploadFile[];
+  private shareRate={};
+  private returnPath: string;
+
   constructor(
     private itemSrv: ItemService,
     private supplierSrv: SupplierService,
@@ -50,6 +52,11 @@ export class AddItemPageComponent implements OnInit {
       if('code' in params){
         this.newItem.code = params['code'];
       }
+      if('ret' in params){
+        this.returnPath = params['ret'];
+      }else{
+        this.returnPath = null;
+      }      
     });
    
     this.supplierSrv.getSuppliers().subscribe((response) =>{
@@ -69,8 +76,12 @@ export class AddItemPageComponent implements OnInit {
     this.itemSrv.addItem(this.newItem).subscribe(
       response => {
         if (response.id)
-          // route to item page
-          this.router.navigate(['/', 'itemPage']);
+          // route to back page
+          if(this.returnPath){
+            this.router.navigate([this.returnPath]);
+          }else{
+            this.router.navigate(['/itemPage']);
+          }
       },
     );
   }
@@ -101,7 +112,11 @@ export class AddItemPageComponent implements OnInit {
   }
 
   public onBack(){
-    this.router.navigate(['/', 'itemPage']);
+    if(this.returnPath){
+      this.router.navigate([this.returnPath]);
+    }else{
+      this.router.navigate(['/itemPage']);
+    }
   }
   
   public onListPriceChanged(value: number){

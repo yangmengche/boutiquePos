@@ -14,7 +14,7 @@ export class StockPageComponent implements OnInit {
   public quantity: number = 0;
   constructor(
     private router: Router,
-    private itemSrc: ItemService,
+    private itemSrv: ItemService,
     private actRoute: ActivatedRoute,
   ) { }
 
@@ -61,16 +61,19 @@ export class StockPageComponent implements OnInit {
   }
 
   public queryItem() {
-    this.itemSrc.getItemByCode(this.item.code).subscribe(res => {
+    this.itemSrv.getItemByCode(this.item.code).subscribe(res => {
       console.log(res);
       if (res.length > 0) {
         this.item = res[0];
+      }else{
+        // switch to add item page
+        this.router.navigate(['/addItemPage', this.item.code, '/stockPage'])
       }
-    })
+    });
   }
 
   public stockItem(){
-    this.itemSrc.stockItem(this.item._id, this.quantity).subscribe(res => {
+    this.itemSrv.stockItem(this.item._id, this.quantity).subscribe(res => {
       console.log(res);
       if (res.nModified > 0) {
         this.quantity = 0;

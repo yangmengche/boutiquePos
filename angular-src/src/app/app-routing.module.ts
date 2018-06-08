@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'itemDetailPage/:id', component: ItemDetailPageComponent },
   { path: 'itemDetailPage/:ret/:id', component: ItemDetailPageComponent },
   { path: 'addItemPage', component: AddItemPageComponent },
-  { path: 'addItemPage/:code', component: AddItemPageComponent },
+  { path: 'addItemPage/:code/:ret', component: AddItemPageComponent },
   { path: 'salePage', component: SalePageComponent },
   { path: 'salePage/:code', component: SalePageComponent },
   { path: 'stockPage', component: StockPageComponent },
