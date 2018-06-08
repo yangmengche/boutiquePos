@@ -19,6 +19,7 @@ import { NgUploaderModule } from 'ngx-uploader';
 import { SupplierService } from './service/supplier.service';
 import { ItemService } from './service/item.service';
 import { DataProviderService } from './service/data-provider.service';
+import { ChartService } from './service/chart.service';
 
 import { SupplierPageComponent } from './page/supplier-page/supplier-page.component';
 import { ItemPageComponent } from './page/item-page/item-page.component';
@@ -77,7 +78,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatSortModule,
     NgxChartsModule
   ],
-  providers: [SupplierService, ItemService, DataProviderService],
+  providers: [SupplierService, ItemService, DataProviderService, ChartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
