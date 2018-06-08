@@ -14,7 +14,9 @@ export class AppComponent implements OnInit {
   pageTitle: String = '';
 
   ngOnInit() {
+    this.pageTitle='品項';
   }
+
   onPageChange(title: String, sideNav: MatSidenav): void {
     console.log('change page: ' + title);
     this.pageTitle = title;
