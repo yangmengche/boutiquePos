@@ -34,7 +34,7 @@ import { ItemDetailPageComponent } from './page/item-detail-page/item-detail-pag
 import { SupplierTypePipe } from './pipe/supplier-type.pipe';
 import { PayByPipe } from './pipe/pay-by.pipe';
 import { ReportDetailPageComponent } from './page/report-detail-page/report-detail-page.component';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -74,7 +74,8 @@ import { ReportDetailPageComponent } from './page/report-detail-page/report-deta
     MatPaginatorModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatSortModule
+    MatSortModule,
+    NgxChartsModule
   ],
   providers: [SupplierService, ItemService, DataProviderService],
   bootstrap: [AppComponent]
