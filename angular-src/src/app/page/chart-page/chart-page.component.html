@@ -1,3 +1,33 @@
+<div>
+  <button mat-raised-button color="primary" type="button" (click)="weekHistogram()">週</button>
+  <button mat-raised-button color="primary" type="button" (click)="monthHistogram()">月</button>
+  <button mat-raised-button color="primary" type="button" (click)="yearHistogram()">年</button>
+  <mat-form-field class='date-picker'>
+    <input matInput [matDatepicker]="fromPicker" placeholder="From" [(ngModel)]="pageSetting.from">
+    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+    <mat-datepicker #fromPicker></mat-datepicker>
+  </mat-form-field>  
+  <mat-form-field class='date-picker'>
+    <input matInput [matDatepicker]="toPicker" placeholder="To" [(ngModel)]="pageSetting.to">
+    <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+    <mat-datepicker #toPicker></mat-datepicker>
+  </mat-form-field>
+  <button mat-icon-button *ngIf="pageSetting.from && pageSetting.to" color="primary" type="button" (click)="onQueryByTimeSlot()">
+    <mat-icon color="primary">search</mat-icon>
+  </button>  
+</div>
+<div>
+  <mat-select [(ngModel)]="pageSetting.group" (selectionChange) = 'onFormatChanged()' style='width:200px'>
+    <mat-option *ngFor="let g of groups" [value]="g.type">
+      {{ g.name }}
+    </mat-option>
+  </mat-select>    
+  <mat-select [(ngModel)]="pageSetting.formatType" (selectionChange) = 'onFormatChanged()' style='width:200px'>
+    <mat-option *ngFor="let f of formats" [value]="f.type">
+      {{ f.name }}
+    </mat-option>
+  </mat-select>  
+</div>
 <ngx-charts-bar-vertical-stacked
   [view]="view"
   [scheme]="colorScheme"

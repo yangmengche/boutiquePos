@@ -17,8 +17,8 @@ export class ChartService {
     headers.append('Content-Type', 'application/json');
     let body = JSON.stringify({
       "date": {
-        "min": from.getTime(),
-        "max": to.getTime()
+        "min": from? from.getTime(): null,
+        "max": to? to.getTime(): null
       },
       "group":group
     });    

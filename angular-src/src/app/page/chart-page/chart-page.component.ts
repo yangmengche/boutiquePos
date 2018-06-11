@@ -9,7 +9,31 @@ import * as moment from 'moment';
   styleUrls: ['./chart-page.component.css']
 })
 export class ChartPageComponent implements OnInit {
-
+  public formats = [
+    {
+      'type': 'revenue',
+      'name': '營收'
+    },{
+      'type': 'profit',
+      'name': '毛利'
+    }, {
+      'type': 'profit-cost',
+      'name': '毛利－成本'
+    }]
+  public groups = [
+    {
+      'type': 'dayOfMonth',
+      'name': '日'
+    },{
+      'type': 'month'
+      ,'name': '月'
+    }, {
+      'type': 'year',
+      'name': '年'
+    }, {
+      'type': 'dayOfWeek',
+      'name': '星期'
+    }]
   public chartData: any[];
   public view: any[] = [700, 400];
 
@@ -23,6 +47,14 @@ export class ChartPageComponent implements OnInit {
   public showYAxisLabel = true;
   public yAxisLabel = 'NT$';
 
+  public pageSetting = {
+    formatType: this.formats[0].type,
+    group: this.groups[0].type,
+    from: null,
+    to: null
+  }
+  
+
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };  
@@ -32,26 +64,7 @@ export class ChartPageComponent implements OnInit {
 
   ngOnInit() {
     this.chartData = [];
-    this.dailyHistogram();
-    // this.chartData = [
-    //   {
-    //     "name": "Germany",
-    //     "series": [
-    //       {
-    //         "name": "2010",
-    //         "value": 40632
-    //       },
-    //       {
-    //         "name": "2000",
-    //         "value": 36953
-    //       },
-    //       {
-    //         "name": "1990",
-    //         "value": 31476
-    //       }
-    //     ]
-    //   }
-    // ];    
+    this.monthHistogram();
   }
   onSelect(event) {
     console.log(event);
@@ -63,30 +76,99 @@ export class ChartPageComponent implements OnInit {
     this.view[1] = this.view[0]*0.56;
   }
 
-  private dailyHistogram(){
-    let from = moment().startOf('month').toDate();
-    let to = moment().endOf('month').toDate();    
-    this.chartSrv.getHistogramData(from, to, 'monthDay').subscribe((res)=>{
-      for(let i in res){
-        this.chartData.push({
-          "name":moment([res[i]._id.year, res[i]._id.month, res[i]._id.date]).format('Y/MM/D'),
-          "series":[
+  public onFormatChanged(){
+    this.queryHistogram(this.pageSetting.from, this.pageSetting.to, this.pageSetting.group, this.pageSetting.formatType);
+  }
+
+  private formatData(formatType, res){
+    let data = [];
+    
+    for(let i in res){
+      let d = [], tmpl='';
+      let item={
+        "name":'',
+        "series":[]
+      };      
+      if(res[i]._id.dayOfWeek){
+        item.name = res[i]._id.dayOfWeek;
+      }else{
+        if(res[i]._id.year){
+          d.push(res[i]._id.year);
+          tmpl+=('Y');
+        }
+        if(res[i]._id.month){
+          d.push(res[i]._id.month);
+          tmpl+=('/M');
+        }
+        if(res[i]._id.date){
+          d.push(res[i]._id.date);
+          tmpl+=('/D');
+        }
+        item.name = moment(d).format(tmpl);
+      }
+      switch(formatType){
+        case 'revenue':
+          item.series.push(
             {
               "name":"營收",
               "value": res[i].revenue
-            },
+            });
+        break;
+        case 'profit':
+          item.series.push(
             {
               "name":"毛利",
               "value": res[i].revenue - res[i].cost
-            },
+            });
+        break;        
+        case 'profit-cost':
+          item.series.push(
             {
-              "name":"數量",
-              "value": res[i].quantity
-            }                        
-          ]
-        });
+              "name":"成本",
+              "value": res[i].cost
+            },            
+            {
+              "name":"毛利",
+              "value": res[i].revenue - res[i].cost
+            });
+        break;
       }
-      console.log(this.chartData);
+      data.push(item);
+    }
+    return data;
+  }
+  private weekHistogram(){
+    this.pageSetting.from = moment().startOf('week').toDate();
+    this.pageSetting.to = moment().endOf('week').toDate();
+    this.queryHistogram(this.pageSetting.from, this.pageSetting.to, this.pageSetting.group, this.pageSetting.formatType);
+  }
+
+  private monthHistogram(){
+    this.pageSetting.from = moment().startOf('month').toDate();
+    this.pageSetting.to = moment().endOf('month').toDate();
+    this.queryHistogram(this.pageSetting.from, this.pageSetting.to, this.pageSetting.group, this.pageSetting.formatType);
+  }
+  
+  private yearHistogram(){
+    this.pageSetting.from = moment().startOf('year').toDate();
+    this.pageSetting.to = moment().endOf('year').toDate();
+    this.queryHistogram(this.pageSetting.from, this.pageSetting.to, this.pageSetting.group, this.pageSetting.formatType);
+  }  
+
+  private onQueryByTimeSlot(){
+    if(moment.isMoment(this.pageSetting.from)){
+      this.pageSetting.from = this.pageSetting.from.toDate();
+    }
+    if(moment.isMoment(this.pageSetting.to)){
+      this.pageSetting.to = this.pageSetting.to.toDate();
+    }
+    this.queryHistogram(this.pageSetting.from, this.pageSetting.to, this.pageSetting.group, this.pageSetting.formatType);
+  }
+
+  private queryHistogram(from, to, group, formatType){
+    this.chartSrv.getHistogramData(from, to, group).subscribe((res)=>{
+      // notify data changed to charts
+      this.chartData = this.formatData(formatType, res);
     });
   }
 }

@@ -8,27 +8,27 @@ const config = require('../../config/config');
 dbBase.queryReceiptHistogram = async (date, group) => {
   try {
     let q = {};
-    if (date) {
+    if (date && (date.min || date.max)) {
       q.date = {};
-      if (!isNaN(date.min)) {
+      if (date.min && !isNaN(date.min)) {
         q.date['$gte'] = new Date(date.min);
       }
-      if (!isNaN(date.max)) {
+      if (date.max && !isNaN(date.max)) {
         q.date['$lte'] = new Date(date.max);
       }
     }
     let groupID;
     let sort;
     switch (group) {
-      case 'weekDay':
-        groupID = '$weekDay';
-        sort = { '_id': 1 };
+      case 'dayOfWeek':
+        groupID = {'dayOfWeek': { '$add':['$dayOfWeek', -1]}};
+        sort = { '_id.dayOfWeek': 1 };
         break;
-      case 'monthDay':
+      case 'dayOfMonth':
         groupID = {
           'year': '$year',
-          'month': '$month',
-          'date': '$monthDay'
+          'month': { '$add': ['$month', -1] },
+          'date': '$dayOfMonth'
         };
         sort = {
           '_id.year': 1,
@@ -39,7 +39,7 @@ dbBase.queryReceiptHistogram = async (date, group) => {
       case 'month':
         groupID = {
           'year': '$year',
-          'month': '$month'
+          'month': { '$add': ['$month', -1] }
         };
         sort = {
           '_id.year': 1,
@@ -47,8 +47,8 @@ dbBase.queryReceiptHistogram = async (date, group) => {
         };
         break;
       case 'year':
-        grourID: '$year';
-        sort = { '_id': 1 };
+        groupID= {'year': '$year'};
+        sort = { '_id.year': 1 };
     }
     let pipe = [
       {
@@ -57,8 +57,8 @@ dbBase.queryReceiptHistogram = async (date, group) => {
         '$addFields': {
           'year': { '$year': '$date' },
           'month': { '$month': '$date' },
-          'monthDay': { '$dayOfMonth': '$date' },
-          'weekDay': { '$dayOfWeek': '$date' },
+          'dayOfMonth': { '$dayOfMonth': '$date' },
+          'dayOfWeek': { '$dayOfWeek': '$date' },
         }
       }, {
         '$group': {
