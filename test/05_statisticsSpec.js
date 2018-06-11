@@ -35,7 +35,7 @@ describe('[Item spec]', () => {
           'min': now.getTime() - 30*24*60*60*1000,
           'max': now.getTime() + 60*60*1000,
         },
-        'group': 'monthDay'
+        'group': 'dayOfMonth'
       };
       var res = await agent.post('/receipt/histogram')
         .set('Content-Type', 'application/json')
@@ -65,7 +65,7 @@ describe('[Item spec]', () => {
           'min': now.getTime() - 30*24*60*60*1000,
           'max': now.getTime() + 60*60*1000,
         },
-        'group': 'weekDay'
+        'group': 'dayOfWeek'
       };
       var res = await agent.post('/receipt/histogram')
         .set('Content-Type', 'application/json')

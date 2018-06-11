@@ -82,7 +82,7 @@ dbBase.getItem = async (id, code) => {
     if (code) {
       q.code = code;
     }
-    let docs = await dbBase.items.find(q).populate('supplierID', 'name');;
+    let docs = await dbBase.items.find(q).populate('supplierID', 'name');
     return docs;
   } catch (err) {
     log.writeLog(err.message, 'error');
@@ -115,13 +115,12 @@ dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit,
     }
     let total = await dbBase.items.count(q);
     let query = dbBase.items.find(q);
+    query.populate('supplierID', 'name');
     if(sort){
       let s = {};
       s[sort]=dir;
       query.sort(s);
     }
-    query.populate('supplierID', 'name');
-
     let s = parseInt(skip);
     if (!isNaN(s)) {
       query.skip(s);
@@ -131,7 +130,7 @@ dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit,
       query.limit(l);
     }
 
-    let docs = await query.lean().exec();
+    let docs = await query.exec();
     return { 'total': total, 'docs': docs };
   } catch (err) {
     log.writeLog(err.message, 'error');
@@ -243,7 +242,7 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
     if (!isNaN(l)) {
       query.limit(l);
     }
-    let docs = await query.lean().exec();
+    let docs = await query.exec();
 
     // migrate
     // for(let i in docs){

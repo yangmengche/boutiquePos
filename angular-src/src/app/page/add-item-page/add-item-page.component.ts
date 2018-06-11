@@ -100,8 +100,7 @@ export class AddItemPageComponent implements OnInit {
       const event: UploadInput = {
         type: 'uploadAll',
         url: '/upload/image',
-        method: 'POST',
-        data: { foo: 'bar' }
+        method: 'POST'
       };
       this.uploadInput.emit(event);    
     }else if (output.type === 'done'){

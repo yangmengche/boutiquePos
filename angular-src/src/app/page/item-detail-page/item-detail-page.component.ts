@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../../service/item.service';
 import { SupplierService } from '../../service/supplier.service';
 import { ItemModel, SupplierModel } from '../../model/model';
 import { SIZE } from '../../model/def';
+import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions } from 'ngx-uploader';
 
 @Component({
   selector: 'app-item-detail-page',
@@ -14,6 +15,7 @@ export class ItemDetailPageComponent implements OnInit {
   public suppliers: SupplierModel[];
   public categories: string[];
   public sizes = SIZE;
+  public uploadInput: EventEmitter<UploadInput>;
 
   public item: ItemModel;
   private returnPath: string;
@@ -22,7 +24,9 @@ export class ItemDetailPageComponent implements OnInit {
     private supplierSrv: SupplierService,
     private router: Router,
     private actRoute: ActivatedRoute    
-  ) { }
+  ) { 
+    this.uploadInput = new EventEmitter<UploadInput>(); 
+  }
 
   ngOnInit() {
     this.item={
@@ -77,5 +81,21 @@ export class ItemDetailPageComponent implements OnInit {
         this.router.navigate(['/', 'itemPage']);
       }      
     });    
+  }
+
+  public onUploadOutput(output: UploadOutput): void {
+    if (output.type === 'allAddedToQueue') { // when all files added in queue
+      // uncomment this if you want to auto upload files when added
+      const event: UploadInput = {
+        type: 'uploadAll',
+        url: '/upload/image',
+        method: 'POST'
+      };
+      this.uploadInput.emit(event);    
+    }else if (output.type === 'done'){
+      if(output.file.response.url){
+        this.item.pic = output.file.response.url;
+      }
+    }
   }
 }

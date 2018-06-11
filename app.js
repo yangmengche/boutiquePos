@@ -80,6 +80,12 @@ async function InitApplication(){
   }catch(err){
     log.writeLog(err.message, 'error');
   }
+  let noImagePath = path.resolve(config.resourcePath, 'noImage.jpeg');
+  try{
+    fse.statSync(noImagePath);
+  }catch(err){
+    fse.copyFileSync(config.noImagePath, noImagePath);
+  }
   log.writeLog('\n********************************\n*     boutiquePos Server Start!     *\n********************************', 'info');
   if(process.env.LOG ==='no' || process.env.LOG ==='false'){
     log.enableLog(false);

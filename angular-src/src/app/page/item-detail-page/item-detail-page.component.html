@@ -4,8 +4,11 @@
       <mat-icon color="primary">arrow_back</mat-icon>
     </button>
   </div>
-  
-  <img src={{item.pic}} height="300px" class='center-pic'/>
+  <input style="display:none" id="input-file-id" type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"/>  
+  <label for="input-file-id">
+      <img src={{item.pic}} height="300px" class='center-pic'/>    
+  </label>
+  <!-- <img src={{item.pic}} height="300px" class='center-pic' for="input-file-id"/> -->
   <mat-list>
     <mat-list-item>
       <h4 class="field-name">Code:</h4>{{item.code}}

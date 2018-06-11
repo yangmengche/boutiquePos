@@ -13,6 +13,15 @@ export class ItemService {
 
   private serverApi = window.location.origin;
 
+  private fillNoImagePath(items){
+    let pattern=new RegExp(/^\/resource/);
+    for(let i in items){
+      if(!pattern.test(items[i].pic)){
+        items[i].pic='/resource/noImage.jpeg';
+      }
+    }
+    return items;
+  }
   public getItems(supplierID?:string, category?:string, skip?: number, limit?: number, sort?:string, dir?:string): Observable<any> {
     let URI = `${this.serverApi}/item/query`;
     let headers = new Headers;
@@ -28,6 +37,7 @@ export class ItemService {
     return this.http.post(URI, body, { headers: headers })
       .pipe(
         map(res => res.json()),
+        map(res => { res.docs = this.fillNoImagePath(res.docs); return res;})
         // map(res => {return{ 'name':res.name, 'type':SupplierService.typeMap[res.type], 'shareRate':res.shareRate}),
         // map(res => <ItemModel[]>res)
       )
@@ -86,7 +96,8 @@ export class ItemService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(URI, { headers: headers })
       .pipe(
-        map(res => res.json())
+        map(res => res.json()),
+        map(this.fillNoImagePath)
       );
   }
 
@@ -96,7 +107,8 @@ export class ItemService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(URI, { headers: headers })
       .pipe(
-        map(res => res.json())
+        map(res => res.json()),
+        map(this.fillNoImagePath)
       );
   }
 

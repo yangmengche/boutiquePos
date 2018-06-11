@@ -30,8 +30,8 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header="name">名稱</th>
     <td mat-cell *matCellDef="let row">{{ row.name }}</td>
   </ng-container>
-  <ng-container matColumnDef="supplier">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="supplier">供應商</th>
+  <ng-container matColumnDef="supplierID.name">
+    <th mat-header-cell *matHeaderCellDef>供應商</th>
     <td mat-cell *matCellDef="let row">{{ row.supplierID.name }}</td>
   </ng-container>
   <ng-container matColumnDef="category">

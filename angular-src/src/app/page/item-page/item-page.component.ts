@@ -13,7 +13,7 @@ import { DataProviderService } from '../../service/data-provider.service';
   styleUrls: ['./item-page.component.css']
 })
 export class ItemPageComponent implements OnInit {
-  private static headerList = ['pic', 'code', 'name', 'supplier', 'size', 'marketPrice', 'stock', 'select'];
+  private static headerList = ['pic', 'code', 'name', 'supplierID.name', 'size', 'marketPrice', 'stock', 'select'];
   public itemDataSource = new MatTableDataSource<any>();
   public pageSetting={
     index:0,
@@ -113,13 +113,13 @@ export class ItemPageComponent implements OnInit {
 
   public onSelectChanged(event){
     this.pageSetting.index=0;
-    this.LoadLists(0, this.pageSetting.pageSize);
+    this.LoadLists(this.pageSetting.index*this.pageSetting.pageSize, this.pageSetting.pageSize);
   }
 
   public sortData($event){
     console.log($event);
     this.pageSetting.sort = $event.active;
     this.pageSetting.dir = $event.direction;
-    this.LoadLists(0, this.pageSetting.pageSize);
+    this.LoadLists(this.pageSetting.index*this.pageSetting.pageSize, this.pageSetting.pageSize);
   }
 }

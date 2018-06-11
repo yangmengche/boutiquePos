@@ -32,7 +32,7 @@ class DBSchema {
       listPrice: { type: Number, requires: true, min: 0 },
       marketPrice: { type: Number, required: true, min: 0 },
       stock: { type: Number, required: true, default: 0 }
-    });
+    }, { toObject: { virtuals: true } });
 
     this.stockLogSchema = new mongoose.Schema({
       date: { type: Date, required: true },
