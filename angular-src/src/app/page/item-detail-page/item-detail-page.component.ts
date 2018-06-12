@@ -16,7 +16,8 @@ export class ItemDetailPageComponent implements OnInit {
   public categories: string[];
   public sizes = SIZE;
   public uploadInput: EventEmitter<UploadInput>;
-
+  public options: UploaderOptions;
+  
   public item: ItemModel;
   private returnPath: string;
   constructor(

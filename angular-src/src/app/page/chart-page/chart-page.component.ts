@@ -137,25 +137,25 @@ export class ChartPageComponent implements OnInit {
     }
     return data;
   }
-  private weekHistogram(){
+  public weekHistogram(){
     this.pageSetting.from = moment().startOf('week').toDate();
     this.pageSetting.to = moment().endOf('week').toDate();
     this.queryHistogram(this.pageSetting.from, this.pageSetting.to, this.pageSetting.group, this.pageSetting.formatType);
   }
 
-  private monthHistogram(){
+  public monthHistogram(){
     this.pageSetting.from = moment().startOf('month').toDate();
     this.pageSetting.to = moment().endOf('month').toDate();
     this.queryHistogram(this.pageSetting.from, this.pageSetting.to, this.pageSetting.group, this.pageSetting.formatType);
   }
   
-  private yearHistogram(){
+  public yearHistogram(){
     this.pageSetting.from = moment().startOf('year').toDate();
     this.pageSetting.to = moment().endOf('year').toDate();
     this.queryHistogram(this.pageSetting.from, this.pageSetting.to, this.pageSetting.group, this.pageSetting.formatType);
   }  
 
-  private onQueryByTimeSlot(){
+  public onQueryByTimeSlot(){
     if(moment.isMoment(this.pageSetting.from)){
       this.pageSetting.from = this.pageSetting.from.toDate();
     }
