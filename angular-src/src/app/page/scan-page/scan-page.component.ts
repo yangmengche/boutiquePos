@@ -155,6 +155,7 @@ export class ScanPageComponent implements OnInit {
 
   public onBack(){
     this.stopQuagga();
-    this.router.navigate([this.returnPath]);
+    // this.router.navigate([this.returnPath]);
+    this.router.navigate([this.returnPath, '123456789']);
   }
 }
