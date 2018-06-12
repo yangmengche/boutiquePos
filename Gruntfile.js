@@ -1,25 +1,25 @@
 'use strict';
 
-let ext='';
-if(process.platform === 'win32'){
-  ext='.cmd';
+let ext = '';
+if (process.platform === 'win32') {
+  ext = '.cmd';
 }
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   var output = grunt.option('output');
 
   grunt.initConfig({
     appConfig: {
-      src:'.',
+      src: '.',
       output: output || 'dist',
       home: process.env.HOME,
     },
-    eslint:{
-      target:[
-        'app.js', 
-        './routes/**/*.js', 
+    eslint: {
+      target: [
+        'app.js',
+        './routes/**/*.js',
         './components/**/*.js'
       ],
       // options:{
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
         },
         src: ['<%= appConfig.src %>/test/*.js']
       }
-    },    
+    },
     clean: {
       // Clean up output folder
       build: {
@@ -58,10 +58,10 @@ module.exports = function(grunt) {
       }
     },
     copy: {
-      options:{
-        mode:true
+      options: {
+        mode: true
       },
-      electron:{
+      electron: {
         files: [{
           expand: true,
           cwd: '<%= appConfig.src %>/node_modules/electron/dist',
@@ -94,19 +94,19 @@ module.exports = function(grunt) {
           expand: true,
           dot: true,
           dest: '<%= appConfig.output %>/resources/app',
-          src: ['<%= appConfig.src %>/node_modules/**/*', 
-                '!<%= appConfig.src %>/node_modules/.bin/**',
-                '!<%= appConfig.src %>/node_modules/electron*/**',
-                '!<%= appConfig.src %>/node_modules/*grunt*/**',
-                '!<%= appConfig.src %>/node_modules/mocha*/**',
-                '!<%= appConfig.src %>/node_modules/supertest*/**'
-              ]
+          src: ['<%= appConfig.src %>/node_modules/**/*',
+            '!<%= appConfig.src %>/node_modules/.bin/**',
+            '!<%= appConfig.src %>/node_modules/electron*/**',
+            '!<%= appConfig.src %>/node_modules/*grunt*/**',
+            '!<%= appConfig.src %>/node_modules/mocha*/**',
+            '!<%= appConfig.src %>/node_modules/supertest*/**'
+          ]
         }]
       },
     },
     //API doc
-    apidoc:{
-      server:{
+    apidoc: {
+      server: {
         src: ["<%= appConfig.src %>/components/", "<%= appConfig.src %>/routes/"],
         dest: "<%= appConfig.src %>/apidoc/"
       }
@@ -121,17 +121,25 @@ module.exports = function(grunt) {
           npm: '--only=production'
         }
       }
-    }, 
-    exec:{
+    },
+    exec: {
       ngBuild: {
         cwd: 'angular-src',
         cmd: 'ng build --prod'
       },
-      electronRebuild:{
+      electronRebuild: {
         cwd: 'node_modules/.bin',
-        cmd: 'electron-rebuild'+ext+' --module-dir ../..'
+        cmd: 'electron-rebuild' + ext + ' --module-dir ../..'
       }
-    }   
+    },
+    rename: {
+      electron: {
+        files: [
+          { src: ['<%= appConfig.output %>/electron.exe'], dest: '<%= appConfig.output %>/shera.exe' },
+          { src: ['<%= appConfig.output %>/electron'], dest: '<%= appConfig.output %>/shera' },
+        ]
+      }
+    }
   });
 
   grunt.registerTask('ngBuild', [
@@ -151,7 +159,8 @@ module.exports = function(grunt) {
     'copy:services',
     'copy:nodeModules',
     // 'auto_install',
-    // 'apidoc:server'
+    // 'apidoc:server',
+    'rename:electron'
   ]);
 
   grunt.registerTask('default', [
