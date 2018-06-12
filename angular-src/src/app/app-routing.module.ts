@@ -18,9 +18,10 @@ const routes: Routes = [
   { path: 'itemPage', component: ItemPageComponent },
   { path: 'itemPage/:ret', component: ItemPageComponent },
   { path: 'itemDetailPage/:id', component: ItemDetailPageComponent },
-  { path: 'itemDetailPage/:ret/:id', component: ItemDetailPageComponent },
+  { path: 'itemDetailPage/:ret/:id', component: ItemDetailPageComponent }, // show detail from item , sale, and stock page
   { path: 'addItemPage', component: AddItemPageComponent },
-  { path: 'addItemPage/:code/:ret', component: AddItemPageComponent },
+  { path: 'addItemPage/:code', component: AddItemPageComponent }, // back from scan page
+  { path: 'addItemPage/:code/:ret', component: AddItemPageComponent }, // add new item from stock page
   { path: 'salePage', component: SalePageComponent },
   { path: 'salePage/:code', component: SalePageComponent },
   { path: 'stockPage', component: StockPageComponent },
