@@ -60,5 +60,6 @@ export interface ReceiptModel{
   pay: number,
   quantity: number,
   remark: String,
-  returnRefID?: string  
+  returnRefID?: string,
+  date?: Date
 }

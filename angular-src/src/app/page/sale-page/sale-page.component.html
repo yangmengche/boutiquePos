@@ -65,6 +65,13 @@
   </mat-form-field>        
 </div>
 <div>
+  <mat-form-field class='date-picker'>
+    <input matInput [matDatepicker]="datePicker" placeholder="日期" [(ngModel)]="saleDate">
+    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+    <mat-datepicker #datePicker></mat-datepicker>
+  </mat-form-field>  
+</div>
+<div>
   <p class="input-name">備注:</p>
   <input type="text" name="remark" [(ngModel)]="receipt.remark"/>
 </div>

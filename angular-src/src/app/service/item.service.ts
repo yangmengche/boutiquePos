@@ -167,7 +167,8 @@ export class ItemService {
       pay: receipt.pay,
       remark: receipt.remark,
       returnRefID: receipt.returnRefID,
-      items: []
+      items: [],
+      date: receipt.date
     };
     for (let i in receipt.items) {
       bodyObj.items.push({

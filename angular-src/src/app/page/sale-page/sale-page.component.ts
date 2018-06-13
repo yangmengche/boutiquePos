@@ -7,6 +7,7 @@ import { isNull } from 'util';
 import { PAYBY } from '../../model/def';
 import { DataProviderService } from '../../service/data-provider.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-sale-page',
@@ -20,6 +21,7 @@ export class SalePageComponent implements OnInit {
   public itemDataSource = new MatTableDataSource<any>();
   public payBy = PAYBY;
   private quaCheck = 0;
+  public saleDate = moment();
   constructor(
     private router: Router,
     private itemSrv: ItemService,
@@ -53,6 +55,7 @@ export class SalePageComponent implements OnInit {
       }
     }
     this.itemDataSource.data = this.receipt.items;
+    this.saleDate = moment();
   }
 
   private initSaleItem(){
@@ -130,6 +133,11 @@ export class SalePageComponent implements OnInit {
 
   public onSubmit(){
     console.log(this.receipt);
+    let now = moment();
+    if(!this.saleDate.isSame(now, 'day')){
+      this.receipt.date = this.saleDate.toDate();
+      this.receipt.date.setHours(12, 0, 0, 0); // if user set sale date, set time to 12:00
+    }
     this.itemSrv.addReceipt(this.receipt).subscribe((res)=>{
       if(res.id){
         this.initSaleItem();
