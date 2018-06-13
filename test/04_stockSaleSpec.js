@@ -180,7 +180,7 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj.total, 3);
     assert.strictEqual(obj.quantity, 9);
     assert.strictEqual(obj.revenue, 5320);
-    assert.strictEqual(obj.cost, 2534);
+    assert.strictEqual(obj.cost, 2490.5);
     assert.strictEqual(obj.docs.length, 3);
     receipt01 = obj.docs[1];
   });
@@ -196,7 +196,7 @@ describe('[Item spec]', () => {
           }
         ],
         'payBy': receipt01.payBy,
-        'pay': -180,// -receipt01.items[1].salePrice,
+        'pay': -190,// -receipt01.items[1].salePrice,
         'remark': 'return for broken',
         'returnRefID': receipt01._id,
       };

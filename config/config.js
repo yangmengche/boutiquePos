@@ -14,7 +14,7 @@ let config = {
 switch (process.env.NODE_ENV) {
   case 'unitTest':
     config.dbPath = 'mongodb://localhost:27017/boutiquePosTest';
-    config.logPath = '.boutiquePosTest';
+    config.logPath = path.resolve(home, 'boutiquePosTest', 'log');
     config.resourcePath = path.resolve(home, 'boutiquePosTest', 'resource');
     break;
   case 'local':

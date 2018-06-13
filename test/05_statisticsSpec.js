@@ -49,12 +49,12 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj[0].cost, 253.5);
     assert.strictEqual(obj[0].quantity, 1);
     assert.strictEqual(obj[0].revenue, 590);
-    assert.strictEqual(obj[1].cost, 1210.5);
+    assert.strictEqual(obj[1].cost, 1167);
     assert.strictEqual(obj[1].quantity, 5);
     assert.strictEqual(obj[1].revenue, 2730);
-    assert.strictEqual(obj[2].cost, 946.5);
+    assert.strictEqual(obj[2].cost, 990);
     assert.strictEqual(obj[2].quantity, 2);
-    assert.strictEqual(obj[2].revenue, 1820);        
+    assert.strictEqual(obj[2].revenue, 1810);        
   });
   
   it('should get data group by weekday of a month', async () => {
@@ -89,12 +89,12 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj[index[0]].cost, 253.5);
     assert.strictEqual(obj[index[0]].quantity, 1);
     assert.strictEqual(obj[index[0]].revenue, 590);
-    assert.strictEqual(obj[index[1]].cost, 1210.5);
+    assert.strictEqual(obj[index[1]].cost, 1167);
     assert.strictEqual(obj[index[1]].quantity, 5);
     assert.strictEqual(obj[index[1]].revenue, 2730);
-    assert.strictEqual(obj[index[2]].cost, 946.5);
+    assert.strictEqual(obj[index[2]].cost, 990);
     assert.strictEqual(obj[index[2]].quantity, 2);
-    assert.strictEqual(obj[index[2]].revenue, 1820);        
+    assert.strictEqual(obj[index[2]].revenue, 1810);        
   });  
 
   it('should get data group by month of a year', async () => {
@@ -118,7 +118,7 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj.length, 1);
     assert.strictEqual(obj[0].cost, 2410.5);
     assert.strictEqual(obj[0].quantity, 8);
-    assert.strictEqual(obj[0].revenue, 5140);
+    assert.strictEqual(obj[0].revenue, 5130);
   }); 
 
   it('should get all data group by year', async () => {
@@ -138,7 +138,57 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj.length, 1);
     assert.strictEqual(obj[0].cost, 2410.5);
     assert.strictEqual(obj[0].quantity, 8);
-    assert.strictEqual(obj[0].revenue, 5140);
-  });   
+    assert.strictEqual(obj[0].revenue, 5130);
+  });
+
+  it('should pie data and group by supplier name', async () => {
+    try {
+      let now = new Date();
+      let query={
+        'group': 'supplier'
+      };
+      var res = await agent.post('/receipt/pie')
+        .set('Content-Type', 'application/json')
+        .send(query)
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert.strictEqual(obj.length, 2);
+    assert.strictEqual(obj[0]._id, "S01");
+    assert.strictEqual(obj[0].cost, 760.5);
+    assert.strictEqual(obj[0].quantity, 3);
+    assert.strictEqual(obj[0].revenue, 1770);
+    assert.strictEqual(obj[1]._id, "S02");
+    assert.strictEqual(obj[1].cost, 1650);
+    assert.strictEqual(obj[1].quantity, 5);
+    assert.strictEqual(obj[1].revenue, 3360);    
+  });
+
+  it('should pie data and group by category', async () => {
+    try {
+      let now = new Date();
+      let query={
+        'group': 'category'
+      };
+      var res = await agent.post('/receipt/pie')
+        .set('Content-Type', 'application/json')
+        .send(query)
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert.strictEqual(obj.length, 2);
+    assert.strictEqual(obj[0]._id, "Jeans");
+    assert.strictEqual(obj[0].cost, 1650);
+    assert.strictEqual(obj[0].quantity, 5);
+    assert.strictEqual(obj[0].revenue, 3360);    
+    assert.strictEqual(obj[1]._id, "Shirt");
+    assert.strictEqual(obj[1].cost, 760.5);
+    assert.strictEqual(obj[1].quantity, 3);
+    assert.strictEqual(obj[1].revenue, 1770);    
+  });  
 });
 

@@ -31,7 +31,7 @@
 <ngx-charts-bar-vertical-stacked
   [view]="view"
   [scheme]="colorScheme"
-  [results]="chartData"
+  [results]="barData"
   [gradient]="gradient"
   [xAxis]="showXAxis"
   [yAxis]="showYAxis"
@@ -42,3 +42,25 @@
   [yAxisLabel]="yAxisLabel"
   (select)="onSelect($event)">
 </ngx-charts-bar-vertical-stacked>
+<!-- <ngx-charts-pie-chart
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="pieData['supplier']"
+  [legend]="showLegend"
+  [explodeSlices]="explodeSlices"
+  [labels]="showLabels"
+  [doughnut]="doughnut"
+  [gradient]="gradient"
+  (select)="onSelect($event)">
+</ngx-charts-pie-chart> -->
+<!-- <ngx-charts-pie-chart
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="pieData['category']"
+  [legend]="showLegend"
+  [explodeSlices]="explodeSlices"
+  [labels]="showLabels"
+  [doughnut]="doughnut"
+  [gradient]="gradient"
+  (select)="onSelect($event)">
+</ngx-charts-pie-chart> -->

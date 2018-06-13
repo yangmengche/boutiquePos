@@ -78,7 +78,7 @@ let items = {
     'supplierID': '$s01',
     'category': categories.c02.name,
     'size': def.size[1],
-    'cost': suppliers.s01.shareRate * 190,
+    'cost': 80,
     'listPrice': 190,
     'marketPrice':190
   },  
@@ -151,6 +151,8 @@ let receipts ={
         'itemID': '$s01-c01-001-M',
         'salePrice': items["s01-c01-001-M"].marketPrice,
         'quantity': 1
+        // supplier : S01
+        // category: Shirt
       }
     ],
     payBy: def.payBy[0],
@@ -163,16 +165,22 @@ let receipts ={
         'itemID': '$s01-c01-001-M',
         'salePrice': items["s01-c01-001-M"].marketPrice,
         'quantity': 2
+        // supplier : S01
+        // category: Shirt
       },
       {
         'itemID': '$s01-c02-001-3S',
         'salePrice': items["s01-c02-001-3S"].marketPrice,
         'quantity': 1
+        // supplier : S01
+        // category: Jeans
       },
       {
         'itemID': '$s02-c02-001-2L',
         'salePrice': items["s02-c02-001-2L"].marketPrice,
         'quantity': 2
+        // supplier : S02
+        // category: Jeans        
       }            
     ],
     payBy: def.payBy[1],
@@ -185,11 +193,15 @@ let receipts ={
         'itemID': '$s02-c02-001-2L',
         'salePrice': items["s02-c02-001-2L"].marketPrice,
         'quantity': 1
+        // supplier : S02
+        // category: Jeans        
       },
       {
         'itemID': '$s02-c02-001-3L',
         'salePrice': items["s02-c02-001-3L"].marketPrice,
         'quantity': 2
+        // supplier : S02
+        // category: Jeans        
       }
     ],
     payBy: def.payBy[1],

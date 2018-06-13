@@ -43,6 +43,7 @@ router.post('/receipt/query', redirectTo);
 
 // statistic
 router.post('/receipt/histogram', redirectTo);
+router.post('/receipt/pie', redirectTo);
 
 // misc
 router.post('/upload/image', redirectTo);

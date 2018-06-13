@@ -34,7 +34,12 @@ export class ChartPageComponent implements OnInit {
       'type': 'dayOfWeek',
       'name': '星期'
     }]
-  public chartData: any[];
+  public barData: any[];
+  public pieData: {
+    'supplier': any[],
+    'category': any[]
+  };
+
   public view: any[] = [700, 400];
 
   // options
@@ -63,8 +68,15 @@ export class ChartPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.chartData = [];
+    this.barData = [];
+    this.pieData={
+      'supplier': [],
+      'category': []
+    }
+
     this.monthHistogram();
+    // this.queryPieData('supplier');
+    // this.queryPieData('category');
   }
   onSelect(event) {
     console.log(event);
@@ -80,7 +92,7 @@ export class ChartPageComponent implements OnInit {
     this.queryHistogram(this.pageSetting.from, this.pageSetting.to, this.pageSetting.group, this.pageSetting.formatType);
   }
 
-  private formatData(formatType, res){
+  private formatBarData(formatType, res){
     let data = [];
     
     for(let i in res){
@@ -166,9 +178,42 @@ export class ChartPageComponent implements OnInit {
   }
 
   private queryHistogram(from, to, group, formatType){
+    // this.queryPieData('supplier');
+    // this.queryPieData('category');    
     this.chartSrv.getHistogramData(from, to, group).subscribe((res)=>{
       // notify data changed to charts
-      this.chartData = this.formatData(formatType, res);
+      this.barData = this.formatBarData(formatType, res);
+    });
+  }
+
+  public formatPieData(group, res){
+    let data=[];
+    for( let i in res){
+      let item = {
+        'name': res[i]._id,
+        'series': [
+          {
+            'name': '營收',
+            'value':res[i].revenue            
+          },{
+            'name': '成本',
+            'value':res[i].cost
+          }, {
+            'name': '數量',
+            'value':res[i].quantity
+          }
+        ]
+      };
+      data.push(item);
+    }
+    return data;
+  }
+
+
+  public queryPieData(group){
+    this.chartSrv.getPieData(this.pageSetting.from, this.pageSetting.to, group).subscribe((res)=>{
+      this.pieData[group] = this.formatPieData(group, res);
     });
   }
 }
+
