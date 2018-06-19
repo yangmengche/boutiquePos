@@ -1,3 +1,22 @@
 .date-picker{
   width: 130px
 }
+
+.div-horizontal{
+  display: inline-block;
+  width: 50%
+}
+
+.pie-title{
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+  font-size: 150%
+}
+
+.pie-subtitle{
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+  height: 24px
+}

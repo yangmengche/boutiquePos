@@ -84,7 +84,8 @@ module.exports = function (grunt) {
             '<%= appConfig.src %>/libs/**/*',
             '<%= appConfig.src %>/routes/**/*',
             '<%= appConfig.src %>/views/**/*',
-            '<%= appConfig.src %>/public/**/*'
+            '<%= appConfig.src %>/public/**/*',
+            '<%= appConfig.src %>/resources/**/*'
           ],
         }]
       },

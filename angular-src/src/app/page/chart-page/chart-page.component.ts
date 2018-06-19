@@ -40,17 +40,27 @@ export class ChartPageComponent implements OnInit {
     'category': any[]
   };
 
-  public view: any[] = [700, 400];
-
   // options
-  public showXAxis = true;
-  public showYAxis = true;
-  public gradient = false;
-  public showLegend = true;
-  public showXAxisLabel = true;
-  public xAxisLabel = '日期';
-  public showYAxisLabel = true;
-  public yAxisLabel = 'NT$';
+  public barSetting={
+    view: [700, 400],
+    showXAxis: true,
+    showYAxis: true,
+    gradient: false,
+    showLegend: true,
+    showXAxisLabel: true,
+    xAxisLabel: '日期',
+    showYAxisLabel: true,
+    yAxisLabel: 'NT$'
+  }
+  public pieSetting={
+    view: [500, 500],
+    legend: false,
+    explodeSlices: false,
+    labels: true,
+    doughnut: false,
+    gradient: true,
+    isHori: true
+  }  
 
   public pageSetting = {
     formatType: this.formats[0].type,
@@ -59,9 +69,10 @@ export class ChartPageComponent implements OnInit {
     to: null
   }
   
-
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: [
+      '#FAC51D', '#66BD6D', '#FAA026', '#29BB9C', '#E96B56', '#55ACD2', '#B7332F', '#2C83C9', '#9166B8', '#92E7E8'
+    ]
   };  
   constructor(
     private chartSrv: ChartService,
@@ -75,17 +86,34 @@ export class ChartPageComponent implements OnInit {
     }
 
     this.monthHistogram();
-    // this.queryPieData('supplier');
-    // this.queryPieData('category');
+    this.queryPieData('supplier');
+    this.queryPieData('category');
+    let width = window.innerWidth * 1
+    this.setChartSize(width);    
   }
+
+  private setChartSize(width){
+    this.barSetting.view[0] = width;
+    this.barSetting.view[1] = this.barSetting.view[0]*0.56;
+    if(width > 500){
+      this.pieSetting.view[0] = width / 2;
+      this.pieSetting.view[1] = width / 2;
+      this.pieSetting.isHori = true;
+    }else{
+      this.pieSetting.view[0] = width;
+      this.pieSetting.view[1] = width;
+      this.pieSetting.isHori = false;
+    }
+  }
+
   onSelect(event) {
     console.log(event);
   }
     
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.view[0] = window.innerWidth < 900 ? window.innerWidth : 900;
-    this.view[1] = this.view[0]*0.56;
+    let width = window.innerWidth *1
+    this.setChartSize(width);
   }
 
   public onFormatChanged(){
@@ -178,8 +206,8 @@ export class ChartPageComponent implements OnInit {
   }
 
   private queryHistogram(from, to, group, formatType){
-    // this.queryPieData('supplier');
-    // this.queryPieData('category');    
+    this.queryPieData('supplier');
+    this.queryPieData('category');    
     this.chartSrv.getHistogramData(from, to, group).subscribe((res)=>{
       // notify data changed to charts
       this.barData = this.formatBarData(formatType, res);
@@ -187,24 +215,20 @@ export class ChartPageComponent implements OnInit {
   }
 
   public formatPieData(group, res){
-    let data=[];
+    let data={'revenue': [], 'profit': [], 'quantity': []};
     for( let i in res){
-      let item = {
+      data.revenue.push({
         'name': res[i]._id,
-        'series': [
-          {
-            'name': '營收',
-            'value':res[i].revenue            
-          },{
-            'name': '成本',
-            'value':res[i].cost
-          }, {
-            'name': '數量',
-            'value':res[i].quantity
-          }
-        ]
-      };
-      data.push(item);
+        'value':res[i].revenue
+      });
+      data.profit.push({
+        'name': res[i]._id,
+        'value':res[i].revenue - res[i].cost
+      });
+      data.quantity.push({
+        'name': res[i]._id,
+        'value':res[i].quantity
+      });            
     }
     return data;
   }
