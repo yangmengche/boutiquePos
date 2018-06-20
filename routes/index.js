@@ -36,10 +36,12 @@ router.put('/item/update', redirectTo);
 router.post('/item/query', redirectTo);
 router.post('/item/stock', redirectTo);
 router.get('/item', redirectTo);
+router.post('/download/item', redirectTo);
 
 // receipt
 router.post('/receipt/create', redirectTo);
 router.post('/receipt/query', redirectTo);
+router.post('/download/receipt', redirectTo);
 
 // statistic
 router.post('/receipt/histogram', redirectTo);

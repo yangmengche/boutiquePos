@@ -41,7 +41,7 @@ class DBSchema {
     });
 
     let receiptItemSchema = new mongoose.Schema({
-      itemID: {type: mongoose.Schema.Types.ObjectId, required: true},
+      itemID: {type: mongoose.Schema.Types.ObjectId, required: true, ref:'items'},
       code: String,
       cost: { type: Number, requires: true},
       listPrice: { type: Number, requires: true},

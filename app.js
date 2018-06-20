@@ -77,6 +77,7 @@ async function InitApplication(){
   log.scheduleClean(24*60*60*1000);
   try{
     fse.ensureDirSync(config.resourcePath);
+    fse.ensureDirSync(config.tempPath);
   }catch(err){
     log.writeLog(err.message, 'error');
   }

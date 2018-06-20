@@ -130,7 +130,7 @@ dbBase.queryItems = async (name, supplierID, category, size, stock, skip, limit,
       query.limit(l);
     }
 
-    let docs = await query.exec();
+    let docs = await query.lean().exec();
     return { 'total': total, 'docs': docs };
   } catch (err) {
     log.writeLog(err.message, 'error');
@@ -242,7 +242,7 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
     if (!isNaN(l)) {
       query.limit(l);
     }
-    let docs = await query.exec();
+    let docs = await query.lean().exec();
 
     // migrate
     // for(let i in docs){
@@ -257,6 +257,65 @@ dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit)
     }else{
       return { 'total': 0, 'quantity': 0, 'revenue':0, 'cost':0, 'docs': docs };
     }
+  } catch (err) {
+    log.writeLog(err.message, 'error');
+    throw dbBase.errorMap(err);
+  }
+};
+
+dbBase.queryReceiptsForDownload = async (id, date, payBy, remark, returnRefID, skip, limit) => {
+  try {
+    let q = {};
+    if (id) {
+      q._id = id;
+    }
+    if (date) {
+      q.date = {};
+      if (!isNaN(date.min)) {
+        q.date['$gte'] = new Date(date.min);
+      }
+      if (!isNaN(date.max)) {
+        q.date['$lte'] = new Date(date.max);
+      }
+    }
+    if (payBy) {
+      q.payBy = payBy;
+    }
+    if (remark) {
+      q.remark = { $regex: new RegExp(remark, 'i') };
+    }
+    if (returnRefID) {
+      q.returnRefID = returnRefID;
+    }
+   
+    let pipe = [
+      {
+        '$match': q
+      },{
+        '$unwind': '$items'
+      }, {
+        '$lookup': {
+          'from': 'items',
+          'localField': 'items.itemID',
+          'foreignField': '_id',
+          'as': 'item_doc'
+        },
+      }, {
+        '$unwind': '$item_doc'
+      }, {
+        '$lookup': {
+          'from': 'suppliers',
+          'localField': 'item_doc.supplierID',
+          'foreignField': '_id',
+          'as': 'supplier_doc'
+        }
+      }, {
+        '$unwind': '$supplier_doc'
+      }, {
+        '$sort': { 'date': 1}
+      }
+    ];
+    return await dbBase.receipts.aggregate(pipe);
   } catch (err) {
     log.writeLog(err.message, 'error');
     throw dbBase.errorMap(err);

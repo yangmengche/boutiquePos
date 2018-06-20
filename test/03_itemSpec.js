@@ -7,6 +7,8 @@ const path = require('path');
 const testUtils = require('./testUtils');
 const config = require('../config/config');
 const testData = require('./testData');
+const fse = require('fs-extra');
+const contentDisposition = require('content-disposition');
 
 describe('[Item spec]', () => {
   let agent;
@@ -422,6 +424,20 @@ describe('[Item spec]', () => {
     assert.strictEqual(obj[0].cost, testData.items["s01-c01-001-S"].cost);
     assert.strictEqual(obj[0].marketPrice, testData.items["s01-c01-001-S"].marketPrice);
   });
+
+  it('should download item excell file', async()=>{
+    try {
+      var res = await agent.post('/download/item')
+        .set('Content-Type', 'application/json')
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    assert.strictEqual(res.type, 'application/octet-stream');
+    assert.ok(Buffer.isBuffer(res.body));
+    let output = path.resolve(__dirname, './downloadOutput');
+    fse.ensureDirSync(output);
+    let fileName = decodeURI(contentDisposition.parse(res.headers['content-disposition']).parameters.filename);
+    fse.writeFileSync(output + '/' + fileName, res.body);
+  });
 });
-
-

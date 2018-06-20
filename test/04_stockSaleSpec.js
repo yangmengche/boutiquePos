@@ -6,6 +6,9 @@ const assert = require('assert');
 const testUtils = require('./testUtils');
 const config = require('../config/config');
 const testData = require('./testData');
+const path = require('path');
+const fse = require('fs-extra');
+const contentDisposition = require('content-disposition');
 
 describe('[Item spec]', () => {
   let agent;
@@ -209,7 +212,22 @@ describe('[Item spec]', () => {
     }
     let obj = JSON.parse(res.text);
     assert(obj.id);
-  });  
+  });
 
+  it('should download report excell file', async()=>{
+    try {
+      var res = await agent.post('/download/receipt')
+        .set('Content-Type', 'application/json')
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    assert.strictEqual(res.type, 'application/octet-stream');
+    assert.ok(Buffer.isBuffer(res.body));
+    let output = path.resolve(__dirname, './downloadOutput');
+    fse.ensureDirSync(output);
+    let fileName = decodeURI(contentDisposition.parse(res.headers['content-disposition']).parameters.filename);
+    fse.writeFileSync(output + '/' + fileName, res.body);    
+  });
 });
 

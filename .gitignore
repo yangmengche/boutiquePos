@@ -2,3 +2,4 @@ node_modules
 public
 angular-src_bak
 dist
+test/downloadOutput
