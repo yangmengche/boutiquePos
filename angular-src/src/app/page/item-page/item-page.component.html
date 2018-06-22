@@ -17,6 +17,9 @@
 <button mat-raised-button color="primary" (click)="onAddItem()" type="button">
   新增品項
 </button>
+<button mat-raised-button color="primary" (click)="onDownlad()" type="button">
+    下載
+  </button>
 <table mat-table [dataSource]="itemDataSource"  (matSortChange)="sortData($event)" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="pic">
     <th mat-header-cell *matHeaderCellDef></th>

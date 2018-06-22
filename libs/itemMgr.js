@@ -307,7 +307,7 @@ exports.downloadReceipts = async (req, res) =>{
           log.writeLog(err.message, 'error');
         }
         fse.unlinkSync(filePath);
-      });      
+      });
     });
   } catch (err) {
     log.writeLog(err.message, 'error');

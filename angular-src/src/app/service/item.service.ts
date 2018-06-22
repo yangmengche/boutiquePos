@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { ItemModel, ItemAddModel, ReceiptModel } from '../model/model'
@@ -9,20 +9,22 @@ import { isNull } from 'util'
   providedIn: 'root'
 })
 export class ItemService {
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+  ) { }
 
   private serverApi = window.location.origin;
 
-  private fillNoImagePath(items){
-    let pattern=new RegExp(/^\/resource/);
-    for(let i in items){
-      if(!pattern.test(items[i].pic)){
-        items[i].pic='/resource/noImage.jpeg';
+  private fillNoImagePath(items) {
+    let pattern = new RegExp(/^\/resource/);
+    for (let i in items) {
+      if (!pattern.test(items[i].pic)) {
+        items[i].pic = '/resource/noImage.jpeg';
       }
     }
     return items;
   }
-  public getItems(supplierID?:string, category?:string, skip?: number, limit?: number, sort?:string, dir?:string): Observable<any> {
+  public getItems(supplierID?: string, category?: string, skip?: number, limit?: number, sort?: string, dir?: string): Observable<any> {
     let URI = `${this.serverApi}/item/query`;
     let headers = new Headers;
     let body = JSON.stringify({
@@ -31,16 +33,35 @@ export class ItemService {
       "skip": skip,
       "limit": limit,
       "sort": sort,
-      "dir": dir=="asc"?1:-1
+      "dir": dir == "asc" ? 1 : -1
     });
     headers.append('Content-Type', 'application/json');
     return this.http.post(URI, body, { headers: headers })
       .pipe(
         map(res => res.json()),
-        map(res => { res.docs = this.fillNoImagePath(res.docs); return res;})
+        map(res => { res.docs = this.fillNoImagePath(res.docs); return res; })
         // map(res => {return{ 'name':res.name, 'type':SupplierService.typeMap[res.type], 'shareRate':res.shareRate}),
         // map(res => <ItemModel[]>res)
       )
+  }
+
+  public downloadItems(supplierID?: string, category?: string, skip?: number, limit?: number, sort?: string, dir?: string): any {
+    let URI = `${this.serverApi}/download/item`;
+    let headers = new Headers;
+    let body = JSON.stringify({
+      "supplierID": supplierID,
+      "category": category,
+      "skip": skip,
+      "limit": limit,
+      "sort": sort,
+      "dir": dir == "asc" ? 1 : -1
+    });
+    headers.append('Content-Type', 'application/json');
+    let options =  new RequestOptions({responseType: ResponseContentType.Blob});
+    return this.http.post(URI, body, options);
+            // .pipe(
+            //   map(response => <Blob>response.blob())
+            // )
   }
 
   public addItem(item: ItemAddModel) {
@@ -66,7 +87,7 @@ export class ItemService {
       );
   }
 
-  public updateItem(item: ItemModel){
+  public updateItem(item: ItemModel) {
     let URI = `${this.serverApi}/item/update`;
     let headers = new Headers;
     let body = JSON.stringify({
@@ -82,12 +103,11 @@ export class ItemService {
       marketPrice: item.marketPrice,
       stock: item.stock
     });
-    console.log(body);
     headers.append('Content-Type', 'application/json');
     return this.http.put(URI, body, { headers: headers })
       .pipe(
         map(res => res.json())
-      );    
+      );
   }
 
   public getItemByCode(code: String) {
@@ -188,7 +208,7 @@ export class ItemService {
   public getReceipts(from?: Date, to?: Date, skip?: number, limit?: number) {
     let URI = `${this.serverApi}/receipt/query`;
     let headers = new Headers;
-    let bodyObj = { 
+    let bodyObj = {
       skip: skip,
       limit: limit,
       date: {}
