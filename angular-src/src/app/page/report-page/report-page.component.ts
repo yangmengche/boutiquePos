@@ -77,31 +77,39 @@ export class ReportPageComponent implements OnInit {
   }
 
   public queryToday(index?: number, limit?: number) {
-    let from = moment().startOf('day').toDate();
-    let to = moment().endOf('day').toDate();
+    // let from = moment().startOf('day').toDate();
+    // let to = moment().endOf('day').toDate();    
+    this.pageSetting.from = moment().startOf('day').toDate();
+    this.pageSetting.to = moment().endOf('day').toDate();
     this.pageSetting.currentQuery = 'DAY';
-    this.query(from, to, index, limit);
+    this.query(this.pageSetting.from, this.pageSetting.to, index, limit);
   }
 
   public queryThisWeek(index?: number, limit?: number) {
-    let from = moment().startOf('week').toDate();
-    let to = moment().endOf('week').toDate();
+    // let from = moment().startOf('week').toDate();
+    // let to = moment().endOf('week').toDate();
+    this.pageSetting.from = moment().startOf('week').toDate();
+    this.pageSetting.to = moment().endOf('week').toDate();    
     this.pageSetting.currentQuery = 'WEEK';
-    this.query(from, to, index, limit);
+    this.query(this.pageSetting.from, this.pageSetting.to, index, limit);
   }
 
   public queryThisMonth(index?: number, limit?: number) {
-    let from = moment().startOf('month').toDate();
-    let to = moment().endOf('month').toDate();
+    // let from = moment().startOf('month').toDate();
+    // let to = moment().endOf('month').toDate();
+    this.pageSetting.from = moment().startOf('month').toDate();
+    this.pageSetting.to = moment().endOf('month').toDate();    
     this.pageSetting.currentQuery = 'MONTH';
-    this.query(from, to, index, limit);
+    this.query(this.pageSetting.from, this.pageSetting.to, index, limit);
   }
 
   public querythisYear(index?: number, limit?: number) {
-    let from = moment().startOf('year').toDate();
-    let to = moment().endOf('year').toDate();
+    // let from = moment().startOf('year').toDate();
+    // let to = moment().endOf('year').toDate();
+    this.pageSetting.from = moment().startOf('year').toDate();
+    this.pageSetting.to = moment().endOf('year').toDate();    
     this.pageSetting.currentQuery = 'YEAR';
-    this.query(from, to, index, limit);
+    this.query(this.pageSetting.from, this.pageSetting.to, index, limit);
   }
 
   public query(from, to, index, limit) {
@@ -121,5 +129,10 @@ export class ReportPageComponent implements OnInit {
     this.pageSetting.pageSize = $event.pageSize;
     this.pageSetting.index = $event.pageIndex;
     this.queryMap[this.pageSetting.currentQuery]($event.pageIndex, $event.pageSize);
+  }
+
+  public onDownlad(){
+    // let category = this.pageSetting.category._id?this.pageSetting.category.name:null;
+    // this.itemSrv.downloadItems(this.pageSetting.supplierID, category, null, null, this.pageSetting.sort, this.pageSetting.dir);
   }
 }

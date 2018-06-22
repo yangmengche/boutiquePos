@@ -45,6 +45,16 @@ export class ItemService {
       )
   }
 
+  private downloadFile(res: any){
+    let data = <Blob>res.blob();
+    let filename = decodeURIComponent(res.headers.get('filename'));
+    var blob = new Blob([data], { type: 'application/octet-stream' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+  }
+
   public downloadItems(supplierID?: string, category?: string, skip?: number, limit?: number, sort?: string, dir?: string): any {
     let URI = `${this.serverApi}/download/item`;
     let headers = new Headers;
@@ -58,10 +68,7 @@ export class ItemService {
     });
     headers.append('Content-Type', 'application/json');
     let options =  new RequestOptions({responseType: ResponseContentType.Blob});
-    return this.http.post(URI, body, options);
-            // .pipe(
-            //   map(response => <Blob>response.blob())
-            // )
+    return this.http.post(URI, body, options).subscribe(data=> this.downloadFile(data)),err =>console.log(err.message);
   }
 
   public addItem(item: ItemAddModel) {

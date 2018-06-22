@@ -122,20 +122,10 @@ export class ItemPageComponent implements OnInit {
     this.LoadLists(this.pageSetting.index*this.pageSetting.pageSize, this.pageSetting.pageSize);
   }
 
-  private downloadFile(res: any){
-    let data = <Blob>res.blob();
-    let filename = decodeURIComponent(res.headers.get('filename'));
-    var blob = new Blob([data], { type: 'application/octet-stream' });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = filename;
-    link.click();
-  }
+
 
   public onDownlad(){
     let category = this.pageSetting.category._id?this.pageSetting.category.name:null;
-    this.itemSrv.downloadItems(this.pageSetting.supplierID, category, null, null, this.pageSetting.sort, this.pageSetting.dir)
-      .subscribe(data=> this.downloadFile(data)),
-                err =>console.log(err.message);
+    this.itemSrv.downloadItems(this.pageSetting.supplierID, category, null, null, this.pageSetting.sort, this.pageSetting.dir);
   }
 }
