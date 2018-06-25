@@ -274,7 +274,8 @@ exports.downloadReceipts = async (req, res) =>{
     for(let i in docs){
       let index = Number(i)+2;
       console.log(moment(docs[i].date).local().format('Y-M-D H:m:s'));
-      ws.cell(index, 1).string(moment(docs[i].date).local().format('Y-M-D H:m:s'));
+      // ws.cell(index, 1).string(moment(docs[i].date).local().format('Y-M-D H:m:s'));
+      ws.cell(index, 1).date(docs[i].date);
       ws.cell(index, 2).string(docs[i].items.code);
       ws.cell(index, 3).string(docs[i].item_doc.category);
       ws.cell(index, 4).string(docs[i].item_doc.size);

@@ -131,8 +131,8 @@ export class ReportPageComponent implements OnInit {
     this.queryMap[this.pageSetting.currentQuery]($event.pageIndex, $event.pageSize);
   }
 
-  public onDownlad(){
+  public onDownload(){
     // let category = this.pageSetting.category._id?this.pageSetting.category.name:null;
-    // this.itemSrv.downloadItems(this.pageSetting.supplierID, category, null, null, this.pageSetting.sort, this.pageSetting.dir);
+    this.itemSrv.downloadReceipts(this.pageSetting.from, this.pageSetting.to);
   }
 }

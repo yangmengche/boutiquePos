@@ -235,6 +235,22 @@ export class ItemService {
       );
   }
 
+  public downloadReceipts(from?: Date, to?: Date): any {
+    let URI = `${this.serverApi}/download/receipt`;
+    let headers = new Headers;
+    let bodyObj = {
+      date: {}
+    };
+    if (from) {
+      bodyObj.date['min'] = from.getTime();
+    }
+    if (to) {
+      bodyObj.date['max'] = to.getTime();
+    }
+    let body = JSON.stringify(bodyObj);
+    let options =  new RequestOptions({responseType: ResponseContentType.Blob});
+    return this.http.post(URI, body, options).subscribe(data=> this.downloadFile(data)),err =>console.log(err.message);
+  }
   // public deleteList(listId: string) {
   //   let URI = `${this.serverApi}/bucketlist/${listId}`;
   //   let headers = new Headers;
