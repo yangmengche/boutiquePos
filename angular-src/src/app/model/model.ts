@@ -24,6 +24,7 @@ export interface ItemModel{
 
 export interface ItemAddModel{
   _id?: string;
+  date?: Date;
   code: string;
   name: string;
   pic: string;

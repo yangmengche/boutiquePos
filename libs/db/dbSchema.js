@@ -22,6 +22,7 @@ class DBSchema {
     });
 
     this.itemSchema = new mongoose.Schema({
+      date: {type: Date, required: true},
       code: {type: String, required: true, unique: true},
       name: String,
       pic: String,

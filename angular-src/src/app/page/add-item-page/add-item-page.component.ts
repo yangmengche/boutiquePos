@@ -6,6 +6,8 @@ import { ItemService } from '../../service/item.service';
 import { SupplierService } from '../../service/supplier.service';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions } from 'ngx-uploader';
 import { SIZE } from '../../model/def';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-item-page',
@@ -23,7 +25,7 @@ export class AddItemPageComponent implements OnInit {
   private files: UploadFile[];
   private shareRate={};
   private returnPath: string;
-
+  public createDate = moment();
   constructor(
     private itemSrv: ItemService,
     private supplierSrv: SupplierService,
@@ -48,6 +50,7 @@ export class AddItemPageComponent implements OnInit {
       marketPrice: 0,
       stock: 0
     };
+    this.createDate = moment();
     this.actRoute.params.subscribe(params => {
       if('code' in params){
         this.newItem.code = params['code'];
@@ -56,7 +59,7 @@ export class AddItemPageComponent implements OnInit {
         this.returnPath = params['ret'];
       }else{
         this.returnPath = null;
-      }      
+      }
     });
    
     this.supplierSrv.getSuppliers().subscribe((response) =>{
@@ -73,6 +76,11 @@ export class AddItemPageComponent implements OnInit {
   }
   public onSubmit() {
     console.log('on submit');
+    let now = moment();
+    if(!this.createDate.isSame(now, 'day')){
+      this.newItem.date = this.createDate.toDate();
+      this.newItem.date.setHours(12, 0, 0, 0); // if user set sale date, set time to 12:00
+    }    
     this.itemSrv.addItem(this.newItem).subscribe(
       response => {
         if (response.id)

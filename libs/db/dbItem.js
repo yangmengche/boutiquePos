@@ -55,6 +55,9 @@ dbBase.getCategories = async () => {
 dbBase.createItem = async (item) => {
   try {
     let newItem = new dbBase.items(item);
+    if(!newItem.date){
+      newItem.date = new Date();
+    }
     let doc = await newItem.save();
     return { 'id': doc.id };
   } catch (err) {

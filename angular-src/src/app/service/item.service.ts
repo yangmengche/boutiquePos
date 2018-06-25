@@ -75,6 +75,7 @@ export class ItemService {
     let URI = `${this.serverApi}/item/create`;
     let headers = new Headers;
     let body = JSON.stringify({
+      date: item.date,
       code: item.code,
       name: item.name,
       pic: item.pic,

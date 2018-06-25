@@ -6,6 +6,13 @@
   </div>  
   <form (ngSubmit)="onSubmit()" >
     <div>
+        <mat-form-field class='date-picker'>
+          <input matInput [matDatepicker]="datePicker" placeholder="日期" name="date" [(ngModel)]="createDate">
+          <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+        </mat-form-field>  
+      </div>
+    <div>
       <mat-form-field class="field">
         <input type="text" name="code" matInput placeholder="條碼" [(ngModel)]="newItem.code" required/>
       </mat-form-field>
@@ -92,7 +99,7 @@
       <mat-form-field class="field">
         <input type="number" name="stock" matInput placeholder="庫存" [(ngModel)]="newItem.stock" required/>
       </mat-form-field>
-    </div>    
+    </div>
     <button mat-raised-button color="primary" type="submit">
       <!-- <mat-icon color="primary">done</mat-icon> -->
       新增
