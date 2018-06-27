@@ -7,7 +7,7 @@
   <form (ngSubmit)="onSubmit()" >
     <div>
         <mat-form-field class='date-picker'>
-          <input matInput [matDatepicker]="datePicker" placeholder="日期" name="date" [(ngModel)]="createDate">
+          <input matInput [matDatepicker]="datePicker" placeholder="日期" name="date" [(ngModel)]="pageSetting.createDate">
           <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
           <mat-datepicker #datePicker></mat-datepicker>
         </mat-form-field>  
