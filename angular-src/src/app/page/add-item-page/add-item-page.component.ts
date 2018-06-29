@@ -6,8 +6,10 @@ import { ItemService } from '../../service/item.service';
 import { SupplierService } from '../../service/supplier.service';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions } from 'ngx-uploader';
 import { SIZE } from '../../model/def';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+// import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
+import { DataProviderService } from '../../service/data-provider.service';
+
 
 @Component({
   selector: 'app-add-item-page',
@@ -25,12 +27,15 @@ export class AddItemPageComponent implements OnInit {
   private files: UploadFile[];
   private shareRate={};
   private returnPath: string;
-  public createDate = moment();
+  public pageSetting={
+    createDate: moment()
+  }
   constructor(
     private itemSrv: ItemService,
     private supplierSrv: SupplierService,
     private router: Router,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private dataProvider: DataProviderService
   ) { 
     this.files = [];
     this.uploadInput = new EventEmitter<UploadInput>(); 
@@ -50,7 +55,11 @@ export class AddItemPageComponent implements OnInit {
       marketPrice: 0,
       stock: 0
     };
-    this.createDate = moment();
+    if(this.dataProvider.addItemPageSetting.createDate){
+      this.pageSetting.createDate = this.dataProvider.addItemPageSetting.createDate;
+    }else{
+      this.pageSetting.createDate = moment();
+    }
     this.actRoute.params.subscribe(params => {
       if('code' in params){
         this.newItem.code = params['code'];
@@ -77,9 +86,10 @@ export class AddItemPageComponent implements OnInit {
   public onSubmit() {
     console.log('on submit');
     let now = moment();
-    if(!this.createDate.isSame(now, 'day')){
-      this.newItem.date = this.createDate.toDate();
+    if(!this.pageSetting.createDate.isSame(now, 'day')){
+      this.newItem.date = this.pageSetting.createDate.toDate();
       this.newItem.date.setHours(12, 0, 0, 0); // if user set sale date, set time to 12:00
+      this.dataProvider.addItemPageSetting = this.pageSetting;
     }    
     this.itemSrv.addItem(this.newItem).subscribe(
       response => {

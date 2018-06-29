@@ -10,8 +10,10 @@ export class DataProviderService {
   public item: ItemModel;
   public itemPageSetting: any;
   public ReportPageSetting: any;
+  public addItemPageSetting: any;
   constructor() {
     this.itemPageSetting={};
     this.ReportPageSetting={};
+    this.addItemPageSetting={};
   }
 }
