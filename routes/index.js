@@ -41,6 +41,7 @@ router.post('/download/item', redirectTo);
 // receipt
 router.post('/receipt/create', redirectTo);
 router.post('/receipt/query', redirectTo);
+router.put('/receipt/update', redirectTo);
 router.post('/download/receipt', redirectTo);
 
 // statistic

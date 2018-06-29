@@ -13,6 +13,7 @@ import { SupplierPageComponent } from './page/supplier-page/supplier-page.compon
 import { CategoryPageComponent } from './page/category-page/category-page.component';
 import { AccountPageComponent } from './page/account-page/account-page.component';
 import { ScanPageComponent } from './page/scan-page/scan-page.component';
+import { UpdateReceiptPageComponent } from './page/update-receipt-page/update-receipt-page.component';
 
 const routes: Routes = [
   { path: 'itemPage', component: ItemPageComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'categoryPage', component: CategoryPageComponent },
   { path: 'accountPage', component: AccountPageComponent },
   { path: 'scanPage/:ret', component: ScanPageComponent },
+  { path: 'updateReceiptPage/:id', component: UpdateReceiptPageComponent },
   { path: '', redirectTo: 'itemPage', pathMatch: 'full'}
 ];
 

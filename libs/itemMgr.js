@@ -199,6 +199,25 @@ exports.stockItems = async (req, res) => {
   }
 };
 
+function caculateDiscount(total, pay, quantity, items){
+  if(pay > 0){
+    if(pay < total){
+      let discount = (total - pay)/quantity;
+      for(let i in items){
+        items[i].salePrice -= discount;
+      }
+    }
+  }else{
+    // return goods
+    if(pay > total){
+      let discount = (total - pay)/quantity;
+      for(let i in items){
+        items[i].salePrice -= discount;
+      }
+    }
+  }
+}
+
 exports.createReceipt = async (req, res) => {
   try{
     let body = await utils.fnGetBody(req);
@@ -219,22 +238,7 @@ exports.createReceipt = async (req, res) => {
     }
     body.cost = cost;
     // calculate discount
-    if(body.pay > 0){
-      if(body.pay < total){
-        let discount = (total - body.pay)/quantity;
-        for(let i in body.items){
-          body.items[i].salePrice -= discount;
-        }
-      }
-    }else{
-      // return goods
-      if(body.pay > total){
-        let discount = (total - body.pay)/quantity;
-        for(let i in body.items){
-          body.items[i].salePrice -= discount;
-        }
-      }
-    }
+    caculateDiscount(total, body.pay, quantity, body.items);
     let id = await db.createReceipt(body);
     return utils.fnResponse(null, id, res);
   } catch (err) {
@@ -247,6 +251,24 @@ exports.queryReceipt = async (req, res) => {
   try {
     let query = await utils.fnGetBody(req);
     let docs = await db.queryReceipts(query.id, query.date, query.payBy, query.remark, query.returnRefID, query.skip, query.limit);
+    utils.fnResponse(null, docs, res);
+  } catch (err) {
+    log.writeLog(err.message, 'error');
+    utils.fnResponse(err, null, res);
+  }
+};
+
+exports.updateReceipt = async (req, res) => {
+  try {
+    let body = await utils.fnGetBody(req);
+    let total = 0;
+    let quantity=0;
+    for(let i in body.items){
+      total += body.items[i].salePrice*body.items[i].quantity;
+      quantity += body.items[i].quantity;
+    }
+    caculateDiscount(total, body.pay, quantity, body.items);
+    let docs = await db.updateReceipt(body);
     utils.fnResponse(null, docs, res);
   } catch (err) {
     log.writeLog(err.message, 'error');

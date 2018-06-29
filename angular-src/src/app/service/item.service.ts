@@ -213,6 +213,26 @@ export class ItemService {
       );
   }
 
+  public updateReceipt(receipt: ReceiptModel) {
+    let URI = `${this.serverApi}/receipt/update`;
+    let headers = new Headers;
+    let bodyObj = {
+      _id: receipt._id,
+      payBy: receipt.payBy,
+      pay: receipt.pay,
+      remark: receipt.remark,
+      returnRefID: receipt.returnRefID,
+      items: receipt.items,
+      date: receipt.date
+    };
+    let body = JSON.stringify(bodyObj);
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(URI, body, { headers: headers })
+      .pipe(
+        map(res => res.json())
+      );
+  }
+
   public getReceipts(from?: Date, to?: Date, skip?: number, limit?: number) {
     let URI = `${this.serverApi}/receipt/query`;
     let headers = new Headers;

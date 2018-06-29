@@ -147,4 +147,8 @@ export class SalePageComponent implements OnInit {
       }
     });
   }
+
+  public onBack(){
+    this.router.navigate(['/', 'itemPage']);
+  }  
 }

@@ -173,6 +173,26 @@ dbBase.createReceipt = async (receipt) => {
   }
 };
 
+dbBase.updateReceipt = async (receipt) =>{
+  try {
+    let id = receipt._id;
+    delete receipt._id;
+    // only allow these 4 fields
+    let updateObj={
+      'date': receipt.date, 
+      'payBy': receipt.payBy, 
+      'pay': receipt.pay,
+      'remark': receipt.remark,
+      'items':receipt.items
+    };
+    let result = await dbBase.receipts.update({'_id': id}, {$set:updateObj});
+    return { 'nModified': result.nModified };
+  } catch (err) {
+    log.writeLog(err.message, 'error');
+    throw dbBase.errorMap(err);
+  }
+};
+
 dbBase.queryReceipts = async (id, date, payBy, remark, returnRefID, skip, limit) => {
   try {
     let q = {};

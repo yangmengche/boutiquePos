@@ -20,6 +20,7 @@ router.post('/download/item', accountMgr.authenticate, itemMgr.downloadItems);
 
 router.post('/receipt/create', accountMgr.authenticate, itemMgr.createReceipt);
 router.post('/receipt/query', accountMgr.authenticate, itemMgr.queryReceipt);
+router.put('/receipt/update', accountMgr.authenticate, itemMgr.updateReceipt);
 router.post('/download/receipt', accountMgr.authenticate, itemMgr.downloadReceipts);
 /**
  * @api {post} /upload/image Upload image resource

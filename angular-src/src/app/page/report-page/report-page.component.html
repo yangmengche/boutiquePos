@@ -56,9 +56,16 @@
     <mat-header-cell *matHeaderCellDef>退貨單號</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.returnRefID }}</mat-cell>
   </ng-container>
-
-  <mat-header-row *matHeaderRowDef="['date', 'payBy', 'pay', 'quantity']"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: ['date', 'payBy', 'pay', 'quantity']"
+  <ng-container matColumnDef="update">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-button color="primary" (click)="updateReceipt(row); $event.stopPropagation()">
+        修改
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['date', 'payBy', 'pay', 'quantity', 'update']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['date', 'payBy', 'pay', 'quantity', 'update']"
             (click)="onRowClick(row)"
   ></mat-row>  
 </mat-table>

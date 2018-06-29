@@ -3,20 +3,6 @@
     <mat-icon color="primary">arrow_back</mat-icon>
   </button>
 </div>
-
-<div>
-  <input type="text" name="code" matInput placeholder="條碼" [(ngModel)]="saleItem.code" style="width: 200px"/>
-  <button mat-icon-button color="primary" (click)="onScan()" type="button">
-    <mat-icon color="primary">camera</mat-icon>
-  </button>
-  <button mat-icon-button color="primary" (click)="onSelectItem()" type="button">
-      <mat-icon color="primary">list</mat-icon>
-  </button>  
-  <button mat-icon-button color="primary" (click)="onAddItem()" type="button">
-    <mat-icon color="primary">add_shopping_cart</mat-icon>
-</button>    
-</div>
-
 <mat-table [dataSource]="itemDataSource">
   <ng-container matColumnDef="code">
     <mat-header-cell *matHeaderCellDef>條碼</mat-header-cell>
@@ -40,21 +26,9 @@
     </mat-cell>
     <mat-footer-cell *matFooterCellDef> {{ getTotalQuantity() }}</mat-footer-cell>
   </ng-container>    
-  <ng-container matColumnDef="management">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button mat-button color="warn" (click)="deleteItem(row)">
-          <mat-icon color="primary">delete</mat-icon>
-        </button>
-      </mat-cell>
-      <mat-footer-cell *matFooterCellDef>
-        <!-- <input type="number" name="pay" matInput placeholder="Discount" [(ngModel)]="pay" class="input-number"/> -->
-        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
-      </mat-footer-cell>
-    </ng-container>  
-  <mat-header-row *matHeaderRowDef="['code', 'name', 'price', 'quantity', 'management']"></mat-header-row>
-  <mat-footer-row *matFooterRowDef="['code', 'name', 'price', 'quantity', 'management']"></mat-footer-row>
-  <mat-row *matRowDef="let categoryRow; columns: ['code', 'name', 'price', 'quantity', 'management']"></mat-row>
+  <mat-header-row *matHeaderRowDef="['code', 'name', 'price', 'quantity']"></mat-header-row>
+  <mat-footer-row *matFooterRowDef="['code', 'name', 'price', 'quantity']"></mat-footer-row>
+  <mat-row *matRowDef="let categoryRow; columns: ['code', 'name', 'price', 'quantity']"></mat-row>
 </mat-table>
 <div>
   <p class="input-name">付款：</p>
@@ -82,11 +56,11 @@
   <input type="text" name="remark" [(ngModel)]="receipt.remark"/>
 </div>
 <div>
-  <button *ngIf="receipt.pay > 0" mat-raised-button color="primary" (click)="onSubmit()" type="button">
-    新增
+  <button mat-raised-button color="primary" (click)="onSubmit()" type="button">
+    修改
   </button>
   <div class="divider"></div>
   <button mat-raised-button color="primary" (click)="onBack()" type="button">
     取消
-  </button>    
+  </button>  
 </div>

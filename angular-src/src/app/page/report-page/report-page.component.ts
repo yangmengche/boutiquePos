@@ -135,4 +135,9 @@ export class ReportPageComponent implements OnInit {
     // let category = this.pageSetting.category._id?this.pageSetting.category.name:null;
     this.itemSrv.downloadReceipts(this.pageSetting.from, this.pageSetting.to);
   }
+
+  public updateReceipt(row){
+    this.dataProvider.updateReceipt = row;
+    this.router.navigate(['/', 'updateReceiptPage', row._id]);
+  }
 }

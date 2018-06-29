@@ -36,6 +36,7 @@ import { SupplierTypePipe } from './pipe/supplier-type.pipe';
 import { PayByPipe } from './pipe/pay-by.pipe';
 import { ReportDetailPageComponent } from './page/report-detail-page/report-detail-page.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { UpdateReceiptPageComponent } from './page/update-receipt-page/update-receipt-page.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ItemDetailPageComponent,
     SupplierTypePipe,
     PayByPipe,
-    ReportDetailPageComponent
+    ReportDetailPageComponent,
+    UpdateReceiptPageComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { ReceiptModel, ItemModel } from '../model/model';
 export class DataProviderService {
   public reportItem: ReceiptModel;
   public saleItem: ReceiptModel;
+  public updateReceipt: ReceiptModel;
   public item: ItemModel;
   public itemPageSetting: any;
   public ReportPageSetting: any;

@@ -56,6 +56,7 @@ export interface ReceiptItemModel{
 }
 
 export interface ReceiptModel{
+  _id?: string;
   items: ReceiptItemModel[],
   payBy: string,
   pay: number,
