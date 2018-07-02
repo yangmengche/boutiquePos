@@ -41,7 +41,7 @@ export class ReportDetailPageComponent implements OnInit {
   }  
 
   public getTotalCost() {
-    return this.receipt.items.map(t => t.marketPrice).reduce((acc, value) => acc + value, 0);
+    return this.receipt.items.map(t => t.cost).reduce((acc, value) => acc + value, 0);
   }
 
   public getTotalQuantity() {
