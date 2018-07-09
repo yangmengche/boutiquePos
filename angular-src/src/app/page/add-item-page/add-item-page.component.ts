@@ -57,9 +57,19 @@ export class AddItemPageComponent implements OnInit {
     };
     if(this.dataProvider.addItemPageSetting.createDate){
       this.pageSetting.createDate = this.dataProvider.addItemPageSetting.createDate;
-    }else{
-      this.pageSetting.createDate = moment();
     }
+    if(this.dataProvider.addItemPageSetting.name){
+      this.newItem.name = this.dataProvider.addItemPageSetting.name;
+    }
+    if(this.dataProvider.addItemPageSetting.supplierID){
+      this.newItem.supplierID = this.dataProvider.addItemPageSetting.supplierID;
+    }
+    if(this.dataProvider.addItemPageSetting.category){
+      this.newItem.category = this.dataProvider.addItemPageSetting.category;
+    }
+    if(this.dataProvider.addItemPageSetting.size){
+      this.newItem.size = this.dataProvider.addItemPageSetting.size;
+    }    
     this.actRoute.params.subscribe(params => {
       if('code' in params){
         this.newItem.code = params['code'];
@@ -89,8 +99,13 @@ export class AddItemPageComponent implements OnInit {
     if(!this.pageSetting.createDate.isSame(now, 'day')){
       this.newItem.date = this.pageSetting.createDate.toDate();
       this.newItem.date.setHours(12, 0, 0, 0); // if user set sale date, set time to 12:00
-      this.dataProvider.addItemPageSetting = this.pageSetting;
-    }    
+      this.dataProvider.addItemPageSetting.createDate = this.pageSetting.createDate;
+    }
+    this.dataProvider.addItemPageSetting.name = this.newItem.name;
+    this.dataProvider.addItemPageSetting.supplierID = this.newItem.supplierID;
+    this.dataProvider.addItemPageSetting.category = this.newItem.category;
+    this.dataProvider.addItemPageSetting.size = this.newItem.size;
+
     this.itemSrv.addItem(this.newItem).subscribe(
       response => {
         if (response.id)

@@ -5,6 +5,7 @@ import { SupplierService } from '../../service/supplier.service';
 import { ItemModel, SupplierModel } from '../../model/model';
 import { SIZE } from '../../model/def';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions } from 'ngx-uploader';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-item-detail-page',
@@ -17,7 +18,7 @@ export class ItemDetailPageComponent implements OnInit {
   public sizes = SIZE;
   public uploadInput: EventEmitter<UploadInput>;
   public options: UploaderOptions;
-  
+  public createDate:string;  
   public item: ItemModel;
   private returnPath: string;
   constructor(
@@ -50,6 +51,9 @@ export class ItemDetailPageComponent implements OnInit {
         this.item._id = params['id'];
         this.itemSrv.getItemById(this.item._id).subscribe((res)=>{
           this.item = res[0];
+          if(this.item.date){
+            this.createDate = moment(this.item.date).format("Y/MM/DD  A hh:mm");
+          }
         });
       }
       if('ret' in params){

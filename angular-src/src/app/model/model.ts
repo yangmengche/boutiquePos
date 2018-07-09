@@ -7,6 +7,7 @@ export interface SupplierModel {
 
 export interface ItemModel{
   _id?: string;
+  date?: string;
   code: string;
   name: string;
   pic: string;

@@ -11,6 +11,9 @@
   <!-- <img src={{item.pic}} height="300px" class='center-pic' for="input-file-id"/> -->
   <mat-list>
     <mat-list-item>
+      <h4 class="field-name">建立日期:</h4>{{createDate}}
+    </mat-list-item>
+    <mat-list-item>
       <h4 class="field-name">條碼:</h4>{{item.code}}
     </mat-list-item>
     <mat-list-item>
@@ -42,12 +45,12 @@
       </mat-select>      
     </mat-list-item>
     <mat-list-item>
-      <h4 class="field-name">成本:</h4>
-      <input type="number" name="cost" matInput placeholder="成本" [(ngModel)]="item.cost" required class="field-value"/>
-    </mat-list-item>
-    <mat-list-item>
       <h4 class="field-name">牌價:</h4>
       <input type="number" name="listPrice" matInput placeholder="牌價" [(ngModel)]="item.listPrice" required class="field-value"/>
+    </mat-list-item>    
+    <mat-list-item>
+      <h4 class="field-name">成本:</h4>
+      <input type="number" name="cost" matInput placeholder="成本" [(ngModel)]="item.cost" required class="field-value"/>
     </mat-list-item>
     <mat-list-item>
       <h4 class="field-name">售價:</h4>
