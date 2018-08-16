@@ -17,6 +17,7 @@ router.post('/item/query', accountMgr.authenticate, itemMgr.queryItems);
 router.post('/item/stock', accountMgr.authenticate, itemMgr.stockItems);
 router.get('/item', accountMgr.authenticate, itemMgr.getItem);
 router.post('/download/item', accountMgr.authenticate, itemMgr.downloadItems);
+router.post('/upload/item', accountMgr.authenticate, itemMgr.uploadItems);
 
 router.post('/receipt/create', accountMgr.authenticate, itemMgr.createReceipt);
 router.post('/receipt/query', accountMgr.authenticate, itemMgr.queryReceipt);
@@ -44,4 +45,5 @@ router.post('/download/receipt', accountMgr.authenticate, itemMgr.downloadReceip
  */
 router.post('/upload/image', accountMgr.authenticate, itemMgr.uploadImage);
 router.get('/resource/:fileID', itemMgr.getResource);
+
 module.exports = router;

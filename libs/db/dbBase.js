@@ -31,6 +31,7 @@ class Database{
         this.items = mongoose.model('items', DBSchema.itemSchema);
         this.stockLogs = mongoose.model('stockLogs', DBSchema.stockLogSchema);
         this.receipts = mongoose.model('receipts', DBSchema.receiptSchema);
+        this.imports = mongoose.model('imports', DBSchema.importShcema);
         log.writeLog('DB connected!', 'info');
         resolve(mongoose.connection);
       });

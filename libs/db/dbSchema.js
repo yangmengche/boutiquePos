@@ -27,8 +27,8 @@ class DBSchema {
       name: String,
       pic: String,
       supplierID: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'suppliers' },
-      category: { type: String, required: true},
-      size: { type: String, required: true, enum: def.size },
+      category: { type: String},
+      size: { type: String, enum: def.size },
       cost: { type: Number, requires: true, min: 0 },
       listPrice: { type: Number, requires: true, min: 0 },
       marketPrice: { type: Number, required: true, min: 0 },
@@ -60,6 +60,12 @@ class DBSchema {
       cost: {type: Number, required: true},
       remark: String,
       returnRefID: mongoose.Schema.Types.ObjectId
+    });
+
+    this.importShcema = new mongoose.Schema({
+      date: {type:Date, required: true},
+      fileName: {type: String, required: true, unique: true, index: true},
+      sheetNames:[String],
     });
   }
 }

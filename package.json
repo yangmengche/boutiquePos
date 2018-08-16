@@ -25,7 +25,8 @@
     "passport": "^0.4.0",
     "serve-favicon": "~2.4.2",
     "sharp": "^0.20.4",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "xlsx": "^0.13.3"
   },
   "devDependencies": {
     "content-disposition": "^0.5.2",

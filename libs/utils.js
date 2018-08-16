@@ -113,6 +113,30 @@ class Utils {
     });
   }
 
+  static fnUploadExcelFile(req) {
+    return new Promise((resolve, reject) => {
+      let saveName;
+      let form = new formidable.IncomingForm();
+      form.parse(req, async (err, field, file) => {
+        if (err) {
+          log.writeLog('file upload fail, err=' + err.message, 'error');
+          return reject(errCode.InternalError);
+        }
+        let ext = mime.extension(file.file.type);
+        if (ext !== 'xlsx') {
+          log.writeLog('Not an excel file, ' + file.type, 'warn');
+          return reject(errCode.MediaNotSupport);
+        }
+        let src = file.file;
+        if (!src) {
+          log.writeLog('file not upload', 'error');
+          return reject(errCode.ParameterError);
+        }
+        return resolve({'file': src.path, 'filename':src.name, 'sheetname': field.sheetname, 'supplier':field.suppliername});
+      });
+    });
+  }
+
   static fnRemoveField(obj, field) {
     try {
       for (let k of Object.keys(obj)) {

@@ -197,14 +197,14 @@ var ErrorCode = {
   'MailError': {'code':500, 'id':'MailError', 'message':'Fail to send mail.'},
 
   /**
-   * @apiDefine Error104
-   * @apiError Error104 Fail to from 104 service.
+   * @apiDefine SupplierNotFound
+   * @apiError Supplier not found.
    * @apiErrorExample {json} Error-Response:
-   *    HTTP/1.1 500 Internal Server Error
-   *    {'code':500, 'id':'Error104', 'message':'Fail to from 104 service.'}
+   *    HTTP/1.1 404 Not Found
+   *    {'code': 404, 'id':'SupplierNotFound', 'message':'Supplier not found.'}
    */
   /** Database error.*/
-  'Error104': {'code':500, 'id':'Error104', 'message':'Fail to from 104 service.'}
+  'SupplierNotFound': {'code':404, 'id':'SupplierNotFound', 'message':'Supplier not found.'}
 };
 
 var SuccessCode = {

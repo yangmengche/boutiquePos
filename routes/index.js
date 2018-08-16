@@ -37,6 +37,7 @@ router.post('/item/query', redirectTo);
 router.post('/item/stock', redirectTo);
 router.get('/item', redirectTo);
 router.post('/download/item', redirectTo);
+router.post('/upload/item', redirectTo);
 
 // receipt
 router.post('/receipt/create', redirectTo);
@@ -51,5 +52,6 @@ router.post('/receipt/pie', redirectTo);
 // misc
 router.post('/upload/image', redirectTo);
 router.get('/resource/:fileID', redirectTo);
+
 module.exports = router;
 

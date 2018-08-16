@@ -344,4 +344,13 @@ dbBase.queryReceiptsForDownload = async (id, date, payBy, remark, returnRefID, s
     throw dbBase.errorMap(err);
   }
 };
+
+dbBase.getImportData = async(filename) => {
+  try{
+    return await dbBase.imports.findOne({'fileName':filename});
+  }catch(err){
+    log.writeLog(err.message, 'error');
+    throw dbBase.errorMap(err);    
+  }
+};
 module.exports = dbBase;
