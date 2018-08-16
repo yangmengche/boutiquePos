@@ -350,7 +350,7 @@ exports.uploadItems = async (req, res) => {
     }
     let workbook = xlsx.readFile(payload.file);
     let importData = await db.getImportData(payload.filename);
-    if(importData && payload.sheetname in importData.sheetNames){
+    if(importData && -1 != importData.sheetNames.indexOf(payload.sheetname)){
       log.writeLog(importData.sheetNames+ 'has been imported', 'warn');
       return utils.fnResponse(errCode.Forbidden, null, res);
     }
@@ -416,6 +416,7 @@ exports.uploadItems = async (req, res) => {
         }
       }
     }
+    await db.updateImportData(payload.filename, payload.sheetname);
     utils.fnResponse(null, {'nCreate': nCreate, 'nModified': nModified}, res);
   }catch(err){
     log.writeLog(err.message, 'error');

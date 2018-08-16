@@ -456,5 +456,19 @@ describe('[Item spec]', () => {
     let obj = JSON.parse(res.text);
     assert.strictEqual(obj.nModified, 0);
     assert.strictEqual(obj.nCreate, 9);
-  });  
+  });
+
+  it('should forbidden import same excel twice', async()=>{
+    try {
+      let file = path.resolve(__dirname, './resources/item-S01.xlsx');
+      var res = await agent.post('/upload/item')
+        .type('form')
+        .field({'sheetname':'2018-08-24'})
+        .field({'suppliername':'S01'})
+        .attach('file', file)
+        .expect(403);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+  });    
 });

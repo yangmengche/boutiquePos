@@ -353,4 +353,26 @@ dbBase.getImportData = async(filename) => {
     throw dbBase.errorMap(err);    
   }
 };
+
+dbBase.updateImportData = async(filename, sheetname) => {
+  try{
+    let doc = await dbBase.imports.findOne({'fileName':filename});
+    if(doc){
+      let sheets = doc.sheetNames;
+      sheets.push(sheetname);
+      dbBase.impoets.updateOne({'_id': doc._id}, {$set:{'sheetNames': sheets}});
+    }else{
+      let newImport = new dbBase.imports({
+        'date': new Date(),
+        'fileName': filename,
+        'sheetNames': [sheetname]
+      });
+      doc = await newImport.save();
+    }
+    return { 'id': doc.id };
+  }catch(err){
+    log.writeLog(err.message, 'error');
+    throw dbBase.errorMap(err);
+  }
+};
 module.exports = dbBase;
