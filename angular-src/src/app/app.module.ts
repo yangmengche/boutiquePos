@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule,
   MatListModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, 
-  MatChipsModule, MatPaginatorModule, MatDatepickerModule, MatSortModule
+  MatChipsModule, MatPaginatorModule, MatDatepickerModule, MatSortModule, MatDialogModule,
 } from '@angular/material';
 import { MatMomentDateModule} from '@angular/material-moment-adapter'
 
@@ -37,6 +37,7 @@ import { PayByPipe } from './pipe/pay-by.pipe';
 import { ReportDetailPageComponent } from './page/report-detail-page/report-detail-page.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UpdateReceiptPageComponent } from './page/update-receipt-page/update-receipt-page.component';
+import { ImportPageComponent, ImportCompleteDialog } from './page/import-page/import-page.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,9 @@ import { UpdateReceiptPageComponent } from './page/update-receipt-page/update-re
     SupplierTypePipe,
     PayByPipe,
     ReportDetailPageComponent,
-    UpdateReceiptPageComponent
+    UpdateReceiptPageComponent,
+    ImportPageComponent,
+    ImportCompleteDialog
   ],
   imports: [
     BrowserModule,
@@ -78,9 +81,13 @@ import { UpdateReceiptPageComponent } from './page/update-receipt-page/update-re
     MatDatepickerModule,
     MatMomentDateModule,
     MatSortModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatDialogModule
   ],
   providers: [SupplierService, ItemService, DataProviderService, ChartService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[
+    ImportCompleteDialog
+  ]
 })
 export class AppModule { }

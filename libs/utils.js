@@ -132,7 +132,7 @@ class Utils {
           log.writeLog('file not upload', 'error');
           return reject(errCode.ParameterError);
         }
-        return resolve({'file': src.path, 'filename':src.name, 'sheetname': field.sheetname, 'supplier':field.suppliername});
+        return resolve({'file': src.path, 'fileName':src.name, 'sheetName': field.sheetName, 'supplierName':field.supplierName, 'supplierID':field.supplierID});
       });
     });
   }

@@ -360,7 +360,7 @@ dbBase.updateImportData = async(filename, sheetname) => {
     if(doc){
       let sheets = doc.sheetNames;
       sheets.push(sheetname);
-      dbBase.impoets.updateOne({'_id': doc._id}, {$set:{'sheetNames': sheets}});
+      await dbBase.imports.updateOne({'_id': doc._id}, {$set:{'sheetNames': sheets}});
     }else{
       let newImport = new dbBase.imports({
         'date': new Date(),

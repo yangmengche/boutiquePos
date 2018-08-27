@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ItemPageComponent } from './page/item-page/item-page.component';
 import { ItemDetailPageComponent } from './page/item-detail-page/item-detail-page.component';
-import {AddItemPageComponent} from './page/add-item-page/add-item-page.component';
+import { AddItemPageComponent} from './page/add-item-page/add-item-page.component';
 import { SalePageComponent } from './page/sale-page/sale-page.component';
 import { StockPageComponent } from './page/stock-page/stock-page.component';
 import { ReportPageComponent } from './page/report-page/report-page.component';
@@ -14,6 +14,7 @@ import { CategoryPageComponent } from './page/category-page/category-page.compon
 import { AccountPageComponent } from './page/account-page/account-page.component';
 import { ScanPageComponent } from './page/scan-page/scan-page.component';
 import { UpdateReceiptPageComponent } from './page/update-receipt-page/update-receipt-page.component';
+import { ImportPageComponent } from './page/import-page/import-page.component';
 
 const routes: Routes = [
   { path: 'itemPage', component: ItemPageComponent },
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'accountPage', component: AccountPageComponent },
   { path: 'scanPage/:ret', component: ScanPageComponent },
   { path: 'updateReceiptPage/:id', component: UpdateReceiptPageComponent },
+  { path: 'importPage', component: ImportPageComponent},
   { path: '', redirectTo: 'itemPage', pathMatch: 'full'}
 ];
 

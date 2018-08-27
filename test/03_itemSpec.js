@@ -441,13 +441,14 @@ describe('[Item spec]', () => {
     fse.writeFileSync(output + '/' + fileName, res.body);
   });
 
-  it('should import item from excel file', async()=>{
+  it('should import sheet 2018-08-13 from excel file', async()=>{
     try {
       let file = path.resolve(__dirname, './resources/item-S01.xlsx');
       var res = await agent.post('/upload/item')
         .type('form')
-        .field({'sheetname':'2018-08-24'})
-        .field({'suppliername':'S01'})
+        .field({'sheetName':'2018-08-13'})
+        .field({'supplierID':testData.suppliers.s01.id})
+        .field({'supplierName':'S01'})
         .attach('file', file)
         .expect(200);
     } catch (err) {
@@ -455,7 +456,25 @@ describe('[Item spec]', () => {
     }
     let obj = JSON.parse(res.text);
     assert.strictEqual(obj.nModified, 0);
-    assert.strictEqual(obj.nCreate, 9);
+    assert.strictEqual(obj.nCreate, 2);
+  });
+
+  it('should import sheet 2018-08-24 from excel file', async()=>{
+    try {
+      let file = path.resolve(__dirname, './resources/item-S01.xlsx');
+      var res = await agent.post('/upload/item')
+        .type('form')
+        .field({'sheetName':'2018-08-24'})
+        .field({'supplierID':testData.suppliers.s01.id})
+        .field({'supplierName':'S01'})
+        .attach('file', file)
+        .expect(200);
+    } catch (err) {
+      assert(!err, err.message);
+    }
+    let obj = JSON.parse(res.text);
+    assert.strictEqual(obj.nModified, 2);
+    assert.strictEqual(obj.nCreate, 7);
   });
 
   it('should forbidden import same excel twice', async()=>{
@@ -463,8 +482,9 @@ describe('[Item spec]', () => {
       let file = path.resolve(__dirname, './resources/item-S01.xlsx');
       var res = await agent.post('/upload/item')
         .type('form')
-        .field({'sheetname':'2018-08-24'})
-        .field({'suppliername':'S01'})
+        .field({'sheetName':'2018-08-24'})
+        .field({'supplierID':testData.suppliers.s01.id})
+        .field({'supplierName':'S01'})
         .attach('file', file)
         .expect(403);
     } catch (err) {

@@ -1,0 +1,34 @@
+<div>
+  <button mat-icon-button color="primary" type="button" (click)="onBack()">
+    <mat-icon color="primary">arrow_back</mat-icon>
+  </button>
+</div>
+
+<form (ngSubmit)="onSubmit()" >
+  <div>
+    <mat-form-field class="field">
+      <input type="text" name="sheetname" matInput placeholder="工作表(YYYY-MM-dd)" [(ngModel)]="sheetName" style="width: 200px"/>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="field">
+      <mat-select [(ngModel)]="supplier" placeholder="供應商" required name="supplierID">
+        <mat-option *ngFor="let supplier of suppliers" [value]="supplier">
+          {{ supplier.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="field">
+      <input type="text" name="excelFile" matInput placeholder="Excel file" [(ngModel)]="fileName"/>
+    </mat-form-field>
+    <input style="display:none" id="input-file-id" type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"/>
+    <label for="input-file-id" class="mat-icon-button" color="primary">
+      <mat-icon color="primary">folder_open</mat-icon>
+    </label>
+  </div>
+  <button mat-raised-button color="primary" type="submit">
+    匯入進貨檔
+  </button>
+</form>

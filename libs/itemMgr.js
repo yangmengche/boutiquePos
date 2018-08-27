@@ -344,17 +344,21 @@ exports.uploadItems = async (req, res) => {
   // get upload excel file
   try{
     let payload = await utils.fnUploadExcelFile(req);
-    if(!payload.file || !payload.filename || !payload.sheetname || !payload.supplier){
+    if(!payload.file || !payload.fileName || !payload.sheetName || !payload.supplierID){
       log.writeLog('No necessary info '+ payload.toJSON(), 'error');
-      return utils.fnResponse(errCode.Forbidden, null, res);
+      return utils.fnResponse(errCode.ParameterError, null, res);
     }
     let workbook = xlsx.readFile(payload.file);
-    let importData = await db.getImportData(payload.filename);
-    if(importData && -1 != importData.sheetNames.indexOf(payload.sheetname)){
+    let importData = await db.getImportData(payload.fileName);
+    if(importData && -1 != importData.sheetNames.indexOf(payload.sheetName)){
       log.writeLog(importData.sheetNames+ 'has been imported', 'warn');
       return utils.fnResponse(errCode.Forbidden, null, res);
     }
-    let ws = workbook.Sheets[payload.sheetname];
+    let ws = workbook.Sheets[payload.sheetName];
+    if(!ws){
+      log.writeLog('Can\'t find '+payload.sheetName + 'in '+ payload.fileName, 'error');
+      return utils.fnResponse(errCode.PayloadError, null, res);
+    }
     // parse sheet
     let keys = Object.keys(ws);
     let data={};
@@ -378,19 +382,19 @@ exports.uploadItems = async (req, res) => {
     }
     // update database
     // A: id, B: listprice, C: quantity, D: name, E:category, F:size, G: cost
-    let supplier = (await db.getSupplier({'name': payload.supplier}))[0];
+    let supplier = (await db.getSupplier({'_id': payload.supplierID}))[0];
     if(!supplier){
       // no supplier, need to create a new one
-      log.writeLog('Can\'t find supplier: '+ payload.supplier, 'error');
-      return utils.fnResponse(errCode.SupplierNotFound, null, res);
+      log.writeLog('Can\'t find supplier: '+ payload.supplierID +'('+payload.supplierName+')' , 'error');
+      return utils.fnResponse(errCode.SupplierNotFound, 'SupplierNotFound', res);
     }
     let nModified =0;
     let nCreate = 0;
     for(let row in data){
-      let item = await db.getItem(null, data[row].A)[0];
+      let item = (await db.getItem(null, data[row].A))[0];
       if(item){
-        id = item._id;
-        stock = item.stock + parseInt(data[row].C);
+        let id = item._id;
+        let stock = item.stock + parseInt(data[row].C);
         let result = await db.updateItem(id, {'stock': stock});
         if(result.nModified == 1){
           nModified ++;
@@ -398,7 +402,7 @@ exports.uploadItems = async (req, res) => {
       }else{
         let cost = parseInt(data[row].G);
         if(supplier.type == def.supplierType[0]){
-          cost = parseInt(data[row].B) * supplier.shareRate;
+          cost = Math.round(parseInt(data[row].B) * supplier.shareRate);
         }
         let id = await db.createItem({
           'code': data[row].A,
@@ -416,7 +420,7 @@ exports.uploadItems = async (req, res) => {
         }
       }
     }
-    await db.updateImportData(payload.filename, payload.sheetname);
+    await db.updateImportData(payload.fileName, payload.sheetName);
     utils.fnResponse(null, {'nCreate': nCreate, 'nModified': nModified}, res);
   }catch(err){
     log.writeLog(err.message, 'error');
