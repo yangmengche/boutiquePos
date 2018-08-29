@@ -24,7 +24,7 @@ let bTerminate=false;
 app.on('ready', ()=>{
   setTimeout(()=>{
     createWindow();
-  }, 1000);
+  }, 2000);
 });
 
 app.on('window-all-closed', () => {
@@ -56,9 +56,9 @@ function createWindow() {
     resizable: true,
   });
 
-  utils.sleep(500);
   try{
     win.loadURL('http://localhost:1688');
+    log.writeLog('electron load url', 'info');
     // win.loadURL(url.format({
     //     pathname: path.join(__dirname, 'public/index.html'),
     //     protocol: 'file:',
