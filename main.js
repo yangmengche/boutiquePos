@@ -5,7 +5,7 @@ const path = require('path');
 const fse = require('fs-extra');
 const url = require('url');
 const { app, BrowserWindow } = require('electron');
-
+const utils = require('./libs/utils');
 
 log.setLogFileName('main', config.logPath, true);
 log.scheduleClean(24 * 60 * 60 * 1000);
@@ -56,7 +56,7 @@ function createWindow() {
     resizable: true,
   });
 
-  
+  utils.sleep(500);
   try{
     win.loadURL('http://localhost:1688');
     // win.loadURL(url.format({

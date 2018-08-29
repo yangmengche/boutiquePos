@@ -163,6 +163,14 @@ class Utils {
     encrypted += cipher.final('hex');
     return encrypted;
   }
+  
+  static sleep(ms) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, ms);
+    });
+  }  
 
 }
 
