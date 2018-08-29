@@ -29,6 +29,7 @@ app.on('ready', ()=>{
 
 app.on('window-all-closed', () => {
   // darwin = MacOS
+  log.writeLog('electron window-all-closed', 'info');
   if (process.platform !== 'darwin') {
     bTerminate = true;
     app.quit();
@@ -46,6 +47,7 @@ app.on('activate', () => {
 
 function createWindow() {
   // Create the browser window.
+  log.writeLog('electron create borwser window', 'info');
   win = new BrowserWindow({
     width: 1024,
     height: 800,
@@ -63,7 +65,8 @@ function createWindow() {
     //     slashes: true
     // }));
   }catch(err){
-    console.log(err.message);
+    log.writeLog(err.message, 'error');
+    // console.log(err.message);
   }
 
   // Open DevTools.
@@ -71,6 +74,7 @@ function createWindow() {
 
   // When Window Close.
   win.on('closed', () => {
+    log.writeLog('electron window-closed', 'info');
     win = null;
   });
 
