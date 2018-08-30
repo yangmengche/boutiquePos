@@ -9,7 +9,7 @@ const utils = require('./libs/utils');
 
 log.setLogFileName('main', config.logPath, true);
 log.scheduleClean(24 * 60 * 60 * 1000);
-log.writeLog('******** Launcher, pid:' + process.id + ' ********', 'info');
+log.writeLog('******** process start, pid:' + process.pid + ' ********', 'info');
 
 
 // if (environment.production) {
@@ -21,10 +21,9 @@ log.writeLog('******** Launcher, pid:' + process.id + ' ********', 'info');
 
 let pidServer;
 let bTerminate=false;
-app.on('ready', ()=>{
-  setTimeout(()=>{
-    createWindow();
-  }, 2000);
+app.on('ready', async ()=>{
+  await utils.sleep(2000);
+  createWindow();
 });
 
 app.on('window-all-closed', () => {
@@ -37,11 +36,10 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('activate', () => {
+app.on('activate', async () => {
   if (win === null) {
-    setTimeout(()=>{
-      createWindow();
-    }, 3000);
+    await utils.sleep(3000);
+    createWindow();
   }
 });
 
