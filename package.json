@@ -26,7 +26,7 @@
     "serve-favicon": "~2.4.2",
     "sharp": "^0.20.4",
     "uuid": "^3.2.1",
-    "xlsx": "^0.13.3"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "content-disposition": "^0.5.2",
