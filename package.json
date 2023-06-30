@@ -41,7 +41,7 @@
     "grunt-exec": "^3.0.0",
     "grunt-mocha-test": "^0.13.3",
     "load-grunt-tasks": "^4.0.0",
-    "mocha": "^5.1.1",
+    "mocha": "^10.2.0",
     "moment": "^2.22.2",
     "supertest": "^3.1.0"
   },
