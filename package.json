@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "content-disposition": "^0.5.2",
-    "electron-rebuild": "^1.7.3",
+    "electron-rebuild": "^1.11.0",
     "grunt": "^1.0.3",
     "grunt-apidoc": "^0.11.0",
     "grunt-auto-install": "^0.3.1",
